@@ -1,0 +1,25 @@
+A: Lesson nine. Arc three starts here, and it opens with a pair of letters people mix up all the time.
+B: Let me guess. IDS and IPS.
+A: Exactly. Intrusion detection system, intrusion prevention system. One letter apart, very different jobs.
+B: Okay, give me the short version.
+A: An IDS watches traffic and alerts. That's it. It raises a flag and a person decides what to do.
+B: So it's a smoke alarm.
+A: Nice, yes. An IPS sits inline, right in the path of the traffic, so it can block what it doesn't like.
+B: More like a sprinkler.
+A: [laughs] Sure. One exam prep guide puts it in six words. IDS detects and alerts, IPS blocks inline.
+B: Do the sources agree on that?
+A: Three of the six pages we read on network defense teach it that way. Two others blur it and talk about an IDS blocking attacks. That's the bit to unlearn. An IDS never blocks.
+B: Got it. And firewalls?
+A: Three generations. Basic filters check address, port and protocol. Stateful ones remember connections. Next gen ones look inside the traffic.
+B: Inside how?
+A: One networking guide gives a lovely example. Traffic on port four four three, the HTTPS port, that isn't really HTTPS. Only a next gen firewall notices that's suspicious.
+B: Sneaky. So where does segmentation fit?
+A: Split the network into zones, like VLANs, and a DMZ for public servers. A defense in depth glossary says segmentation is what turns a single compromised host into a contained incident, instead of a breach across everything.
+B: So one bad laptop stays one bad laptop.
+A: Right. And the IDS or IPS watches the traffic between those zones.
+B: So what's the thing to try?
+A: Ten minutes, on paper. Write five tools down. Smoke alarm, IDS, IPS, door lock, security camera. Next to each, write detect or block.
+B: And the camera is detect, the lock is block.
+A: Exactly. Then for any detect one, write who acts when it alerts.
+B: Because somebody has to.
+A: From now on, when an answer says an IDS stopped something, you'll spot the trap.

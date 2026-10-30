@@ -1,0 +1,295 @@
+# Notes: batch b
+Pages read: 10. With notes: 10. Skipped: 0 (every page had at least one concrete, teachable point).
+
+## T01 Exam format, the 2026 outline change, how people prepare, cost and value
+- b:N1. Current outline (effective 1 September 2026): Security Principles 24%, Security Governance 17.3%, IAM Concepts 20%, Networking and Cloud Security Concepts 21.3%, Security Operations and Incident Response 17.3%. Totals 99.9% from rounding; "If a domain table you find does not total roughly 100, it is wrong." (their claim: several sites publish tables totalling 105.3%).
+  - Source: https://www.certcrush.app/blog/isc2-cc-domains-2026-new-exam-outline-weightings  Quote: "The figures total 99.9% because ISC2 rounds each domain to one decimal place."
+  - Kind: number
+  - Level: foundation
+  - Bias: sells a CC practice-question course (CertCrush).
+- b:N2. Old to new mapping. Old: Security Principles 26%, BC/DR/IR Concepts 10%, Access Controls Concepts 22%, Network Security 24%, Security Operations 18%. BCDR moved into Security Governance under a sub-topic labelled "Redundancy"; incident response moved to Domain 5; Access Controls became IAM with identity lifecycle (joiners, movers, leavers) added; Network Security absorbed cloud and zero trust. Rows "line up by position, not by content". Useful for spotting outdated study material: any guide naming "Access Controls Concepts" or "Network Security" as domains predates September 2026.
+  - Source: https://www.certcrush.app/blog/isc2-cc-domains-2026-new-exam-outline-weightings  Quote: "Security Governance is not a renamed BCDR domain"
+  - Kind: definition
+  - Level: foundation
+  - Also: T07
+  - Bias: sells a CC course.
+- b:N3. Spread between largest and smallest domain fell from 16 points to under 7, so "there is no domain cheap enough to skip". Under the old outline candidates skimmed the 10% BCDR domain. Their claim: people who fail usually skip a domain rather than misunderstand a hard one.
+  - Source: https://www.certcrush.app/blog/isc2-cc-domains-2026-new-exam-outline-weightings  Quote: "no domain cheap enough to skip"
+  - Kind: rule of thumb
+  - Level: foundation
+  - Bias: sells a CC course.
+- b:N4. Exam mechanics (both pages agree): Computerized Adaptive Testing, 100 to 125 items, 2 hours, 700 of 1000 scaled to pass, multiple choice plus advanced item types, Pearson VUE test centre or online proctoring, no experience required. CAT means no flag-and-return; answer every item. Languages English, Chinese, Japanese, German, Spanish.
+  - Source: https://www.certcrush.app/blog/how-to-pass-isc2-cc-2026-4-week-study-plan  Quote: "You cannot flag a list of questions and come back to them at the end"
+  - Kind: number
+  - Level: foundation
+  - Bias: sells a CC course. Note: cyberexperts lists only Pearson VUE test centers; certcrush says online proctoring too. Verify against ISC2.
+- b:N5. Scaled 700/1000 is not 70% of questions; scaling accounts for item difficulty. Domain percentages are content targets, not fixed question counts.
+  - Source: https://www.certcrush.app/blog/isc2-cc-domains-2026-new-exam-outline-weightings  Quote: "A scaled 700 out of 1000 is not 70% of the questions."
+  - Kind: mistake
+  - Level: foundation
+  - Bias: sells a CC course.
+- b:N6. The free exam is over for new candidates. One Million Certified in Cybersecurity closed to new enrolments 20 May 2026. Unexpired free codes must be used by 31 December 2026; expired codes cannot be reactivated. Enrolled learners keep course access until it expires and need not finish the course to sit the exam. As of today (30 October 2026) a code holder has about two months left.
+  - Source: https://cyberexperts.com/isc2-cc-exam/  Quote: "every unexpired code must be used by December 31, 2026"
+  - Kind: number
+  - Level: foundation
+  - Bias: newsletter and practice-test lead gen; cites ISC2 pages.
+- b:N7. Costs now (their claims from ISC2 pricing): exam US$199 (EUR 191.04 EMEA, GBP 161.19 UK), reschedule $50, cancel $100, AMF $50 a year for CC-only holders ($135 once you hold e.g. CISSP or CCSP). First-year self-study cost $249. Peace of Mind Protection option gives two attempts within 180 days. Maintenance: 45 Group A CPE per three-year cycle (ISC2 suggests 15 a year).
+  - Source: https://cyberexperts.com/isc2-cc-exam/  Quote: "$199 for the exam plus $50 for the first AMF: $249"
+  - Kind: number
+  - Level: foundation
+  - Bias: newsletter and practice-test lead gen.
+- b:N8. Four-week plan at 8 to 10 hours a week (90 minutes on five weekdays plus a 2-hour weekend block). Stretch to six weeks if new to IT and working full time; two weeks if you hold Security+. Week 4 is two full timed mocks with review of every miss and every lucky guess. Cyberexperts' version: 5 to 7 hours a week if in IT, double it if everything is new.
+  - Source: https://www.certcrush.app/blog/how-to-pass-isc2-cc-2026-4-week-study-plan  Quote: "Lucky guesses are hidden gaps."
+  - Kind: template
+  - Level: foundation
+  - Bias: sells a CC course.
+- b:N9. Readiness test: do not book on your first 80% practice score; wait until you hit 80% consistently on full-length timed tests, because scores drop under real conditions. Also book the exam at the start of week 2 so the four-week plan does not become four months.
+  - Source: https://www.certcrush.app/blog/how-to-pass-isc2-cc-2026-4-week-study-plan  Quote: "Without a date in the calendar, a four-week plan becomes a four-month plan."
+  - Kind: test
+  - Level: foundation
+  - Bias: sells a CC course.
+- b:N10. Common failure modes: passive video watching, revising from pre-September material, skipping the Code of Ethics (memorisable free marks), treating scenario questions as definitions. Scenario example: a contractor still holding admin rights three months after the project ended.
+  - Source: https://www.certcrush.app/blog/how-to-pass-isc2-cc-2026-4-week-study-plan  Quote: "CC has a reputation as an easy exam, and that reputation is exactly why people fail it."
+  - Kind: mistake
+  - Level: foundation
+  - Also: T09
+  - Bias: sells a CC course.
+- b:N11. Exam mindset: ISC2 asks for the "best" or "first" action, and the answer is usually policy, risk or process, not a clever technical fix ("answering like a technician" is a trap). CAT gives no coasting on strong domains.
+  - Source: https://cyberexperts.com/isc2-cc-exam/  Quote: "The answer is usually about policy, risk or process, not a clever technical fix."
+  - Kind: rule of thumb
+  - Level: foundation
+  - Bias: practice-test lead gen.
+- b:N12. Value: CC proves vocabulary, not job ability. Author (a CISSP) says Security+ is the baseline hiring managers want and CC "is lesser known and not as respected". Security+ costs $439 after CompTIA's June 2026 increase (their claim); SY0-801 due around 17 November 2026 (certcrush claim). ISC2's own survey: 65% of employed CC holders work in cybersecurity roles, 22% in IT (ISC2 reporting on its own cert). CC is listed under DoD 8140.03 and ANAB ISO/IEC 17024 accredited.
+  - Source: https://cyberexperts.com/isc2-cc-exam/  Quote: "CC is lesser known and not as respected."
+  - Kind: rule of thumb
+  - Level: foundation
+  - Bias: author opinion; ISC2 stat is self-reported.
+- b:N13. AI is not a sixth domain; it is threaded through all five. Outline examples: AI effects on CIA, model drift as a continuity risk, identity management for AI bots, AI-driven detection, data leakage through public AI services, AI in security testing, protecting training data from poisoning. Study tactic: attach one AI example to each existing concept (e.g. poisoned training data as an integrity failure).
+  - Source: https://www.certcrush.app/blog/how-to-pass-isc2-cc-2026-4-week-study-plan  Quote: "Each item is an existing CC concept applied to an AI system"
+  - Kind: technique
+  - Level: core
+  - Also: T18
+  - Bias: sells a CC course.
+- b:N14. Genuinely new material per these pages: cloud security, zero trust, identity lifecycle management, security testing (red/blue/purple teams, vulnerability scanning, static and dynamic analysis, threat modelling, physical tests like tailgating), governance metrics (KRIs, dashboards, scorecards), quantum-resistant encryption. Ports to learn cold: 22, 23, 25, 53, 80, 143, 389, 443, 445, 3389.
+  - Source: https://www.certcrush.app/blog/how-to-pass-isc2-cc-2026-4-week-study-plan  Quote: "This whole topic is new to CC, and older books do not cover it."
+  - Kind: template
+  - Level: core
+  - Also: T10, T13
+  - Bias: sells a CC course.
+
+## T02 CIA triad and core principles
+- b:N15. CIA through one email: confidentiality keeps it to the intended recipients; integrity means what arrives is what you sent (an interceptor changing key points breaks it); availability means recipients can open and save it.
+  - Source: https://www.coursera.org/articles/cia-triad  Quote: "you assume that the information you relay is the information that arrives"
+  - Kind: story
+  - Level: foundation
+  - Bias: promotes Coursera certificates.
+- b:N16. Confidentiality is often broken by accident: IT support sends a password to many staff, users share credentials, someone forgets to encrypt an email, a laptop is stolen. Controls: classify, label, encrypt, MFA, onboarding training.
+  - Source: https://www.coursera.org/articles/cia-triad  Quote: "Confidentiality can be compromised unintentionally."
+  - Kind: mistake
+  - Level: foundation
+  - Bias: promotes Coursera certificates.
+  - FLAG: the page says "think of confidentiality as privacy". The CC outline treats privacy as a separate principle (an individual's right to control their personal data); do not teach them as synonyms.
+- b:N17. Integrity examples: a school grade database that teachers can change but students cannot; a competitor defacing executive bios on a company website. Controls: access levels, change tracking, hashing, digital signatures.
+  - Source: https://www.coursera.org/articles/cia-triad  Quote: "tracks and limits who can make changes"
+  - Kind: story
+  - Level: foundation
+  - Bias: promotes Coursera certificates.
+- b:N18. Availability competes with the other two: the easiest way to protect data is to restrict it, which hurts availability. Threats: DoS, ransomware. Controls: redundant servers and networks, backups, DR, patching.
+  - Source: https://www.coursera.org/articles/cia-triad  Quote: "it may compete with the other factors in the triad"
+  - Kind: rule of thumb
+  - Level: foundation
+  - Also: T07
+  - Bias: promotes Coursera certificates.
+- b:N19. AAA alongside CIA: authentication (who you are), authorization (what you may do), accounting (record of what you did). The 2026 outline lists CIA, AAA, non-repudiation and privacy together in Domain 1.
+  - Source: https://www.coursera.org/articles/cia-triad  Quote: "authentication, authorization, and accounting"
+  - Kind: definition
+  - Level: foundation
+  - Also: T08
+  - Bias: promotes Coursera certificates.
+
+## T03 Risk management
+- b:N20. Four treatments with one-line tests: accept (do nothing, because the cost to act exceeds the likely loss; the most common choice for small, low-level risks), avoid (stop the activity or remove the asset that creates the risk; "if using a specific device is dangerous, then don't use it"), transfer (insurance, outsourcing, hedging), mitigate (prevent or limit severity: fire extinguishers, alarms, PPE). Rule: a mitigation should not cost more than the losses it prevents.
+  - Source: https://aptien.com/en/kb/articles/what-are-risk-treatment-strategies  Quote: "The measure cannot cost more than the losses."
+  - Kind: definition
+  - Level: foundation
+  - Bias: sells risk management software.
+- b:N21. Exam asks risk treatment through scenarios, so practise naming avoid, accept, mitigate or transfer from a one-sentence situation, along with threat, vulnerability, likelihood and impact.
+  - Source: https://www.certcrush.app/blog/how-to-pass-isc2-cc-2026-4-week-study-plan  Quote: "Know which is which from a scenario, because that is how the exam asks."
+  - Kind: technique
+  - Level: foundation
+  - Bias: sells a CC course.
+- b:N22. A worked mitigation example: to handle fire risk a business keeps spare servers at a different site and writes evacuation procedures, so one risk drives both a technical and a people control.
+  - Source: https://aptien.com/en/kb/articles/what-are-risk-treatment-strategies  Quote: "keep extra network servers at a different location"
+  - Kind: story
+  - Level: foundation
+  - Also: T07
+  - Bias: sells risk management software.
+
+## T04 Security controls and defense in depth
+- b:N23. Defense in depth: multiple tools and policies layered "on the assumption that if one fails, another will hold". Each layer is built as if it is the last one standing. Quote from Howard and LeBlanc, Writing Secure Code: build the system as though the firewall has been compromised.
+  - Source: https://www.csoonline.com/article/3667476/defense-in-depth-explained-layering-tools-and-processes-for-better-security.html  Quote: "If you expect a firewall to protect you, build the system as though the firewall has been compromised."
+  - Kind: rule of thumb
+  - Level: foundation
+  - Bias: none (editorial).
+- b:N24. Three control categories with examples: administrative (policies, data handling procedures, vendor risk frameworks), physical (keycards, locked doors, guards; intruders posing as a colleague or food delivery worker), technical (firewalls, anti-malware, behaviour analytics, backups).
+  - Source: https://www.csoonline.com/article/3667476/defense-in-depth-explained-layering-tools-and-processes-for-better-security.html  Quote: "administrative controls, physical controls, and technical controls"
+  - Kind: definition
+  - Level: foundation
+  - Bias: none.
+- b:N25. Worked example: an attacker wants customer PII via a backdoor. Chances to stop them: phishing simulations, regular patching, email filter catches the trojan, anti-malware finds the backdoor, behaviour analytics flags lateral movement or exfiltration, least-privilege database access. Any one might stop them; together they raise the difficulty.
+  - Source: https://www.csoonline.com/article/3667476/defense-in-depth-explained-layering-tools-and-processes-for-better-security.html  Quote: "the attacker never does get access to the crown jewels"
+  - Kind: story
+  - Level: core
+  - Also: T12
+  - Bias: none.
+- b:N26. Defense in depth vs perimeter thinking and zero trust: remote work and cloud blur the perimeter, so keep the firewall but do not rely on it; zero trust (continually challenge every user and device) needs a defense in depth layer of tools underneath. Defense in depth also includes pre-planned response, not only tools.
+  - Source: https://www.csoonline.com/article/3667476/defense-in-depth-explained-layering-tools-and-processes-for-better-security.html  Quote: "even your backup defensive tools need backups"
+  - Kind: definition
+  - Level: core
+  - Also: T12
+  - Bias: none.
+  - FLAG (technically wrong): the page says the network layer "starts with a firewall or IDS to try to block attacks". An IDS detects and alerts; an IPS blocks. Teach the IDS/IPS distinction correctly.
+- b:N27. A three-step way to start: inventory attack surfaces and current protections, decide what is needed at each layer, then look for gaps between components.
+  - Source: https://www.csoonline.com/article/3667476/defense-in-depth-explained-layering-tools-and-processes-for-better-security.html  Quote: "Look for gaps between system components"
+  - Kind: template
+  - Level: core
+  - Bias: none (method credited to Fastly).
+
+## T07 Business continuity and disaster recovery
+- b:N28. Three plans, three jobs: incident response contains the active threat (owned by security/SOC), disaster recovery restores IT systems and data (owned by IT), business continuity keeps critical operations running (owned by executives and operations). None replaces another.
+  - Source: https://preyproject.com/blog/business-continuity-disaster-recovery-and-incident-response  Quote: "IRP answers 'how do we stop this?'; the DRP answers 'how do we get back?'"
+  - Kind: definition
+  - Level: foundation
+  - Also: T16
+  - Bias: sells device-tracking software (Prey).
+- b:N29. Order depends on trigger. Ransomware: IR first, then DR, with BC running in parallel. Office fire: DR and BC together, IR may never enter. System failure with no threat: DR then BC. Restoring from backup while the attacker still has access just reinfects.
+  - Source: https://preyproject.com/blog/business-continuity-disaster-recovery-and-incident-response  Quote: "restoring from backup while the attacker still has access simply reinfects the environment"
+  - Kind: rule of thumb
+  - Level: core
+  - Also: T16
+  - Bias: sells device-tracking software.
+- b:N30. Metrics belong to plans: RTO (maximum acceptable time to restore) and RPO (maximum acceptable data loss) measure DR; maximum tolerable downtime measures BC; time to detect and containment time measure IR. Mixing them gives "a number that looks fine and means nothing".
+  - Source: https://preyproject.com/blog/business-continuity-disaster-recovery-and-incident-response  Quote: "RTO and RPO measure recovery, not containment."
+  - Kind: mistake
+  - Level: core
+  - Bias: sells device-tracking software.
+- b:N31. Four scenarios to retell: ransomware locks files; main office catches fire; an employee clicks a phishing link (IR only, DR rarely needed); a natural disaster (BC leads, IR only if attackers use the chaos as cover).
+  - Source: https://preyproject.com/blog/business-continuity-disaster-recovery-and-incident-response  Quote: "unless the disaster was used as a distraction for a cyberattack (yes, it happens!)"
+  - Kind: story
+  - Level: foundation
+  - Bias: sells device-tracking software.
+- b:N32. Small teams: one plan with three labelled sections is fine. The real failure is that "nobody knew they had the authority to act". Name who declares each phase. A RACI example: contain incident (SOC responsible, security lead accountable); activate backup office (ops responsible, COO accountable).
+  - Source: https://preyproject.com/blog/business-continuity-disaster-recovery-and-incident-response  Quote: "nobody knew they had the authority to act"
+  - Kind: template
+  - Level: core
+  - Also: T06
+  - Bias: sells device-tracking software.
+- b:N33. In the 2026 outline BCDR is no longer its own domain; it sits under "Redundancy" in Security Governance, and model drift is listed as a continuity risk. Study RPO against RTO and where each falls on an outage timeline.
+  - Source: https://www.certcrush.app/blog/how-to-pass-isc2-cc-2026-4-week-study-plan  Quote: "Add model drift as a continuity risk here."
+  - Kind: definition
+  - Level: foundation
+  - Also: T01, T18
+  - Bias: sells a CC course.
+
+## T16 Incident response lifecycle (NIST)
+- b:N34. NIST SP 800-61 four phases: Preparation; Detection and Analysis; Containment, Eradication and Recovery; Post-Incident Activity. Run as a loop: Recovery can uncover another compromised host and send you back to Containment; lessons feed Preparation. Preparation is the only phase entirely before an incident.
+  - Source: https://consilien.com/news/nist-incident-response-lifecycle-4-phases-explained  Quote: "You run it as a loop, not a checklist."
+  - Kind: definition
+  - Level: foundation
+  - Bias: sells managed IT and security services.
+- b:N35. NIST SP 800-61 Revision 3 (finalised 3 April 2025) retired the four phases as the official structure and maps IR onto the CSF 2.0 functions: Govern, Identify, Protect, Detect, Respond, Recover. The four phases remain the common teaching model. Course should mention both and say which the exam likely uses (verify against ISC2 outline wording).
+  - Source: https://consilien.com/news/nist-incident-response-lifecycle-4-phases-explained  Quote: "it retired the four-phase lifecycle as the official structure"
+  - Kind: definition
+  - Level: core
+  - Bias: sells managed services.
+- b:N36. NIST vs SANS: SANS has six steps (Preparation, Identification, Containment, Eradication, Recovery, Lessons Learned). Same work, different grouping. "Five steps" is usually a vendor condensation.
+  - Source: https://preyproject.com/blog/business-continuity-disaster-recovery-and-incident-response  Quote: "'Five steps' is usually a vendor's condensed version."
+  - Kind: definition
+  - Level: foundation
+  - Bias: sells device-tracking software.
+- b:N37. Contain first, investigate second, like stopping the bleeding before asking how the patient fell: isolate machines, disable compromised accounts, block malicious traffic, while preserving evidence. Eradication removes the malware, closes the hole, resets stolen credentials.
+  - Source: https://consilien.com/news/nist-incident-response-lifecycle-4-phases-explained  Quote: "The instinct to fully diagnose before acting is natural and wrong."
+  - Kind: rule of thumb
+  - Level: core
+  - Bias: sells managed services.
+- b:N38. Classic mistake: restoring from a backup that is infected or carries the same hole, so the attacker walks back in. "A backup you've never restored is a hope, not a recovery plan."
+  - Source: https://consilien.com/news/nist-incident-response-lifecycle-4-phases-explained  Quote: "A backup you've never restored is a hope, not a recovery plan"
+  - Kind: mistake
+  - Level: foundation
+  - Also: T07
+  - Bias: sells managed services.
+- b:N39. Preparation failure story: the plan names a vendor who left two years ago, backups were never test-restored, the one person who understands the firewall is on a plane when the ransomware note appears. Their claim: about 47% of small businesses have no IR plan. Cheap fix: CISA's free tabletop exercise packages.
+  - Source: https://consilien.com/news/nist-incident-response-lifecycle-4-phases-explained  Quote: "The one person who understands the firewall is on a plane when the ransomware note appears."
+  - Kind: story
+  - Level: foundation
+  - Bias: sells managed services.
+- b:N40. Detection is slow (IBM figures, their claim): 241 days mean to identify and contain in 2025, about 181 of them just identifying. Detection (noticing) and analysis (real or noise, scope, severity) are two jobs; an alert into an empty inbox equals no alert.
+  - Source: https://consilien.com/news/nist-incident-response-lifecycle-4-phases-explained  Quote: "an alert that fires into an empty inbox is the same as no alert"
+  - Kind: number
+  - Level: core
+  - Also: T17
+  - Bias: sells managed services.
+- b:N41. Phase examples: Preparation (policy defining an incident, roles, tabletop exercises, contacts with law enforcement and forensics); Detection (SIEM flags unusual outbound traffic suggesting exfiltration, team rules out false positive); Containment (isolate ransomware hosts short-term, patch long-term); Post-incident (phishing review finds staff could not spot phishing, adds training and better email filtering).
+  - Source: https://www.armorpoint.com/blog/a-step-by-step-guide-to-incident-response-practical-guidance-from-nist-sp-800-61  Quote: "employees had difficulty identifying phishing emails"
+  - Kind: story
+  - Level: foundation
+  - Bias: sells managed SIEM/XDR.
+  - FLAG (outdated): undated page presents the four-phase model as current with no mention of Rev 3 (2025), and cites IBM's 277 days (207 to identify, 70 to contain), which is an older IBM report figure; newer IBM figure quoted by Consilien is 241 days.
+- b:N42. Lessons-learned review within a week or two, blameless, with plain questions: when did we first see it, how did they get in, where did we lose time, did the plan hold. Output: a short list of concrete changes (a control, a detection rule, a plan fix).
+  - Source: https://consilien.com/news/nist-incident-response-lifecycle-4-phases-explained  Quote: "The output isn't a blame session."
+  - Kind: template
+  - Level: core
+  - Bias: sells managed services.
+- b:N43. Reporting clocks (their claims): DFARS 252.204-7012 report within 72 hours; SEC Form 8-K Item 1.05 disclose material incidents within 4 business days. You cannot hit a 72-hour clock if detection takes six months.
+  - Source: https://consilien.com/news/nist-incident-response-lifecycle-4-phases-explained  Quote: "Compliance is not a separate project from the lifecycle."
+  - Kind: number
+  - Level: advanced
+  - Also: T06
+  - Bias: sells compliance services; US-specific.
+
+## T18 AI security risks
+- b:N44. OWASP Top 10 for LLM applications as listed: prompt injection, insecure output handling, training data poisoning, model DoS, supply chain vulnerabilities, sensitive information disclosure, insecure plugin design, excessive agency, overreliance, model theft.
+  - Source: https://cloudsecurityalliance.org/articles/to-secure-the-ai-attack-surface-start-with-fundamental-cyber-hygiene  Quote: "OWASP has ranked the top 10 risks for LLM applications"
+  - Kind: definition
+  - Level: core
+  - Bias: originally published by Tenable (vulnerability management vendor).
+  - FLAG (outdated): this is the 2023 list (page published October 2024). OWASP's 2025 list renames and replaces several entries (e.g. data and model poisoning, system prompt leakage, vector and embedding weaknesses, misinformation, unbounded consumption). Do not teach this list as current.
+- b:N45. Prompt injection: attacker tricks the model into ignoring its instructions and disclosing what it should not. Harder to filter than SQL injection because LLM input is open-ended, so filtering trades off against usefulness.
+  - Source: https://cloudsecurityalliance.org/articles/to-secure-the-ai-attack-surface-start-with-fundamental-cyber-hygiene  Quote: "a balancing act between security and functionality"
+  - Kind: definition
+  - Level: core
+  - Bias: Tenable-authored.
+- b:N46. Start with hygiene: the two core AI risks to tackle first are supply chain (AI libraries with known high and critical vulnerabilities) and privacy (data leakage). Controls: inventory apps with LLM features, approved list of models, browser extensions and apps, forbid the rest, monitor compliance. Their claim: searching "AI" in the Firefox extension catalog returns over 2,000 results; employees often do not know their input may reach a third party or a training set.
+  - Source: https://cloudsecurityalliance.org/articles/to-secure-the-ai-attack-surface-start-with-fundamental-cyber-hygiene  Quote: "Organizations should establish approved applications and browser extensions"
+  - Kind: technique
+  - Level: core
+  - Also: T15, T17
+  - Bias: Tenable-authored; vulnerability management framing.
+- b:N47. AI identities: manage AI bots and service accounts like any other identity and apply least privilege to non-human identities (ISC2 outline example, per these pages).
+  - Source: https://cyberexperts.com/isc2-cc-exam/  Quote: "managing AI service accounts like any other identity"
+  - Kind: rule of thumb
+  - Level: core
+  - Also: T09
+  - Bias: practice-test lead gen.
+
+## T09 Access control models, least privilege, separation of duties
+- b:N48. Identity lifecycle is new in the 2026 outline: role definition, provisioning, access review, deprovisioning (joiners, movers, leavers). Expect scenarios about a leaver who kept access. Models to name from one sentence: discretionary, mandatory, role based, rule based.
+  - Source: https://www.certcrush.app/blog/how-to-pass-isc2-cc-2026-4-week-study-plan  Quote: "expect scenario questions about a leaver who kept access"
+  - Kind: test
+  - Level: foundation
+  - Also: T01
+  - Bias: sells a CC course.
+
+## Disagreements seen
+- Breach lifecycle length: armorpoint cites IBM's 277 days (207 identify, 70 contain); consilien cites 241 days (about 181 identify) for 2025. Different IBM report years; use the newer one and label it. https://www.armorpoint.com/blog/a-step-by-step-guide-to-incident-response-practical-guidance-from-nist-sp-800-61 vs https://consilien.com/news/nist-incident-response-lifecycle-4-phases-explained
+- Is the NIST four-phase lifecycle current? armorpoint and preyproject present it as the NIST model; consilien says Rev 3 (April 2025) retired it in favour of CSF 2.0 functions. https://www.armorpoint.com/blog/a-step-by-step-guide-to-incident-response-practical-guidance-from-nist-sp-800-61 vs https://consilien.com/news/nist-incident-response-lifecycle-4-phases-explained
+- Where you can test: certcrush says Pearson VUE test centre or online proctoring; cyberexperts lists Pearson VUE test centers only. https://www.certcrush.app/blog/how-to-pass-isc2-cc-2026-4-week-study-plan vs https://cyberexperts.com/isc2-cc-exam/
+- Study hours: certcrush says 8 to 10 hours a week for four weeks; cyberexperts says 5 to 7 hours a week if in IT, double if new. https://www.certcrush.app/blog/how-to-pass-isc2-cc-2026-4-week-study-plan vs https://cyberexperts.com/isc2-cc-exam/
+- BC vs DR order in a natural disaster or fire: preyproject's own sequence list says BC then DR, while its fire scenario says DR and BC start together. https://preyproject.com/blog/business-continuity-disaster-recovery-and-incident-response
+
+## Best stories
+- The ransomware note arrives while the one person who understands the firewall is on a plane, the plan names a vendor who left two years ago, and the backups were never test-restored. https://consilien.com/news/nist-incident-response-lifecycle-4-phases-explained
+- Ransomware vs office fire vs phishing click vs hurricane: which of IR, DR and BC fires first, and why restoring backups before containment reinfects you. https://preyproject.com/blog/business-continuity-disaster-recovery-and-incident-response
+- One email walked through confidentiality, integrity (an interceptor changes key points) and availability. https://www.coursera.org/articles/cia-triad
+- The PII backdoor attacker meeting layer after layer: phishing drills, patching, email filter, anti-malware, lateral-movement alerts, least privilege on the database. https://www.csoonline.com/article/3667476/defense-in-depth-explained-layering-tools-and-processes-for-better-security.html
+- The contractor who still has admin rights three months after the project ended, as the model CC scenario question. https://www.certcrush.app/blog/how-to-pass-isc2-cc-2026-4-week-study-plan

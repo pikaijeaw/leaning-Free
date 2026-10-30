@@ -1,0 +1,25 @@
+A: Okay, lesson one of the CC. And it's three words you'll use in nearly every question after this.
+B: Three words. Go.
+A: Confidentiality, integrity, availability. People call it the CIA triad.
+B: Not the spy agency. [laughs]
+A: Not the spy agency. Here's the easiest way in. Picture one email you send.
+B: Okay, I'm sending it.
+A: Confidentiality means only the people you sent it to can read it. Passwords, locks and encryption protect that.
+B: Got it. And integrity?
+A: Integrity means what arrives is what you sent. One beginner guide puts it simply. If someone intercepts that email and changes some key points, the data has lost integrity.
+B: Oof. Sneaky. And availability?
+A: The people you sent it to can open it, read it and save it, whenever they need to. Backups and spare systems protect that.
+B: So every control protects at least one of the three.
+A: Exactly. And all five of the pages we read on security principles teach it this way. Nobody disagrees.
+B: Is one leg more important than the others?
+A: That's the clever part. It depends on the setting. Canada's cyber security centre points out that industrial systems, like the ones that run factories and power, usually put availability first.
+B: Why?
+A: Because if those go down or get tampered with, the result can be injury, or even loss of life. Not just leaked data.
+B: [sighs] Okay, that puts it in perspective.
+A: Right. On the exam, a lot of questions boil down to, which leg is at risk here?
+B: So what's the thing to try?
+A: Ten minutes, on paper. Pick three things you use every day. Say, your bank app, your work email, your phone's photos.
+B: And?
+A: For each one, write which leg would hurt most if it failed. Confidentiality, integrity or availability. And one line on why.
+B: Simple. I like it.
+A: From now on, every control you meet, you'll ask which leg it protects.

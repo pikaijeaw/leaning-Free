@@ -1,0 +1,25 @@
+A: Lesson three. Quick question. What's the one control that stops a phishing attack?
+B: Um, a spam filter?
+A: Trick question. There isn't one. That's the whole lesson.
+B: [laughs] Okay, go on.
+A: Two ideas. First, controls come in three types. Physical, like locks, badges and guards. Technical, like firewalls, encryption and MFA. Administrative, like policies, training and hiring checks.
+B: So encryption is technical. Not physical.
+A: Right. One learner's blog filed cryptography under physical controls. Easy slip, but it's technical.
+B: And the second idea?
+A: Defense in depth. You stack layers, and each one assumes the layer before it already failed. CSO Online quotes a classic line. If you expect a firewall to protect you, build the system as though the firewall has been compromised.
+B: That's a little paranoid.
+A: It's meant to be. Five of the six pages we read on controls teach the three types, and three teach layering this way. None disagree on the idea.
+B: So what does it look like for real?
+A: CyberDefenders traces one phishing email. Training cuts the number of people who click. The email gateway strips most of what gets through.
+B: But someone still clicks.
+A: Someone always does. So MFA blocks the stolen password. Phish that too, and the attacker lands on a segmented network that can't reach the database directly. They move around, and endpoint detection flags it.
+B: And if that alert gets missed?
+A: A patched app resists the exploit. And the data is encrypted and logged, so stealing it is slow and visible.
+B: So no single layer won.
+A: Exactly. The delay is what gave the security team time to respond.
+B: Okay, what's the thing to try?
+A: Ten minutes. Pick one thing you protect, like your email account. List every layer guarding it. Password, MFA, new sign-in alerts, recovery codes.
+B: Then what?
+A: Mark each one physical, technical or administrative. Then for each, ask, what catches it if this one fails? If the answer is nothing, that's your weak spot.
+B: Huh. My email has, like, two layers.
+A: From now on, when you see one control, you'll ask what's behind it.

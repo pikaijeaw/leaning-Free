@@ -1,0 +1,25 @@
+A: Picture this. Ransomware locks every file at work. Which plan do you open first?
+B: Um. The disaster plan?
+A: Close. Lesson five. Three plans, one umbrella.
+B: Okay, three plans. Name them.
+A: Incident response handles the attack. Its question is, how do we stop this? Disaster recovery restores the IT. Its question is, how do we get back?
+B: And the third?
+A: Business continuity. It keeps the business running. That's the umbrella the other two sit under.
+B: So for ransomware...
+A: Incident response goes first. Isolate machines, stop the spread. Then disaster recovery restores clean backups. Continuity kicks in if customers start feeling it.
+B: What if the office catches fire? No attacker.
+A: Then disaster recovery and continuity start together. Restore backups, move people elsewhere. Incident response barely shows up.
+B: [laughs] Because there's nobody to chase.
+A: Exactly. One page, from Prey, walks through scenarios like these. My favourite detail? In a natural disaster, incident response may not be needed, unless attackers use the chaos as cover. And they add, yes, it happens.
+B: Of course.
+A: Four of the twelve pages we read on continuity teach this split, and none disagree. One government page contradicts itself on which plan sits on top. The exam framing is continuity as the umbrella.
+B: Where do you start?
+A: With a business impact analysis. It asks what's critical, how long you can stop before real damage, and what downtime costs.
+B: And that's where RTO and RPO come from?
+A: Yes. Recovery time objective, how fast it has to be back. Recovery point objective, how much data you can afford to lose, counted back to the last good backup.
+B: So what's the thing to try?
+A: Ten minutes, a mini impact analysis. Pick three things your work relies on. Say, email, a shared drive, your laptop. For each, write how long you could go without it before real damage. That's your time. Then, how much work you could lose. That's your point.
+B: And if the answer is, I've never backed it up?
+A: Then you just found your first gap.
+B: [chuckles] Fair.
+A: Next time something breaks, you'll ask which plan it belongs to first.

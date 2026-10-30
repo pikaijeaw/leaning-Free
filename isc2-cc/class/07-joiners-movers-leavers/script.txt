@@ -1,0 +1,25 @@
+A: Here's an exam question that trips people up. A contractor still has admin rights three months after the project ended. What went wrong?
+B: Someone forgot to switch them off?
+A: Exactly. And that's lesson seven. Joiners, movers, leavers.
+B: Sounds like a removals company.
+A: [laughs] Kind of. It's the life of an account. A joiner gets access when they start. A mover changes jobs inside the company. A leaver walks out the door.
+B: And the mover's the sneaky one?
+A: Often, yes. People change roles and keep their old access on top of the new. That's called privilege creep. One study guide's fix is simple. Periodic access reviews and prompt deprovisioning.
+B: Deprovisioning meaning taking it away.
+A: Right. And two ideas run through the whole cycle. First, least privilege. Give the minimum access the job needs. Not the access someone might need someday.
+B: And the second?
+A: Separation of duties. No single person finishes a sensitive process alone. Twingate's example is accounts payable. The clerks can create payments but can't approve them. Their supervisor can approve but can't create.
+B: Oh, so stealing money takes two people.
+A: That's the idea. Six of the eight pages we read on access control teach this lifecycle, and none disagree.
+B: Is this new?
+A: Identity lifecycle is new in the 2026 outline. One prep site says to expect scenarios about a leaver who kept access. And it covers non-human accounts too, like AI bots and service accounts.
+B: Huh. Bots leave too?
+A: Projects end, bots get retired. Same rule.
+B: Okay, what's the thing to try?
+A: Ten minutes, on your own stuff. Open one shared folder or document you own. Look at who has access.
+B: Oh no. I already know there's an ex-colleague in there.
+A: [chuckles] Most of us have one. For each name, ask, does this person still need it today? If not, remove them. That's your first leaver review.
+B: And if someone only needs to read?
+A: Switch them to view only. That's least privilege.
+B: Love it.
+A: From now on, when a need ends, the access can end that same day.

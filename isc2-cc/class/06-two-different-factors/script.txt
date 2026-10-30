@@ -1,0 +1,25 @@
+A: Quick quiz. Your bank asks for your password, then your PIN. Is that two factor?
+B: Sounds like it. Two things.
+A: [laughs] That's the trap. Lesson six. Two different factors.
+B: Okay, explain.
+A: Factors come in kinds. Something you know, like a password or a PIN. Something you have, like your phone, a token, a smart card. Something you are, like a fingerprint or your face.
+B: Know, have, are.
+A: Right. Multi-factor means at least two different kinds. A password and a PIN are both things you know. So that's one kind, twice.
+B: Huh. So a password plus a code on my phone?
+A: Know plus have. That counts. One exam prep guide puts it bluntly. Two passwords are not MFA.
+B: Why does the kind matter so much?
+A: Duo, which sells this stuff, says it in one line. MFA combines categories so that a compromised password alone isn't enough to get in. If both factors are things you know, one fake login page can grab both.
+B: Oof. Fair.
+A: Four of the seven pages we read on authentication teach it this way. The one twist? One vendor page adds extra kinds, like somewhere you are, your location, and something you do, like your typing rhythm. The exam core is still the classic three.
+B: And passwords themselves?
+A: Length beats forced complexity. And current NIST guidance drops forced resets every ninety days. A change happens when there's a sign the password leaked.
+B: Wait, really? My work still does that.
+A: It's old advice.
+B: One more. If I log in fine, can I open everything?
+A: No. That's the other trap. Authentication proves who you are. Authorization decides what you're allowed to do. Two separate steps.
+B: Got it. So what's the thing to try?
+A: Ten minutes. Open the security settings on your main email. List every way it lets you sign in.
+B: Password, a text code, maybe an app.
+A: Next to each, write know, have or are. If every line says know, you've got one factor, however many steps it takes.
+B: [chuckles] Simple.
+A: From now on, every login with two steps gets one question. Are those two different kinds?

@@ -1,0 +1,23 @@
+A: Lesson four. This one's about how to answer.
+B: Okay, I'm listening.
+A: Picture a question. A contractor's project ended three months ago, and they still have admin rights. What's the best first step?
+B: Easy. Log in and kill the account.
+A: [laughs] That's the engineer in you. One prep site, Cyber Experts, names this exact trap. Answering like a technician.
+B: Ouch. So what's the mindset?
+A: The exam asks for the best or first action. And the answer is usually about policy, risk or process, not a clever technical fix.
+B: So for the contractor?
+A: A manager asks, which process let that access outlive the project? Fixing that is what stops the next one.
+B: Do the sources agree on this?
+A: Five of the nine pages we read on exam prep say it in some form. Nobody disagrees. One even says it's why strong technical people sometimes fail the first time.
+B: [sighs] That's me.
+A: The second half is ethics. The ISC2 code has four canons, in order. Protect society. Act honorably. Give diligent, competent service to your principals, meaning your employer or client. Advance and protect the profession.
+B: Why does the order matter?
+A: Because when two canons conflict, the earlier one wins. Say your boss asks you to keep quiet about a flaw that puts the public at risk. Society comes before your boss.
+B: Got it. Society, honor, service, profession.
+A: And here's a twist. One prep site points out that using exam dumps breaks the very code you're tested on. And ISC2's own page says that if a member sees a breach of the code and doesn't follow the complaint procedure, that can count as a breach too.
+B: So silence isn't neutral.
+A: Nope. Okay, the thing to try. Ten minutes. Write the four canons in order on a card.
+B: And then?
+A: Under them, take the contractor question. Write two answers. What an engineer would type, and what a manager would do first. Then notice which one fixes the cause.
+B: I like that. One question, two answers.
+A: From now on, before you pick an answer, you'll ask what a manager would do first.

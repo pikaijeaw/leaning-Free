@@ -1,0 +1,23 @@
+A: Your company moves to the cloud. Who's responsible for security now?
+B: The cloud company? That's what we're paying for.
+A: [laughs] That's the answer that loses points. Lesson eight. Who owns the cloud mess.
+B: Okay, so who?
+A: Both. It's called shared responsibility. The provider always secures the physical side. Buildings, servers, the virtualization layer. You always own your data, your logins, and how you set things up.
+B: And the middle part?
+A: Moves with the model. There are three. Infrastructure as a service, IaaS, you rent raw machines. The provider does hardware, you do everything else. Including patching the operating system.
+B: Wait, me?
+A: You. That's a classic exam question. Platform as a service, PaaS, the provider also runs the operating system and tools. You own your apps. Software as a service, SaaS, like webmail, the provider runs almost everything.
+B: So with SaaS I'm off the hook.
+A: Nope. Your settings and your data stay yours. TechTarget's example. If you make a document public by mistake, that's your configuration error. And SaaS vendors usually won't recover data you deleted yourself.
+B: [sighs] So back it up.
+A: Right. And their best story is PaaS. A customer picks a weak password. An attacker logs in, injects malicious code into the app and deploys it. Whose breach?
+B: The customer's?
+A: The customer's. The provider runs the platform, but it's not responsible for how you use it.
+B: Harsh, but fair.
+A: Four of the five pages we read on cloud teach it this way, and none disagree. Another page adds a line I love. You can transfer the financial impact, but you can never outsource accountability for your customers' data.
+B: So what's the thing to try?
+A: Ten minutes. Pick three cloud apps you use. Email, photos, a shared drive.
+B: Okay.
+A: For each, draw two columns. What the provider handles, and what's mine. Mine is always at least three things. My password and second factor, who I've shared with, and a copy of anything I can't lose.
+B: Neat.
+A: From now on, in any cloud, your data and your logins are yours to protect.

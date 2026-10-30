@@ -1,0 +1,23 @@
+A: Last lesson. And it's the newest part of the exam. AI.
+B: Oh, is AI its own domain now?
+A: Nope. Since the first of September 2026 outline, AI runs through all five domains.
+B: So how do I study it?
+A: One prep guide's trick. Attach an AI example to a concept you already know.
+B: Give me one.
+A: An exam prep drill. An attacker feeds mislabeled images into an image classifier that learns from public input. Which leg of the triad is hit?
+B: Lesson one! Integrity. The data's been changed.
+A: Exactly. Poisoned training data is an integrity failure. The fixes are ordinary too. Check the data coming in, control who can touch the training pipeline, log where the data came from.
+B: Ordinary. I like that.
+A: Here's another. AI bots and service accounts are identities. They go through the same joiner, mover, leaver lifecycle and get least privilege, like any other account.
+B: So the bot doesn't get admin just because it's a bot.
+A: [laughs] Right. Four of the five pages we read on AI in the CC teach it this way, and none disagree on the controls.
+B: What about the AI tools people use at work?
+A: The Cloud Security Alliance ran a piece with a striking number. When they searched for AI in Firefox's extension catalog, they got over two thousand results.
+B: Two thousand?
+A: By their count. And they point out that many people don't realize what they type may be passed to a third party, or end up in training data.
+B: Oof. So that's the data leakage risk.
+A: Yes. Their fix is plain hygiene. Know what's installed, keep an approved list, and keep sensitive data out of public AI tools.
+B: So what's the thing to try?
+A: Ten minutes. List every AI tool you used this week. Apps, chat tools, browser extensions. For each one, write who makes it and what data you put into it.
+B: And then?
+A: Circle anything where you pasted something private. And that's the course. You can now say which leg a control protects, and treat every AI tool like one more user.

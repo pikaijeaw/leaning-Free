@@ -1,0 +1,25 @@
+A: Lesson eleven. Something's gone wrong. What do you do first?
+B: Honestly? Figure out what happened.
+A: That's the instinct. And one IT firm's guide calls it natural and wrong.
+B: Ouch. Why wrong?
+A: Because every hour the attacker still has reach is another hour of damage. Their line is, stop the bleeding before you ask how the patient fell.
+B: Okay, I like that. So what's the bigger picture?
+A: The classic model has four phases. It's from NIST, the US standards body, in its Revision 2 guide. Preparation. Detection and analysis. Containment, eradication and recovery. Then post incident activity, the lessons learned.
+B: Classic? Is there a newer one?
+A: Yes. Revision 3, from April 2025, maps incident response onto the six functions of NIST's Cybersecurity Framework 2.0. But the four phases are still the common way to teach and run it.
+B: Do the sources agree?
+A: Five of the six pages we read on incident response teach this cycle, and four of the six say contain first. None argue the order.
+B: So walk me through containment.
+A: Isolate the infected machines, disable the stolen accounts, block the bad traffic, and keep the evidence. Then eradication closes the hole the attacker came in through.
+B: And then I restore from backup?
+A: Only after that. Restore while the attacker still has access, and you just reinfect yourself.
+B: [sighs] Right. And preparation?
+A: Here's the story. That same guide describes a ransomware note that shows up while the one person who understands the firewall is on a plane.
+B: Oof. Nobody else knows the firewall?
+A: Exactly. Preparation is the only phase that happens before anything goes wrong.
+B: So what's the thing to try?
+A: Ten minutes, for your own life. Write a tiny home plan. If your email got taken over, which device would you take offline? Which passwords would you reset, from a different device?
+B: And?
+A: And how would you reach people if your email or chat is the thing that's compromised. A phone number, written down.
+B: Out of band. Nice.
+A: From now on, when something breaks, your first question will be how to stop it spreading.

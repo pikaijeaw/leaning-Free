@@ -1,0 +1,25 @@
+A: Lesson ten. Two words people treat as one, that do opposite jobs. Encryption and hashing.
+B: I always thought hashing was just a kind of encryption.
+A: Lots of people do. Even one security vendor's page calls hashing a cipher. It isn't.
+B: Okay, so what's the difference?
+A: Encryption is a lock. You scramble the data with a key, and the right key opens it again. It protects confidentiality.
+B: And hashing?
+A: Hashing is a fingerprint. Any input goes in, a fixed length string comes out, and there's no key and no way back. It protects integrity.
+B: Why would I want something I can't reverse?
+A: To prove nothing changed. Here's the fun part. A web host's guide hashes the word hello one two three, then hello one two four.
+B: One digit different.
+A: And the two hashes look completely different. Not a little different. Totally. They call it the avalanche effect.
+B: [laughs] So any tiny edit shows up right away.
+A: Exactly. Same input, same hash, every time. That's how a download page's checksum proves your file wasn't changed on the way.
+B: Do all the sources agree on this?
+A: All three pages we read on cryptography teach it this way. None disagree.
+B: Any traps?
+A: Two quick ones. Old hashes like MD5 and SHA one are broken, so they're out. And passwords get their own treatment. A unique salt plus a slow password hash, like bcrypt or Argon2. Regular hashes are too fast for that.
+B: And on the encryption side?
+A: Symmetric, one shared key, like AES, is fast, so it handles the bulk data. Asymmetric, a public and private pair, solves sharing the key. Web connections use both.
+B: So what's the thing to try?
+A: Five minutes, on paper. Write six jobs. Hide a file, prove a download wasn't changed, store a password, send a secret message, guard a lost laptop, check a backup matches.
+B: And for each one?
+A: Write lock or fingerprint. Then one line on why.
+B: Easy points.
+A: From now on, you'll ask one question. Do I need it back, or do I need proof it didn't change?

@@ -1,0 +1,25 @@
+A: Lesson two. Every risk on the exam lands in one of four boxes.
+B: Four boxes. Okay.
+A: Quick setup. A risk is a threat exploiting a weakness to harm something you care about. You rate it by how likely it is and how bad it would be.
+B: Likelihood and impact.
+A: Then you pick a treatment. Avoid, mitigate, transfer or accept.
+B: Walk me through them.
+A: Avoid means you stop doing the thing that creates the risk. One risk guide puts it simply. If using a device is dangerous, don't use it.
+B: Ha. Fair.
+A: Mitigate means you lower the odds or the damage. Patches, backups. The most common one.
+B: And transfer?
+A: You move the cost to someone else, like insurance. But here's the catch. A risk expert quoted on Stacker says you can transfer the financial impact, but you can never outsource the accountability for your customers' data.
+B: Oof. So insurance pays the bill, but it's still your name in the news.
+A: Right. And accept means you knowingly live with it. That same expert says if you can't point to a written why in your risk register, it's not acceptance. It's unmanaged risk.
+B: Do all the sources agree?
+A: Three of the six pages we read on risk teach these four treatments. They split on acceptance. One page calls it normal for small risks, no paperwork. Stacker says write down the why.
+B: Give me a real one.
+A: A company had an old feature still collecting personal data nobody used. They switched the feature off and deleted the data.
+B: So there's nothing left to breach.
+A: That's avoidance. The risk is just gone.
+B: So what's the thing to try?
+A: Ten minutes. Write down three risks in your own life. Say, your phone gets stolen, your laptop dies, you click a fake delivery text.
+B: And for each one?
+A: Name the treatment you're using today. Phone insurance is transfer. A backup is mitigation. Doing nothing is acceptance, so write one line on why.
+B: [chuckles] Turns out I accept a lot.
+A: Most of us do. Now, when a scenario names a risk, you'll name the box it lands in.
