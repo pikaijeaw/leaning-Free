@@ -1,0 +1,23 @@
+A: Lesson eight. Picture a big sale. Orders pour in, the servers that process payments fall behind, and when one crashes, the orders it was holding just vanish.
+B: Ouch. Add more servers?
+A: That's the instinct. The better move is a queue. Amazon SQS. The web tier drops each order in the queue, and the workers pull from it at their own pace.
+B: So the spike waits in line instead of knocking things over.
+A: Exactly. And a message stays in the queue until a worker deletes it. If a worker dies mid-order, the message shows up again for another one.
+B: Nice. Nothing gets lost.
+A: Then you scale the workers on the backlog. How many messages are waiting per instance.
+B: Is that a real exam thing?
+A: It's straight from one exam prep page. A retailer losing orders in a sale. The answer is a queue plus auto scaling on backlog. And here's the sneaky part. The question mentions the database sits at twenty percent CPU.
+B: So upgrade the database?
+A: [laughs] Nope. That's the red herring. The database is fine. Any answer that touches it fixes a problem the question doesn't have.
+B: Ha. What about SNS? I always hear those two together.
+A: SNS pushes one message out to many subscribers. Great for fan out. One topic, one queue per consumer, so billing and shipping and email each get their own copy. But on its own, SNS is not a buffer.
+B: And Kinesis?
+A: Kinesis is for streams. A steady flow of records, several readers, and you can replay them.
+B: How much agreement on all this?
+A: Two of the four pages on decoupling teach the queue and the fan out pattern, and none disagree. Three of the four point to Kinesis for real time streams.
+B: Okay. The try?
+A: Ten minutes, on paper. Draw a web server calling a worker directly. Then redraw it with a queue in between. Under the workers, write the metric they scale on.
+B: Backlog per instance.
+A: You got it.
+B: And the one thing to keep?
+A: When load arrives in bursts, put a queue in front of the work.

@@ -1,0 +1,21 @@
+A: Okay, lesson one. Before any service, before any exam trick, there's one question. Where does your stuff actually live?
+B: [laughs] In the cloud! Which is a building somewhere, right?
+A: Lots of buildings. AWS splits the world into Regions. A Region is a place on the map, like Ohio or Frankfurt or Sydney.
+B: And inside each Region?
+A: Availability Zones. Each one is a separate data center, or a cluster of them. Their own power, their own network, linked to each other by fast fiber.
+B: Close together, but not too close.
+A: One beginner guide puts it perfectly. Close-ish to each other, but physically isolated to prevent a domino disaster.
+B: Ha. So a flood or a power cut takes out one zone, not the whole Region.
+A: Exactly. And here's the rule that runs through this whole course. Spread across at least two zones. That same guide says it in four words. At least two. Always.
+B: And the sources agree?
+A: Four of the five pages we read on this said it, and nobody pushed back. The one wrinkle is which Region to pick. One consultancy argues against us-east-1 as a default, because it's the busiest and, by their account, has had the most outages.
+B: Oof. Good to know. Got a real example of the two zone thing?
+A: Netflix. It spreads its servers across zones with load balancing and auto scaling, so if one zone falls over, the others keep streaming.
+B: So your crime documentary just keeps playing.
+A: Right. And when the exam says highly available, it nearly always means more than one zone. Single zone is the wrong answer hiding in plain sight.
+B: Okay, what's the thing to try?
+A: Ten minutes, on paper. Invent an app, say a booking site for gyms in Germany. Pick a Region with four checks. Latency to your users, any data laws, whether the services you want are offered there, and price.
+B: Then?
+A: Then write down two zones you'd spread it across. That's it.
+B: Easy.
+A: And from now on, every design you draw starts with two boxes, not one.

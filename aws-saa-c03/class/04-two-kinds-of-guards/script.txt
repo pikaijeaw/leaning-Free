@@ -1,0 +1,25 @@
+A: Lesson four. Your network has two kinds of guards, and the exam loves to mix them up.
+B: Two guards. Who are they?
+A: Security groups and network ACLs. A security group sits on the instance. A network ACL sits at the edge of the subnet.
+B: So one guards the room, one guards the hallway.
+A: Nice. And here's the difference that matters. A security group is stateful. If it lets a request in, the reply is allowed back out automatically.
+B: And the ACL?
+A: Stateless. It checks every packet both ways, with no memory. So you write rules for the way in and the way back.
+B: Anything else?
+A: Security groups only allow. No deny rules. Network ACLs can allow and deny. So if a question says block one IP address, it's the ACL.
+B: That's a neat tell.
+A: Three of the seven VPC pages we read teach this split, and none disagree.
+B: Got a real example?
+A: A classic exam scenario from one study guide. An app in a private subnet calls out to an API. The calls go out fine. The replies never come back.
+B: Huh. Why?
+A: The network ACL allows outbound, but has no inbound rule for the return traffic. Replies come back on high numbered ports, ten twenty four up to sixty five thousand five hundred thirty five.
+B: [chuckles] And the stateless guard doesn't recognize them.
+A: Exactly. A security group would've let them straight back in.
+B: So how do they work together?
+A: Security groups do the daily work. The usual pattern chains them. The web tier accepts the load balancer's group. The app tier accepts the web tier's group. The database accepts only the app tier's group.
+B: Like a relay.
+A: Right. The ACL stays mostly open, and steps in for a hard block.
+B: Thing to try?
+A: Ten minutes. Grab your drawing from lesson three. Add three tiers, web, app and database, and write one inbound rule for each, naming the security group in front of it.
+B: No IP addresses?
+A: Just group names. And from now on, "who may talk" is a security group, and "block that one" is an ACL.

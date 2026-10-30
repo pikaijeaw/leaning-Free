@@ -1,0 +1,23 @@
+A: Lesson seven. Two features with almost the same promise on the box. Multi-AZ, and read replicas.
+B: Both give me a second copy of my database, right?
+A: Both do. And that's exactly why the exam uses one to trap the other.
+B: [sighs] Of course it does.
+A: Multi-AZ first. RDS keeps a standby in a different zone. A hidden twin. Every write lands on both at once. That's synchronous.
+B: Can I read from the twin?
+A: Nope. That's the key bit. It just waits. If the main database or its zone fails, RDS fails over to the twin automatically.
+B: And read replicas?
+A: Readable copies. Your app sends reports and heavy queries there. But they're updated asynchronously, so they can lag a little behind.
+B: So one is for surviving, one is for scaling.
+A: Exactly. Failover is Multi-AZ. More reads is replicas. Different problems.
+B: How sure are the sources?
+A: Two of the seven database pages we read spell it out, and none disagree. And four of the seven say pick by how the data gets read. SQL with joins, RDS or Aurora. Fast lookups by key, DynamoDB. Analytics, Redshift.
+B: Real example?
+A: KodeKloud has a console demo. You tick Multi-AZ, wait, and the details just say Multi-AZ, yes. No extra database to click on. Then you choose create read replica, and now the console lists a primary and a replica you can actually connect to.
+B: The twin is invisible, the copy isn't.
+A: Right. And one exam guide names the classic wrong answer for highly available. A read replica as the only failover plan.
+B: Oof. That one would've got me.
+A: Here's the try. Five minutes, on paper. Three scenarios. The database has to survive a zone outage. Monthly reports slow the app down. And a shop that needs both. Mark each one Multi-AZ, read replica, or both.
+B: And the console demo?
+A: That one costs money. If you run it, delete the replica first, then the primary, straight after.
+B: Got it.
+A: So next time an answer offers a second copy, ask one thing. Is it there to survive, or to serve?

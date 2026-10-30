@@ -1,0 +1,297 @@
+# Notes: batch a
+Pages read: 8. With notes: 8. Skipped: 0 (every page had something teachable on SAA-C03).
+
+## T01 Exam format and how people study for it
+- a:N1. The exam is 65 questions in 130 minutes, and you need 720 out of 1000 to pass. Questions are either multiple choice (one right answer from four) or multiple response (two or more right from five or more).
+  - Source: https://digitalcloud.training/aws-certified-solutions-architect-saa-c02/  Quote: "65 questions and has a time limit of 130 minutes"
+  - Kind: number
+  - Level: foundation
+  - Bias: sells a video course and practice exams (Digital Cloud Training).
+- a:N2. Domain weights: Design Secure Architectures 30%, Resilient 26%, High-Performing 24%, Cost-Optimized 20%. Security is the biggest single slice.
+  - Source: https://digitalcloud.training/aws-certified-solutions-architect-saa-c02/  Quote: "This domain makes up 30% of the exam"
+  - Kind: number
+  - Level: foundation
+  - Also: T17
+  - Bias: sells a course.
+- a:N3. Many questions have several technically correct answers; the skill is picking the one that fits the qualifier in the question, such as MOST secure, MOST cost-effective or MOST operationally efficient. Read the wording slowly because one small detail flips the answer.
+  - Source: https://digitalcloud.training/aws-certified-solutions-architect-saa-c02/  Quote: "you must select the answer that best fits the scenario"
+  - Kind: technique
+  - Level: foundation
+  - Bias: sells a course.
+- a:N4. Story: a Tutorials Dojo web developer, fresh graduate, passed the Cloud Practitioner exam easily, then failed SAA-C03 on her first try. She had watched every video lesson but barely touched practice tests, and blamed that gap. She passed on the second attempt.
+  - Source: https://tutorialsdojo.com/my-saa-c03-aws-certified-solution-architect-associate-exam-experience-2023/  Quote: "didn't spend much time on the practice tests. That could be a culprit"
+  - Kind: story
+  - Level: foundation
+  - Bias: author works at Tutorials Dojo and the post links its own course, labs and practice exams.
+- a:N5. Take each practice exam at least twice and read the explanations, not just the score.
+  - Source: https://tutorialsdojo.com/my-saa-c03-aws-certified-solution-architect-associate-exam-experience-2023/  Quote: "take them at least two times"
+  - Kind: rule of thumb
+  - Level: foundation
+  - Bias: sells practice exams.
+- a:N6. Start practice exams early, at about 30% of the material. It feels too hard at first, but it trains you to sit through 65 questions in a row without looking anything up.
+  - Source: https://www.janmeppe.com/blog/i-recently-passed-the-aws-solution-architect-associate-exam-aws-saa-c03-heres-how-i-did-it/  Quote: "I started with practice exams when I had done around 30% of the material"
+  - Kind: technique
+  - Level: foundation
+  - Bias: none (personal blog; links a paid course he bought).
+- a:N7. One passer's study budget: a 27 hour course at 1.5x speed with notes, plus 6 practice exams. Each exam took about 1 hour to sit and up to another hour to review mistakes. Total about 40 hours over 2 months, around 5 hours a week beside a day job (their claim).
+  - Source: https://www.janmeppe.com/blog/i-recently-passed-the-aws-solution-architect-associate-exam-aws-saa-c03-heres-how-i-did-it/  Quote: "I studied for approx 40 hours over the course of 2 months"
+  - Kind: number
+  - Level: foundation
+  - Bias: none
+- a:N8. Know the core services deeply (EC2, Lambda, S3, VPC, databases, SQS, SNS, Kinesis) and everything else only at the level of "what is it and when would I use it".
+  - Source: https://www.janmeppe.com/blog/i-recently-passed-the-aws-solution-architect-associate-exam-aws-saa-c03-heres-how-i-did-it/  Quote: "Know a lot about the core services, and a little about everything else"
+  - Kind: rule of thumb
+  - Level: foundation
+  - Bias: none. Caveat: his example says Macie "removes" PII; Macie discovers and classifies sensitive data, it does not remove it.
+- a:N9. Story: networking felt like a slog the first time. He skipped ahead to VPC on purpose, hated it, let it "simmer" for a week, and the next week it clicked. Start VPC early so it has time to settle.
+  - Source: https://www.janmeppe.com/blog/i-recently-passed-the-aws-solution-architect-associate-exam-aws-saa-c03-heres-how-i-did-it/  Quote: "VPC and networking is HARD, so start early and revise it"
+  - Kind: story
+  - Level: foundation
+  - Also: T13
+  - Bias: none
+- a:N10. Two attempts drew noticeably different questions from a large question bank. Expect long scenarios, long answer options written as statements combining features, and many "choose 2 or 3 of 5" questions. Topics seen included disaster recovery with RTO/RPO, S3 Access Points and lifecycle, Kubernetes autoscaling, and some ML services.
+  - Source: https://tutorialsdojo.com/my-saa-c03-aws-certified-solution-architect-associate-exam-experience-2023/  Quote: "most of the scenarios are long-winded scenarios with equally-long options"
+  - Kind: story
+  - Level: foundation
+  - Also: T16
+  - Bias: Tutorials Dojo employee.
+- a:N11. AWS recommends about one year of hands-on experience for this exam. Hands-on labs (even on the free tier) are named by every prep source here as a way to make facts stick.
+  - Source: https://digitalcloud.training/aws-certified-solutions-architect-saa-c02/  Quote: "recommended for individuals with at least one year of hands-on experience"
+  - Kind: rule of thumb
+  - Level: foundation
+  - Bias: sells hands-on labs.
+
+## T04 EC2: instance basics, security groups, purchasing options
+- a:N12. Exam-style question to know: for a datastore needing the highest IO with data already distributed across multiple instances, instance store is the right pick, because the data is replicated elsewhere and losing one disk is acceptable.
+  - Source: https://digitalcloud.training/aws-certified-solutions-architect-saa-c02/  Quote: "Good instance store use case"
+  - Kind: test
+  - Level: core
+  - Also: T05
+  - Bias: sells a course.
+- a:N13. Know placement groups: cluster (lowest latency, tightly coupled, one AZ), spread and partition (spread across hardware, can span AZs). Also tell ENA, ENI and EFA apart.
+  - Source: https://digitalcloud.training/aws-certified-solutions-architect-saa-c02/  Quote: "what would you use for lowest latency?"
+  - Kind: test
+  - Level: core
+  - Bias: sells a course.
+
+## T05 Block and file storage: EBS, instance store, EFS, snapshots
+- a:N14. EBS is a virtual hard drive for one EC2 instance, locked to one Availability Zone. It survives stop and restart, and you can detach it and reattach it to another instance only in the same AZ.
+  - Source: https://www.cloudzero.com/blog/ebs-vs-efs  Quote: "detach and reattach volumes to other instances in the same Availability Zone"
+  - Kind: definition
+  - Level: foundation
+  - Bias: CloudZero sells cloud cost tooling.
+- a:N15. EFS is a managed NFS file system that many Linux instances mount at once, spread across multiple AZs, and it grows automatically with no size limit. Each AZ gets its own mount target.
+  - Source: https://www.cloudzero.com/blog/ebs-vs-efs  Quote: "Multiple EC2 instances can then access the same data simultaneously"
+  - Kind: definition
+  - Level: foundation
+  - Bias: CloudZero sells cost tooling.
+- a:N16. Rule of thumb for EBS vs EFS: ask three questions. How many instances need the data? How latency-sensitive is it? Can you predict the size? One instance plus low latency (database, boot volume) means EBS; many instances sharing files (CMS, containers, ML training) means EFS.
+  - Source: https://www.cloudzero.com/blog/ebs-vs-efs  Quote: "comes down to three questions"
+  - Kind: rule of thumb
+  - Level: foundation
+  - Bias: CloudZero sells cost tooling.
+- a:N17. Price contrast: EBS gp3 about $0.08 per GB-month vs EFS Standard about $0.30 per GB-month. But EBS bills what you provision, EFS bills what you use, and one EFS file system is shared by all instances (their claim, prices as of 2026).
+  - Source: https://www.cloudzero.com/blog/ebs-vs-efs  Quote: "$0.08 for gp3 vs. $0.30 for EFS Standard"
+  - Kind: number
+  - Level: core
+  - Also: T17
+  - Bias: CloudZero sells cost tooling.
+- a:N18. EFS is Linux only (POSIX, NFS). For Windows shared storage the answer is FSx for Windows File Server (SMB, Active Directory). For HPC, FSx for Lustre.
+  - Source: https://digitalcloud.training/aws-certified-solutions-architect-saa-c02/  Quote: "which operating systems you can use with it (just Linux)"
+  - Kind: test
+  - Level: core
+  - Bias: sells a course.
+- a:N19. EBS snapshots are stored in S3 and are incremental: each one saves only what changed since the last, which makes them cheap and quick.
+  - Source: https://www.cloudzero.com/blog/ebs-vs-efs  Quote: "capturing only changes since the last snapshot"
+  - Kind: definition
+  - Level: foundation
+  - Also: T16
+  - Bias: CloudZero sells cost tooling.
+- a:N20. EBS volume types: SSD (gp3 general purpose, io1/io2 provisioned IOPS for databases) and HDD (st1 throughput, sc1 cold, cheapest). A SaaS team running PostgreSQL would typically pick io2 to guarantee an IOPS floor.
+  - Source: https://www.cloudzero.com/blog/ebs-vs-efs  Quote: "would typically use an io2 volume to guarantee the IOPS floor"
+  - Kind: definition
+  - Level: core
+  - Bias: CloudZero sells cost tooling.
+- a:N21. EFS lifecycle policies move cold files to Infrequent Access and Archive tiers automatically, cutting cost by up to 92% (their claim).
+  - Source: https://www.cloudzero.com/blog/ebs-vs-efs  Quote: "reducing costs by up to 92%"
+  - Kind: number
+  - Level: core
+  - Also: T17
+  - Bias: CloudZero sells cost tooling.
+- a:N22. If you store objects through an API rather than mounting a drive (backups, logs, data lakes), it is S3, not EBS or EFS.
+  - Source: https://www.cloudzero.com/blog/ebs-vs-efs  Quote: "storing and retrieving objects via API rather than mounting a drive"
+  - Kind: rule of thumb
+  - Level: foundation
+  - Also: T09
+  - Bias: CloudZero sells cost tooling.
+
+## T06 Elastic Load Balancing and Auto Scaling
+- a:N23. An Auto Scaling Group has three numbers: minimum (always running), maximum (ceiling) and desired (target right now). Example: min 1, desired 2, max 5.
+  - Source: https://www.golinuxcloud.com/aws-autoscaling-tutorial/  Quote: "Minimum capacity: 1 Desired capacity: 2 Maximum capacity: 5"
+  - Kind: definition
+  - Level: foundation
+  - Bias: none (free tutorial site with ads).
+- a:N24. The standard pattern: users hit an ALB, the ALB spreads traffic over EC2 instances in an ASG across several AZs, CloudWatch watches a metric, a scaling policy adds instances, and new instances register with the target group automatically.
+  - Source: https://www.golinuxcloud.com/aws-autoscaling-tutorial/  Quote: "The load balancer automatically starts routing traffic to the new instances"
+  - Kind: template
+  - Level: foundation
+  - Also: T16
+  - Bias: none
+- a:N25. Self-healing: if an instance fails an EC2 status check or a load balancer health check, the ASG terminates it and launches a replacement.
+  - Source: https://www.golinuxcloud.com/aws-autoscaling-tutorial/  Quote: "The unhealthy instance is terminated. A new instance is launched automatically."
+  - Kind: definition
+  - Level: foundation
+  - Also: T16
+  - Bias: none
+- a:N26. Five scaling policy types: target tracking (keep average CPU near 40%, the common default), step (bigger jumps for bigger breaches: 50% add 1, 70% add 2, 90% add 3), simple (one alarm, legacy), scheduled (business hours), predictive (ML forecast from history).
+  - Source: https://www.golinuxcloud.com/aws-autoscaling-tutorial/  Quote: "Target tracking is the most commonly used scaling policy"
+  - Kind: definition
+  - Level: core
+  - Bias: none
+- a:N27. Predictable daily pattern means scheduled scaling; recurring pattern you want handled ahead of time means predictive; otherwise target tracking.
+  - Source: https://www.golinuxcloud.com/aws-autoscaling-tutorial/  Quote: "useful when traffic patterns are predictable"
+  - Kind: rule of thumb
+  - Level: core
+  - Bias: none
+- a:N28. Use launch templates, not launch configurations. Launch configurations are legacy; templates add versioning, multiple instance types and Spot support.
+  - Source: https://www.golinuxcloud.com/aws-autoscaling-tutorial/  Quote: "Launch Configurations ... are now considered legacy"
+  - Kind: rule of thumb
+  - Level: core
+  - Bias: none
+- a:N29. Common mistake: instances keep failing health checks because the app is slow to boot. Extend the health check grace period, and check that the health check path, port and security group match the app.
+  - Source: https://www.golinuxcloud.com/aws-autoscaling-tutorial/  Quote: "extend grace period for slow startups"
+  - Kind: mistake
+  - Level: core
+  - Bias: none
+- a:N30. Avoid flapping (scaling in and out rapidly) with cooldown periods and sensible thresholds.
+  - Source: https://www.golinuxcloud.com/aws-autoscaling-tutorial/  Quote: "Configure cooldown periods between scaling actions"
+  - Kind: mistake
+  - Level: core
+  - Bias: none
+- a:N31. Exam angle: scale an ASG on SQS queue depth, not only CPU. A backlog in the queue is the signal that workers are falling behind.
+  - Source: https://digitalcloud.training/aws-certified-solutions-architect-saa-c02/  Quote: "scale an Auto Scaling Group using metrics such as SQS queue depth"
+  - Kind: test
+  - Level: core
+  - Also: T11
+  - Bias: sells a course.
+
+## T07 Relational databases and caching
+- a:N32. You cannot switch encryption on for an existing unencrypted RDS database. Snapshot it, copy the snapshot with encryption on, and restore a new instance from it.
+  - Source: https://digitalcloud.training/aws-certified-solutions-architect-saa-c02/  Quote: "only at creation time otherwise you must encrypt a snapshot"
+  - Kind: technique
+  - Level: core
+  - Also: T14
+  - Bias: sells a course.
+- a:N33. Know which RDS engines support read replicas and whether you can read from a Multi-AZ standby (in classic Multi-AZ you cannot; the standby is only for failover).
+  - Source: https://digitalcloud.training/aws-certified-solutions-architect-saa-c02/  Quote: "whether you can read from a Multi-AZ standby"
+  - Kind: test
+  - Level: core
+  - Bias: sells a course.
+
+## T10 Edge delivery: CloudFront, Global Accelerator
+- a:N34. Both use AWS edge locations, but differently: CloudFront caches content at the edge; Global Accelerator does not cache, it uses the edge to find the fastest path over the AWS network to your regional endpoint.
+  - Source: https://tutorialsdojo.com/aws-global-accelerator-vs-amazon-cloudfront/  Quote: "Global Accelerator uses Edge Locations to find an optimal pathway"
+  - Kind: definition
+  - Level: core
+  - Also: T02
+  - Bias: Tutorials Dojo sells practice exams.
+- a:N35. Four tie-breakers for the exam: Global Accelerator gives static IP addresses, CloudFront's IPs change. Global Accelerator handles TCP and UDP, CloudFront is HTTP. CloudFront bills data out and requests; Global Accelerator bills a fixed hourly fee plus a data transfer premium.
+  - Source: https://tutorialsdojo.com/aws-global-accelerator-vs-amazon-cloudfront/  Quote: "a set of static IP addresses as a fixed entry point"
+  - Kind: test
+  - Level: core
+  - Bias: Tutorials Dojo sells practice exams.
+- a:N36. Story: a video streaming site serving thousands of videos from its own servers suffers buffering, high CPU and downtime. Fix: move videos and thumbnails to S3 and serve them through CloudFront. Contrast: a banking app spread across Regions needing low latency (and possibly non-HTTP traffic) uses Global Accelerator.
+  - Source: https://tutorialsdojo.com/aws-global-accelerator-vs-amazon-cloudfront/  Quote: "offloading the videos, thumbnails, and any static assets from your server to Amazon S3"
+  - Kind: story
+  - Level: foundation
+  - Bias: Tutorials Dojo sells practice exams.
+- a:N37. Why speed matters: Amazon reportedly found every extra 100 ms of load time cost 1% of sales, and users tend to leave a page that takes over 3 seconds (their claim, secondhand).
+  - Source: https://tutorialsdojo.com/aws-global-accelerator-vs-amazon-cloudfront/  Quote: "just 100 milliseconds of extra load time cost them 1% in sales"
+  - Kind: number
+  - Level: foundation
+  - Bias: Tutorials Dojo sells practice exams.
+- a:N38. Exam angle: stop users bypassing CloudFront and hitting S3 directly by restricting the origin to CloudFront (the page names Origin Access Identity; AWS now recommends Origin Access Control), or use signed URLs and signed cookies.
+  - Source: https://digitalcloud.training/aws-certified-solutions-architect-saa-c02/  Quote: "Know how to prevent circumvention of Amazon CloudFront"
+  - Kind: test
+  - Level: core
+  - Also: T09
+  - Bias: sells a course. Dated wording (OAI).
+
+## T11 Decoupling: SQS, SNS, fan-out, Kinesis
+- a:N39. SQS is a queue, not publish-subscribe. Consumers must poll it; it does not push. A message is processed by one worker and stays in the queue until that worker deletes it.
+  - Source: https://dashbird.io/blog/kinesis-sqs-sns-comparison  Quote: "SQS does not push messages to any applications"
+  - Kind: definition
+  - Level: foundation
+  - Bias: Dashbird sells serverless monitoring, plugged in the article.
+- a:N40. Visibility timeout: when a worker picks up a message it goes invisible; if the worker gets stuck and the timeout expires, the message reappears for another worker. Range 0 seconds to 12 hours, default 30 seconds.
+  - Source: https://dashbird.io/blog/kinesis-sqs-sns-comparison  Quote: "set from 0 seconds up to 12 hours with the default being 30 seconds"
+  - Kind: number
+  - Level: core
+  - Bias: Dashbird sells monitoring.
+- a:N41. Standard SQS queues do not guarantee order. If order matters, choose a FIFO queue at creation.
+  - Source: https://dashbird.io/blog/kinesis-sqs-sns-comparison  Quote: "unless you choose the FIFO queue"
+  - Kind: rule of thumb
+  - Level: foundation
+  - Bias: Dashbird sells monitoring.
+- a:N42. Fan-out: whenever several services must receive the same event, publish to an SNS topic and subscribe one SQS queue per consumer. Example: the same event goes to both a staging queue and a production queue.
+  - Source: https://dashbird.io/blog/kinesis-sqs-sns-comparison  Quote: "Anytime multiple services need to receive the same event, you should consider SNS"
+  - Kind: template
+  - Level: core
+  - Bias: Dashbird sells monitoring.
+- a:N43. Kinesis Data Streams is for real-time streaming: producers write records, a partition key picks the shard, records are up to 1 MB, and many consumers can read and replay them. The page says retention is 24 hours to 7 days; that is outdated, AWS now allows up to 365 days.
+  - Source: https://dashbird.io/blog/kinesis-sqs-sns-comparison  Quote: "a partition key to determine which shard will store a specific data record"
+  - Kind: definition
+  - Level: core
+  - Bias: Dashbird sells monitoring. Dated retention figure.
+- a:N44. Firehose is near real time, not real time: it delivers micro-batches to S3, Redshift, Splunk and others every 60 to 900 seconds or when a 1 to 128 MB buffer fills (their figures, 2021). Exam cue: "load streaming data into S3 with no code" means Firehose.
+  - Source: https://dashbird.io/blog/kinesis-sqs-sns-comparison  Quote: "does not deliver data in real-time data, but rather as micro-batches"
+  - Kind: number
+  - Level: core
+  - Bias: Dashbird sells monitoring.
+- a:N45. Practitioner advice: Kinesis is the hardest of the three to run (shards, throughput). Start with SNS plus SQS; reach for Kinesis when you need real-time aggregation or analytics on a stream.
+  - Source: https://dashbird.io/blog/kinesis-sqs-sns-comparison  Quote: "It's best to start with an SNS topic and one or more SQS queues subscribed to it"
+  - Kind: rule of thumb
+  - Level: core
+  - Bias: Dashbird sells monitoring.
+- a:N46. Story: the author built a demo that pulls live crypto prices every 10 seconds into a Kinesis stream and uses Firehose to drop a new file into S3 every minute.
+  - Source: https://dashbird.io/blog/kinesis-sqs-sns-comparison  Quote: "we should be able to see new data arriving every minute in our S3 bucket"
+  - Kind: story
+  - Level: core
+  - Bias: Dashbird sells monitoring.
+
+## T17 Well-Architected Framework and cost optimization
+- a:N47. The Well-Architected Framework has six pillars: Operational Excellence, Security, Reliability, Performance Efficiency, Cost Optimization, Sustainability. SAA-C03's four domains map onto Security, Reliability, Performance and Cost.
+  - Source: https://tutorialsdojo.com/aws-well-architected-framework-six-pillars/  Quote: "This framework is composed of six pillars"
+  - Kind: definition
+  - Level: foundation
+  - Also: T01
+  - Bias: Tutorials Dojo sells courses and practice exams.
+- a:N48. The framework works as a set of questions you answer about your system, such as "How do you protect your data at rest?" If the honest answer is "I don't know", that pillar has a gap (no encryption, in this example).
+  - Source: https://tutorialsdojo.com/aws-well-architected-framework-six-pillars/  Quote: "If you responded "I don't know" ... your architecture is not secure"
+  - Kind: test
+  - Level: foundation
+  - Also: T14
+  - Bias: sells courses.
+- a:N49. Story: a team has a financial app that passed all integration tests and is about to ship. Before go-live they walk the Security pillar questions (data at rest, data in transit, identities) to confirm it meets compliance.
+  - Source: https://tutorialsdojo.com/aws-well-architected-framework-six-pillars/  Quote: "an online solution that handles sensitive financial information"
+  - Kind: story
+  - Level: foundation
+  - Bias: sells courses.
+- a:N50. One-line definitions per pillar with a key service: Reliability recovers from failure and acquires capacity on demand (CloudWatch); Cost Optimization avoids unneeded cost (Cost Explorer, Budgets); Sustainability maximizes use of what you provision (EC2 Auto Scaling).
+  - Source: https://tutorialsdojo.com/aws-well-architected-framework-six-pillars/  Quote: "The ability to avoid or eliminate unneeded cost or suboptimal resources"
+  - Kind: definition
+  - Level: foundation
+  - Bias: sells courses.
+
+## Disagreements seen
+- Question length: Digital Cloud says most questions are a 1 to 2 line scenario that gets "straight to the point"; Tutorials Dojo's test taker says most were "long-winded scenarios with equally-long options". https://digitalcloud.training/aws-certified-solutions-architect-saa-c02/ vs https://tutorialsdojo.com/my-saa-c03-aws-certified-solution-architect-associate-exam-experience-2023/
+- When to start practice exams: Jan Meppe starts at 30% of the material; Digital Cloud says "after going through these questions a couple of times" near the end but also "don't leave it until the last minute"; the Tutorials Dojo author mostly skipped them and failed. Broad agreement that practice tests matter, disagreement on timing. https://www.janmeppe.com/blog/i-recently-passed-the-aws-solution-architect-associate-exam-aws-saa-c03-heres-how-i-did-it/ vs https://digitalcloud.training/aws-certified-solutions-architect-saa-c02/
+- Kinesis retention: Dashbird (2021) says 24 hours to 7 days; current AWS limit is up to 365 days. Treat the page figure as outdated. https://dashbird.io/blog/kinesis-sqs-sns-comparison
+- Experience needed: Digital Cloud cites the exam guide's one year of hands-on experience; Jan Meppe passed with about 40 hours of study beside a non-AWS-focused job. https://digitalcloud.training/aws-certified-solutions-architect-saa-c02/ vs https://www.janmeppe.com/blog/i-recently-passed-the-aws-solution-architect-associate-exam-aws-saa-c03-heres-how-i-did-it/
+
+## Best stories
+- Fresh graduate aces Cloud Practitioner, fails SAA-C03 after skipping practice tests, passes on the retake: https://tutorialsdojo.com/my-saa-c03-aws-certified-solution-architect-associate-exam-experience-2023/
+- VPC was a miserable slog until he let it simmer a week, then it clicked: https://www.janmeppe.com/blog/i-recently-passed-the-aws-solution-architect-associate-exam-aws-saa-c03-heres-how-i-did-it/
+- Buffering video site fixed by moving assets to S3 behind CloudFront, versus a multi-Region bank app that needs Global Accelerator's static IPs: https://tutorialsdojo.com/aws-global-accelerator-vs-amazon-cloudfront/
+- Amazon's claim that every 100 ms of delay cost 1% of sales: https://tutorialsdojo.com/aws-global-accelerator-vs-amazon-cloudfront/
+- Financial app passes every test, then the team walks the Security pillar questions before go-live, and "I don't know" exposes the gap: https://tutorialsdojo.com/aws-well-architected-framework-six-pillars/

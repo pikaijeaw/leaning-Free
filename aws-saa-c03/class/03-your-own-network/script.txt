@@ -1,0 +1,25 @@
+A: Lesson three. Your own private network inside AWS. It's called a VPC.
+B: Virtual private cloud. I've heard this is where people get stuck.
+A: It is. One learner who passed called it a slog. He let it simmer for a week, and then it clicked.
+B: [laughs] Okay, I'll be patient. So what is it?
+A: A VPC is your own walled-off network in one Region. You slice it into subnets, each in exactly one zone.
+B: Which is why two zones means at least two subnets.
+A: Right. Now the trick. There's no "public" switch on a subnet.
+B: Wait, really?
+A: Really. A subnet is public only because its route table sends all outside traffic, written zero dot zero dot zero dot zero slash zero, to an internet gateway. That's the whole definition.
+B: And private subnets?
+A: No route to the internet gateway. To reach out, say for updates, they go through a NAT gateway, which itself sits in a public subnet.
+B: Okay, so how widely do sources agree?
+A: Four of the seven VPC pages we read teach the route table rule, and three teach where the NAT gateway goes. Nobody disagrees.
+B: Got a story?
+A: Two classic mistakes from one course page. Mistake one. Someone puts the NAT gateway in a private subnet. It has no road to the internet itself, so nothing gets out.
+B: Ha. A door to a wall.
+A: Mistake two. One NAT gateway for the whole VPC. It lives in one zone. That zone fails, and every zone loses its way out.
+B: So one NAT gateway per zone.
+A: Exactly. Same two zone rule as lesson one.
+B: What's the thing to try?
+A: Fifteen minutes, on paper. Draw a VPC across two zones, a public and a private subnet in each, an internet gateway on the edge, and a NAT gateway in each public subnet.
+B: And the route tables?
+A: Write them. Public route table, zero slash zero to the internet gateway. Private route table in each zone, zero slash zero to that zone's NAT gateway.
+B: Nice.
+A: After this, you never trust a subnet's name again. You check its route table.

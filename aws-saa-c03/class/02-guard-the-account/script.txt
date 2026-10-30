@@ -1,0 +1,23 @@
+A: Lesson two. Before you build anything, let's lock the front door.
+B: The front door being my AWS account?
+A: Yep. And here's the big idea. AWS secures the cloud. You secure what you put in it.
+B: Meaning what, exactly?
+A: AWS looks after the buildings and hardware. You look after who can log in, what they can touch, and your settings.
+B: So if I leave something open, that's on me.
+A: That's on you. One beginner guide on AWS's own builder site gives the classic example. You accidentally make a private S3 bucket public. The data center was perfectly safe. AWS doesn't step in and fix your setting.
+B: Oof. One checkbox.
+A: One checkbox. And this matters for the exam too. Design Secure Architectures is the biggest domain, thirty percent, by one learner's read of the exam guide.
+B: Okay, so what's the habit?
+A: Two of them. First, the root user. That's the login you made the account with. It can do everything. Give it multi factor authentication, then leave it alone for daily work.
+B: And second?
+A: Apps get roles, not keys. Picture an app on a server that reads files from S3. The weak way puts an access key in the app's config file. The better way attaches a role to the server, with temporary credentials, and only permission to read, not delete.
+B: So a leaked config file leaks nothing useful.
+A: Exactly. Three of the five pages on access teach roles over stored keys. None disagree.
+B: And money? I've heard horror stories.
+A: [laughs] Everybody has. Eight of the seventeen pages on cost warn about surprise charges.
+B: Okay, the thing to try?
+A: Ten minutes in your account. Turn on MFA for the root user. Then open AWS Budgets and set an alert at a small amount, say five dollars, sent to your email.
+B: No account yet?
+A: Write those two steps on page one of your notes, and do them the day you sign up.
+B: Love it.
+A: From here on, every lab you build sits behind a locked door and a tripwire on the bill.

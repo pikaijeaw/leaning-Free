@@ -1,0 +1,25 @@
+A: Lesson five. Servers get sick. What if they healed themselves?
+B: Sounds like magic.
+A: It's two pieces. An Application Load Balancer, sitting in your public subnets. And behind it, an Auto Scaling group, a fleet of servers spread across zones in your private subnets.
+B: So the load balancer hands out the traffic.
+A: Right, and it only sends people to healthy servers. The Auto Scaling group keeps the count right. You give it three numbers. Minimum, desired, maximum.
+B: And if a server dies?
+A: The group notices it's short and launches a replacement. No human involved.
+B: And when traffic spikes?
+A: You pick a target metric, often average CPU. The group adds servers when it's above, and removes them when it's below.
+B: Do sources agree on this?
+A: Four of the six pages we read on load balancing and scaling teach this exact layout, and none disagree.
+B: Got a real one?
+A: KodeKloud has a lab that does both tests. First, they terminate an instance on purpose. The group's activity log says "Instance terminated", then "Launching a new instance".
+B: [laughs] It just shrugs and replaces it.
+A: Then they set a target of forty percent CPU, log into a server, and run a tool called stress to burn CPU. Desired capacity climbs from one to three.
+B: And keeps going?
+A: Stops at three, because three was the maximum. That's your safety cap on the bill.
+B: Nice. Thing to try?
+A: Fifteen minutes, on paper. A small online shop needs two servers on a normal day and six at its busiest. Write min, desired, max, and pick a target metric.
+B: Two, two, six, and CPU at something like fifty percent?
+A: That's a solid answer. Bonus question, how many zones do those two servers sit in?
+B: Two. Lesson one.
+A: There it is. And if you want to try the real lab, it costs money while it runs. Load balancers and servers bill by the hour, so delete everything when you're done.
+B: Noted.
+A: From now on, a sick server isn't a fire to fight. It's a log line.

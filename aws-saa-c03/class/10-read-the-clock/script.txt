@@ -1,0 +1,21 @@
+A: Lesson ten. Forty terabytes of old logs, kept for seven years, almost never read. Where do they go?
+B: The cheapest shelf in the warehouse. Glacier Deep Archive!
+A: Nice. Now I add one line. When they are read, they have to come back within five minutes.
+B: Oh. [laughs] Then Deep Archive is out.
+A: Right. That's the whole lesson in one swap. In S3 you pick a storage class by two things. How often you read the data, and how fast it has to come back.
+B: Hot stuff in Standard, then the infrequent access classes, then the Glacier family at the cold end.
+A: Exactly. The colder the shelf, the cheaper it is to keep, and the slower it is to fetch. And the exam hides that clock inside the question.
+B: Hides it how?
+A: In a qualifier. Most cost effective. Least operational overhead. Plus hard numbers, like retention or retrieval time. One prep course puts it bluntly. Most people who fail know the services. What they haven't practised is finding the one phrase that kills three otherwise correct answers.
+B: Ouch. Do the sources agree?
+A: Four of the ten pages on S3 storage teach picking by access and retrieval time, and none disagree. On reading the qualifier, five of sixteen exam pages teach it. One engineer at 8th Light pushes back, though. For him, the gap wasn't reading. It was hands-on labs.
+B: Fair. Both can be true.
+A: Now the trick from that course. Read the last sentence first. The qualifier almost always lives there.
+B: So I know what I'm hunting before I wade through the story.
+A: Yep. And cheapest never wins if it breaks a hard number. Deep Archive is cheapest, but the five minute rule kills it.
+B: Okay, what's the thing to try?
+A: Ten minutes. Grab any one practice question. Before you look at the options, underline the qualifier and circle every hard number. Times, sizes.
+B: Then read the options?
+A: Then cross out every option that breaks a circled number, and rank what.s left by the qualifier.
+B: Love it.
+A: From now on, you read the clock before you read the answers.

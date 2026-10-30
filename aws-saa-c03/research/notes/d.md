@@ -1,0 +1,294 @@
+# Notes: batch d
+Pages read: 8. With notes: 8. Skipped: 0 (every page had teachable, on-topic content).
+
+## T01 Exam format and how people study for it
+- d:N1. The exam is 65 questions in 130 minutes, so pace at about 2 minutes per question; flag unsure questions and revisit them at the end.
+  - Source: https://dev.to/rabindratamang/how-i-passed-the-aws-solution-architect-associate-exam-my-study-plan-and-tips-5ahh  Quote: "You get 65 questions in 130 minutes, so I made sure to pace myself (~2 minutes per question)."
+  - Kind: number
+  - Level: foundation
+  - Bias: none (personal pass story; links author's Credly badge)
+- d:N2. Start by reading the official exam guide's four domains (resilient, high-performing, secure, cost-optimized) to decide where to spend time, then pick a course.
+  - Source: https://dev.to/rabindratamang/how-i-passed-the-aws-solution-architect-associate-exam-my-study-plan-and-tips-5ahh  Quote: "This helped me identify where to spend the most time."
+  - Kind: technique
+  - Level: foundation
+  - Bias: none
+- d:N3. Course choice split: Adrian Cantrill for depth and hands-on, Stephane Maarek for a structured, to-the-point course that works well for revision; plus AWS Skill Builder, whitepapers (Well-Architected) and practice exams (Udemy, Whizlabs).
+  - Source: https://dev.to/rabindratamang/how-i-passed-the-aws-solution-architect-associate-exam-my-study-plan-and-tips-5ahh  Quote: "More structured and straight to the point, which was great for revision."
+  - Kind: rule of thumb
+  - Level: foundation
+  - Bias: recommends paid courses, no evident affiliation
+- d:N4. Exam questions are scenarios: know why a service is used, not just what it does. Use elimination to cross out obviously wrong answers, and ask how you would balance reliability, security and cost as an architect.
+  - Source: https://dev.to/rabindratamang/how-i-passed-the-aws-solution-architect-associate-exam-my-study-plan-and-tips-5ahh  Quote: "knowing why a service is used is more important than just knowing what it does"
+  - Kind: technique
+  - Level: foundation
+  - Bias: none
+- d:N5. A 30-day template: 2 to 3 hours a day split into 45 min video, 60 to 90 min hands-on lab, 30 min flashcards (Anki) and quiz questions.
+  - Source: https://dev.to/franciscojeg78/aws-saa-c03-30-day-learning-plan-using-stephane-maareks-ultimate-aws-certified-solutions-architect-17j3  Quote: "Daily Study Structure (2-3 hours/day)"
+  - Kind: template
+  - Level: foundation
+  - Bias: built around Maarek's paid course and Jon Bonso paid practice tests
+- d:N6. Readiness test: score 80%+ on practice exams in week 4, take 3 full practice exams on day 29 and review every wrong answer; book the exam for day 31 to keep momentum.
+  - Source: https://dev.to/franciscojeg78/aws-saa-c03-30-day-learning-plan-using-stephane-maareks-ultimate-aws-certified-solutions-architect-17j3  Quote: "Book exam for day 31 to maintain momentum"
+  - Kind: test
+  - Level: foundation
+  - Bias: recommends paid practice tests (Maarek, Bonso)
+- d:N7. Set billing alerts before starting hands-on labs in a Free Tier account, to avoid surprise charges.
+  - Source: https://dev.to/franciscojeg78/aws-saa-c03-30-day-learning-plan-using-stephane-maareks-ultimate-aws-certified-solutions-architect-17j3  Quote: "Set Billing Alerts: Avoid unexpected charges"
+  - Kind: mistake
+  - Level: foundation
+  - Also: T17
+  - Bias: none
+- d:N8. Learn by building one evolving project: a multi-tier web app (S3 + CloudFront frontend, EC2 Auto Scaling behind an ALB, RDS with read replicas), then hardening it into a secure multi-AZ VPC design.
+  - Source: https://dev.to/franciscojeg78/aws-saa-c03-30-day-learning-plan-using-stephane-maareks-ultimate-aws-certified-solutions-architect-17j3  Quote: "Project 1: Multi-Tier Web Application"
+  - Kind: technique
+  - Level: core
+  - Bias: none
+- d:N9. Hands-on beats reading: the passer deployed EC2, S3, RDS, built VPCs with subnets and security groups, IAM roles, a Lambda + API Gateway + DynamoDB app, and CloudFormation.
+  - Source: https://dev.to/rabindratamang/how-i-passed-the-aws-solution-architect-associate-exam-my-study-plan-and-tips-5ahh  Quote: "nothing beat hands-on practice"
+  - Kind: story
+  - Level: foundation
+  - Bias: none
+
+## T02 Global infrastructure
+- d:N10. A Region is an isolated island: separate hardware and networks, and no data replicates between Regions unless you set it up.
+  - Source: https://dev.to/luminousmen/understanding-aws-regions-and-availability-zones-a-guide-for-beginners-1bcd  Quote: "each Region is its own little AWS island"
+  - Kind: definition
+  - Level: foundation
+  - Bias: none
+- d:N11. Choose a Region by four factors: latency to users, regulations (GDPR, data residency), service availability, and price (prices vary by Region).
+  - Source: https://dev.to/luminousmen/understanding-aws-regions-and-availability-zones-a-guide-for-beginners-1bcd  Quote: "sometimes the law makes your decision for you"
+  - Kind: rule of thumb
+  - Level: foundation
+  - Bias: none
+- d:N12. Unless the app is mission-critical at global scale, one Region with multiple AZs is the sweet spot; spread across at least two AZs, always.
+  - Source: https://dev.to/luminousmen/understanding-aws-regions-and-availability-zones-a-guide-for-beginners-1bcd  Quote: "At least two. Always."
+  - Kind: rule of thumb
+  - Level: foundation
+  - Also: T16
+  - Bias: none
+- d:N13. AZs are physically separate data centers linked by high-speed fiber; us-east-1 has at least six (us-east-1a to 1f). AWS runs 31 Regions (their claim, as of April 2025).
+  - Source: https://dev.to/luminousmen/understanding-aws-regions-and-availability-zones-a-guide-for-beginners-1bcd  Quote: "close (ish) to each other but physically isolated to prevent a domino disaster"
+  - Kind: number
+  - Level: foundation
+  - Bias: none
+- d:N14. Edge locations are small sites near users that run CloudFront caching, Route 53 DNS, Shield, WAF and Lambda@Edge; examples given: Twitch for live video, Peloton for "no buffering mid-burpee".
+  - Source: https://dev.to/luminousmen/understanding-aws-regions-and-availability-zones-a-guide-for-beginners-1bcd  Quote: "no buffering mid-burpee"
+  - Kind: story
+  - Level: foundation
+  - Also: T10
+  - Bias: none
+- d:N15. Netflix spreads workloads across AZs with load balancing and Auto Scaling so if one AZ falls over the others keep streaming.
+  - Source: https://dev.to/luminousmen/understanding-aws-regions-and-availability-zones-a-guide-for-beginners-1bcd  Quote: "if one falls over, the others keep streaming"
+  - Kind: story
+  - Level: foundation
+  - Also: T06
+  - Bias: none
+
+## T04 EC2
+- d:N16. Seven ways to pay: On-Demand (per second), Savings Plans (commit to USD per hour, 1 or 3 years), Reserved Instances (commit to an instance configuration incl. type and Region, 1 or 3 years), Spot (unused capacity), Dedicated Hosts, Dedicated Instances, Capacity Reservations.
+  - Source: https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-purchasing-options.html  Quote: "commitment to a consistent amount of usage, in USD per hour"
+  - Kind: definition
+  - Level: foundation
+  - Also: T17
+  - Bias: none
+- d:N17. Decision rule: can commit to spend but not a specific config, choose Savings Plans; need guaranteed capacity in an AZ, choose RIs or Capacity Reservations; can tolerate interruption and flexible timing, choose Spot; bring-your-own server-bound licenses or compliance, choose Dedicated Hosts/Instances.
+  - Source: https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-purchasing-options.html  Quote: "if you can be flexible about when your applications run and if they can be interrupted"
+  - Kind: rule of thumb
+  - Level: core
+  - Also: T17
+  - Bias: none
+
+## T08 Route 53
+- d:N18. Route 53 routing policies by use: Simple (one resource), Failover (active-passive), Geolocation (where users are), Geoproximity (where resources are, can shift traffic), Latency (best-latency Region), IP-based (by source IP), Multivalue (up to eight healthy records at random), Weighted (proportions you set).
+  - Source: https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/routing-policy.html  Quote: "respond to DNS queries with up to eight healthy records selected at random"
+  - Kind: definition
+  - Level: core
+  - Bias: none
+- d:N19. Geolocation vs geoproximity trap: geolocation routes by the user's location; geoproximity routes by the resources' location and can bias traffic from one location to another.
+  - Source: https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/routing-policy.html  Quote: "based on the location of your resources"
+  - Kind: mistake
+  - Level: core
+  - Bias: none
+- d:N20. For DR failover, Route 53 health checks driving automatic DNS failover are a data plane operation and highly reliable; changing weighted-routing weights by hand is a control plane operation and less resilient.
+  - Source: https://docs.aws.amazon.com/whitepapers/latest/disaster-recovery-workloads-on-aws/disaster-recovery-options-in-the-cloud.html  Quote: "be aware this is a control plane operation and therefore not as resilient"
+  - Kind: rule of thumb
+  - Level: advanced
+  - Also: T16
+  - Bias: none
+
+## T09 Amazon S3
+- d:N21. S3 Standard is the default class: 11 nines durability, 99.99% availability, at least 3 AZs, no minimum duration or size.
+  - Source: https://docs.aws.eu/AmazonS3/latest/dev/storage-class-intro.html  Quote: "If you don't specify the storage class when you upload an object, Amazon S3 assigns the S3 Standard"
+  - Kind: number
+  - Level: foundation
+  - Bias: none
+- d:N22. Standard-IA and One Zone-IA: millisecond access but a retrieval fee, 30-day minimum and 128 KB minimum billable size; delete early and you pay for 30 days anyway.
+  - Source: https://docs.aws.eu/AmazonS3/latest/dev/storage-class-intro.html  Quote: "If you delete an object before the end of the 30-day minimum storage duration period, you are charged for 30 days."
+  - Kind: mistake
+  - Level: core
+  - Also: T17
+  - Bias: none
+- d:N23. One Zone-IA is as durable as Standard-IA (11 nines) but lives in one AZ, 99.5% availability, and is lost if that AZ is destroyed. Use it only for data you can re-create, such as CRR replicas; Standard-IA for the only copy.
+  - Source: https://docs.aws.eu/AmazonS3/latest/dev/storage-class-intro.html  Quote: "Use if you can re-create the data if the Availability Zone fails"
+  - Kind: rule of thumb
+  - Level: core
+  - Bias: none
+- d:N24. Intelligent-Tiering for unknown or changing access: moves objects to Infrequent Access after 30 days untouched, Archive Instant Access after 90; optional Archive (90+) and Deep Archive (180+) tiers. No retrieval fees, a small per-object monitoring fee; objects under 128 KB are never tiered.
+  - Source: https://docs.aws.eu/AmazonS3/latest/dev/storage-class-intro.html  Quote: "There are no retrieval fees for S3 Intelligent-Tiering."
+  - Kind: definition
+  - Level: core
+  - Also: T17
+  - Bias: none
+- d:N25. Glacier ladder by access frequency: Glacier Instant Retrieval (about once a quarter, milliseconds, 90-day min), Glacier Flexible Retrieval (about once a year, minutes to hours, 90-day min), Glacier Deep Archive (less than once a year, hours, 180-day min). Flexible and Deep Archive must be restored before access.
+  - Source: https://docs.aws.eu/AmazonS3/latest/dev/storage-class-intro.html  Quote: "Long-lived archive data accessed less than once a year with retrieval times of hours"
+  - Kind: rule of thumb
+  - Level: core
+  - Bias: none
+- d:N26. Every storage class has the same 11 nines durability (except legacy Reduced Redundancy); what changes is availability, AZ count, minimum duration and retrieval fees. AWS itself says not to use Reduced Redundancy, since Standard is cheaper.
+  - Source: https://docs.aws.eu/AmazonS3/latest/dev/storage-class-intro.html  Quote: "We recommend not using this storage class. The S3 Standard storage class is more cost-effective."
+  - Kind: mistake
+  - Level: core
+  - Bias: none
+- d:N27. S3 Express One Zone is the single-AZ, single-digit millisecond class: up to 10x faster access and 50% lower request costs than Standard (their claim).
+  - Source: https://docs.aws.eu/AmazonS3/latest/dev/storage-class-intro.html  Quote: "data access speed up to 10x faster and with request costs 50 percent lower"
+  - Kind: number
+  - Level: advanced
+  - Bias: vendor docs, marketing-style claim
+- d:N28. Common pattern: upload to Standard, then a lifecycle rule transitions objects to Standard-IA or One Zone-IA as they age; use Storage Class Analysis to find the right cut-over.
+  - Source: https://docs.aws.eu/AmazonS3/latest/dev/storage-class-intro.html  Quote: "use lifecycle configuration to tell Amazon S3 to transition the objects"
+  - Kind: technique
+  - Level: core
+  - Also: T17
+  - Bias: none
+- d:N29. Versioning protects against human error; with replication, a delete in the source bucket by default only adds a delete marker there, so the DR copy survives a malicious deletion.
+  - Source: https://docs.aws.amazon.com/whitepapers/latest/disaster-recovery-workloads-on-aws/disaster-recovery-options-in-the-cloud.html  Quote: "Amazon S3 adds a delete marker in the source bucket only"
+  - Kind: technique
+  - Level: advanced
+  - Also: T16
+  - Bias: none
+
+## T13 VPC networking
+- d:N30. A VPC is one Region, IPv4 CIDR between /16 (65,536 addresses) and /28 (16); use RFC 1918 ranges. Primary CIDR can't be changed (secondaries can be added), and never overlap with networks you may connect to: overlap blocks peering and Transit Gateway routing, and the fix is a migration.
+  - Source: https://coursedesk.laravel.cloud/courses/aws-certified-solutions-architect-associate/lessons/vpc-anatomy-cidr-subnets-and-route-tables  Quote: "Overlapping CIDRs block VPC peering and Transit Gateway routing outright, and the fix is a migration."
+  - Kind: rule of thumb
+  - Level: core
+  - Bias: page is a lesson from a course site
+- d:N31. A subnet lives in exactly one AZ, which is why multi-AZ needs multiple subnets. AWS reserves 5 addresses per subnet, so a /24 has 251 usable, not 256.
+  - Source: https://coursedesk.laravel.cloud/courses/aws-certified-solutions-architect-associate/lessons/vpc-anatomy-cidr-subnets-and-route-tables  Quote: "a /24 gives you 251 usable addresses, not 256"
+  - Kind: number
+  - Level: core
+  - Bias: course site
+- d:N32. There is no "public" switch: a subnet is public if and only if its route table sends 0.0.0.0/0 to an internet gateway.
+  - Source: https://coursedesk.laravel.cloud/courses/aws-certified-solutions-architect-associate/lessons/vpc-anatomy-cidr-subnets-and-route-tables  Quote: "There is no \"public\" switch on a subnet."
+  - Kind: definition
+  - Level: core
+  - Bias: course site
+- d:N33. Standard three-tier layout per AZ: public subnet (load balancers, NAT gateways, bastions; route to IGW), private app subnet (instances, containers; route to NAT), private data subnet (RDS, ElastiCache; no default route).
+  - Source: https://coursedesk.laravel.cloud/courses/aws-certified-solutions-architect-associate/lessons/vpc-anatomy-cidr-subnets-and-route-tables  Quote: "The standard three-tier layout, per AZ"
+  - Kind: template
+  - Level: core
+  - Bias: course site
+- d:N34. Routing is longest-prefix-match: 10.0.1.0/24 beats 10.0.0.0/16 beats 0.0.0.0/0. The local route can't be deleted, so all subnets talk by default; isolation comes from security groups and NACLs, not routing.
+  - Source: https://coursedesk.laravel.cloud/courses/aws-certified-solutions-architect-associate/lessons/vpc-anatomy-cidr-subnets-and-route-tables  Quote: "Isolation between subnets is enforced with security groups and NACLs, not with routing."
+  - Kind: rule of thumb
+  - Level: core
+  - Bias: course site
+- d:N35. Common mistake: putting the NAT gateway in a private subnet. It must sit in a public subnet; and since it is zonal, one NAT gateway is a single point of failure, so deploy one per AZ.
+  - Source: https://coursedesk.laravel.cloud/courses/aws-certified-solutions-architect-associate/lessons/vpc-anatomy-cidr-subnets-and-route-tables  Quote: "Placing a NAT gateway in a private subnet."
+  - Kind: mistake
+  - Level: core
+  - Also: T16
+  - Bias: course site
+- d:N36. Gateway cheat sheet: IGW (both directions, one per VPC, not a bottleneck), NAT gateway (outbound IPv4, up to 45 Gbps, hourly plus per GB), egress-only IGW (outbound IPv6, free), virtual private gateway (VPN and Direct Connect endpoint).
+  - Source: https://coursedesk.laravel.cloud/courses/aws-certified-solutions-architect-associate/lessons/vpc-anatomy-cidr-subnets-and-route-tables  Quote: "The IPv6 equivalent of a NAT gateway. Free."
+  - Kind: definition
+  - Level: core
+  - Bias: course site
+- d:N37. Prefer NAT gateway over NAT instance; only a NAT instance can double as a bastion and do port forwarding, and it needs source/destination check disabled, a frequent "NAT instance not forwarding" answer.
+  - Source: https://coursedesk.laravel.cloud/courses/aws-certified-solutions-architect-associate/lessons/vpc-anatomy-cidr-subnets-and-route-tables  Quote: "source/destination check disabled"
+  - Kind: test
+  - Level: advanced
+  - Bias: course site
+- d:N38. Elastic IPs are charged when not associated with a running instance (the classic "unused Elastic IP" cost question); public IPv4 is now billed hourly; a public IP changes on stop/start, a private IP does not.
+  - Source: https://coursedesk.laravel.cloud/courses/aws-certified-solutions-architect-associate/lessons/vpc-anatomy-cidr-subnets-and-route-tables  Quote: "why are we paying for unused Elastic IPs"
+  - Kind: mistake
+  - Level: core
+  - Also: T17
+  - Bias: course site
+- d:N39. Sizing rule: a /24 per subnet in a /16 VPC gives 256 subnets of 251 addresses; the real failure is a subnet too small for an Auto Scaling peak or for ENIs used by Lambda, RDS proxies and interface endpoints.
+  - Source: https://coursedesk.laravel.cloud/courses/aws-certified-solutions-architect-associate/lessons/vpc-anatomy-cidr-subnets-and-route-tables  Quote: "Do not over-subnet."
+  - Kind: rule of thumb
+  - Level: advanced
+  - Bias: course site
+
+## T16 High availability and disaster recovery
+- d:N40. Four DR strategies from cheapest and slowest to costliest and fastest: backup and restore, pilot light, warm standby, multi-site active/active.
+  - Source: https://docs.aws.amazon.com/whitepapers/latest/disaster-recovery-workloads-on-aws/disaster-recovery-options-in-the-cloud.html  Quote: "ranging from the low cost and low complexity of making backups to more complex strategies"
+  - Kind: definition
+  - Level: foundation
+  - Bias: none
+- d:N41. Backup frequency sets your achievable recovery point (RPO); being able to redeploy infrastructure fast (IaC with CloudFormation or CDK, plus AMIs) sets your recovery time (RTO). Without IaC you may blow your RTO.
+  - Source: https://docs.aws.amazon.com/whitepapers/latest/disaster-recovery-workloads-on-aws/disaster-recovery-options-in-the-cloud.html  Quote: "How often you run your backup will determine your achievable recovery point"
+  - Kind: rule of thumb
+  - Level: core
+  - Bias: none
+- d:N42. Pilot light vs warm standby, the official tiebreaker: pilot light cannot serve requests until you switch on servers and scale; warm standby already serves traffic at reduced capacity and only needs to scale up.
+  - Source: https://docs.aws.amazon.com/whitepapers/latest/disaster-recovery-workloads-on-aws/disaster-recovery-options-in-the-cloud.html  Quote: "pilot light cannot process requests without additional action taken first"
+  - Kind: test
+  - Level: core
+  - Bias: none
+- d:N43. Pilot light: data stores (databases, object storage) are always on and replicating; app servers are "switched off", best done by not deploying them at all and keeping the config to deploy on demand.
+  - Source: https://docs.aws.amazon.com/whitepapers/latest/disaster-recovery-workloads-on-aws/disaster-recovery-options-in-the-cloud.html  Quote: "A best practice for \"switched off\" is to not deploy the resource"
+  - Kind: definition
+  - Level: core
+  - Bias: none
+- d:N44. Hot standby vs active/active: both run full environments in two Regions, but hot standby sends users to one Region only; active/active serves from all, and near-zero RTO. Most customers who build a full second Region use it active/active.
+  - Source: https://docs.aws.amazon.com/whitepapers/latest/disaster-recovery-workloads-on-aws/disaster-recovery-options-in-the-cloud.html  Quote: "it makes sense to use it active/active"
+  - Kind: definition
+  - Level: advanced
+  - Bias: none
+- d:N45. Replication is not backup: continuous replication copies corruption and malicious deletes too, so even active/active needs point-in-time backups, and recovery from data corruption always has a non-zero recovery point.
+  - Source: https://docs.aws.amazon.com/whitepapers/latest/disaster-recovery-workloads-on-aws/disaster-recovery-options-in-the-cloud.html  Quote: "may not protect against disaster events such as data corruption or malicious attack"
+  - Kind: mistake
+  - Level: core
+  - Also: T09
+  - Bias: none
+- d:N46. Aurora Global Database replicates cross-Region with typical lag under a second and can promote a secondary in under a minute, up to five secondary Regions (their claim); promoting a non-Aurora RDS read replica takes a few minutes and includes a reboot.
+  - Source: https://docs.aws.amazon.com/whitepapers/latest/disaster-recovery-workloads-on-aws/disaster-recovery-options-in-the-cloud.html  Quote: "promote one of the secondary regions to take read/write responsibilities in less than one minute"
+  - Kind: number
+  - Level: advanced
+  - Also: T07
+  - Bias: vendor whitepaper
+- d:N47. If a disaster for you means losing one data center (an AZ) in a well-architected multi-AZ workload, backup and restore may be enough; go to pilot light or beyond only if you must survive losing a Region or regulation demands it.
+  - Source: https://docs.aws.amazon.com/whitepapers/latest/disaster-recovery-workloads-on-aws/disaster-recovery-options-in-the-cloud.html  Quote: "you may only require a backup and restore approach to disaster recovery"
+  - Kind: rule of thumb
+  - Level: core
+  - Bias: none
+- d:N48. Auto-failover on health checks should be used with caution: a false alarm still costs you some data and availability, so many teams use manual initiation of a fully automated, push-button failover.
+  - Source: https://docs.aws.amazon.com/whitepapers/latest/disaster-recovery-workloads-on-aws/disaster-recovery-options-in-the-cloud.html  Quote: "the manual initiation is like the push of a button"
+  - Kind: technique
+  - Level: advanced
+  - Bias: none
+- d:N49. Active/active write strategies: write global (one write Region, e.g. Aurora Global Database), write local (DynamoDB global tables, last writer wins), write partitioned (by key such as user ID, e.g. bidirectional S3 replication).
+  - Source: https://docs.aws.amazon.com/whitepapers/latest/disaster-recovery-workloads-on-aws/disaster-recovery-options-in-the-cloud.html  Quote: "Amazon DynamoDB global tables use a last writer wins reconciliation"
+  - Kind: definition
+  - Level: advanced
+  - Also: T12
+  - Bias: none
+- d:N50. Test your DR: the scaling step itself can fail, so check service quotas in the DR Region are high enough to scale to production, and test backups by restoring them.
+  - Source: https://docs.aws.amazon.com/whitepapers/latest/disaster-recovery-workloads-on-aws/disaster-recovery-options-in-the-cloud.html  Quote: "Ensure that service quotas in your DR Region are set high enough"
+  - Kind: mistake
+  - Level: advanced
+  - Bias: none
+
+## Disagreements seen
+- Course choice: the pass story praises Cantrill for depth and uses Maarek mainly for revision (https://dev.to/rabindratamang/how-i-passed-the-aws-solution-architect-associate-exam-my-study-plan-and-tips-5ahh), while the 30-day plan makes Maarek the single primary resource (https://dev.to/franciscojeg78/aws-saa-c03-30-day-learning-plan-using-stephane-maareks-ultimate-aws-certified-solutions-architect-17j3); a commenter on the latter notes it skips some Maarek sections.
+- Edge locations: the beginner guide claims edge locations "can be more expensive" and "more vulnerable to security threats" (https://dev.to/luminousmen/understanding-aws-regions-and-availability-zones-a-guide-for-beginners-1bcd), while the AWS DR whitepaper presents the edge network (Global Accelerator) as a reliability and latency win (https://docs.aws.amazon.com/whitepapers/latest/disaster-recovery-workloads-on-aws/disaster-recovery-options-in-the-cloud.html). The security claim is unsupported.
+- Manual failover by weighted routing: Route 53 docs list weighted routing as a plain option (https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/routing-policy.html), but the DR whitepaper warns that changing weights for failover is a control plane action and less resilient than health-check based failover (https://docs.aws.amazon.com/whitepapers/latest/disaster-recovery-workloads-on-aws/disaster-recovery-options-in-the-cloud.html).
+
+## Best stories
+- The NAT gateway in the wrong subnet: it sits in a private subnet with no route to the IGW, so nothing gets out; and a single NAT gateway takes every AZ's outbound traffic down with its own AZ. https://coursedesk.laravel.cloud/courses/aws-certified-solutions-architect-associate/lessons/vpc-anatomy-cidr-subnets-and-route-tables
+- Pilot light vs warm standby told as a gas stove: the pilot flame is lit (data replicating) but nothing cooks until you turn on the burners; warm standby is already simmering on low. https://docs.aws.amazon.com/whitepapers/latest/disaster-recovery-workloads-on-aws/disaster-recovery-options-in-the-cloud.html
+- Replication is not backup: someone deletes or corrupts data and replication faithfully copies the damage to the DR Region; only versioning and point-in-time backups save you. https://docs.aws.amazon.com/whitepapers/latest/disaster-recovery-workloads-on-aws/disaster-recovery-options-in-the-cloud.html
+- Netflix keeps streaming when an AZ falls over, and Peloton uses edge locations so there is "no buffering mid-burpee". https://dev.to/luminousmen/understanding-aws-regions-and-availability-zones-a-guide-for-beginners-1bcd
+- The early-delete surprise: move small or short-lived files to Standard-IA and you still pay for 128 KB and 30 days each. https://docs.aws.eu/AmazonS3/latest/dev/storage-class-intro.html

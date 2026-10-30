@@ -1,0 +1,21 @@
+A: Lesson twelve, the last one. Your app runs in two zones. One zone goes dark. Are you fine?
+B: Yes! Lesson one. Two zones minimum.
+A: Right. That's high availability. Now someone runs a bad script and deletes the customer table.
+B: Uh oh. But I replicate everything to another Region!
+A: [sighs] And replication copies the delete. Faithfully.
+B: Oof.
+A: That's the line AWS's disaster recovery whitepaper draws. Replication protects you from some disasters, but maybe not from corruption or deletion, unless you also keep versioning or point in time backups.
+B: So high availability survives losing a zone. Disaster recovery survives losing a Region, or losing your data.
+A: Exactly. And before picking a design, you name two numbers. RTO, how long until you're serving again. RPO, how much data, measured in time, you can afford to lose.
+B: Like, back in four hours, lose at most fifteen minutes.
+A: Perfect. Then you pick the cheapest of four strategies that hits them. Backup and restore. Pilot light. Warm standby. Multi site active active.
+B: Pilot light versus warm standby always blurs for me.
+A: The whitepaper admits that one's confusing. So here's my own picture, not from any source. Pilot light is a gas stove with the little flame lit, but nothing's cooking. You turn on the burners first. Warm standby is a pot already simmering on low. You just turn it up.
+B: Ha. So pilot light can't take requests yet. Warm standby can, just at small size.
+A: That part is the whitepaper's distinction. And how widely is all this taught? Three of the fourteen pages on recovery teach the four strategies, three teach that replication isn't backup, and none disagree.
+B: Okay, the thing to try?
+A: Fifteen minutes, on paper. Pick a small app, say an online bakery's order system. Write an RTO and an RPO. Pick one strategy. Then write one line on why the next cheaper strategy misses your numbers.
+B: Like, backup and restore takes hours, and I said thirty minutes.
+A: Exactly that.
+B: Nice.
+A: From now on, you say the RTO and RPO before you say the design.

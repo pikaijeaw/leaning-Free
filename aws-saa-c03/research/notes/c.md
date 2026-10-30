@@ -1,0 +1,264 @@
+# Notes: batch c
+Pages read: 8. With notes: 8. Skipped: 0 (every page had something teachable; the Well-Architected and AWS Compare pages are thin product pages but still carry usable definitions).
+
+## T01 Exam format and how people study for it
+- c:N1. Most SAA-C03 failures come from reading, not knowledge: almost every option "works", and exactly one meets the stated constraint. Ask "which constraint am I being graded against?", not "which of these works?"
+  - Source: https://coursedesk.laravel.cloud/courses/aws-certified-solutions-architect-associate/lessons/how-to-read-an-saa-c03-question  Quote: "finding the one phrase that eliminates three otherwise-correct answers"
+  - Kind: rule of thumb
+  - Level: foundation
+  - Bias: page is a lesson from a course site (coursedesk), so it is selling that course.
+- c:N2. Qualifier vocabulary map: "MOST cost-effective" means cheapest option that still meets requirements (serverless, Spot, colder storage tend to win); "LEAST operational overhead" means managed or serverless, and anything with "install", "patch" or "manage a fleet" is usually wrong.
+  - Source: https://coursedesk.laravel.cloud/courses/aws-certified-solutions-architect-associate/lessons/how-to-read-an-saa-c03-question  Quote: "Anything involving \"install\", \"patch\" or \"manage a fleet\" is usually wrong."
+  - Kind: template
+  - Level: core
+  - Also: T17
+  - Bias: course site.
+- c:N3. More qualifier mappings: "MUST remain available if an AZ fails" means Multi-AZ (if it says Region, multi-Region); "MINIMUM downtime during migration" means replicate then cut over (DMS, DataSync, Aurora replicas, blue/green); "MUST NOT traverse the public internet" means VPC endpoints, PrivateLink, Direct Connect, private subnets; "reduce latency for global users" means CloudFront, Global Accelerator, read replicas, caching; "near real time" often permits Kinesis Data Firehose with its buffering delay.
+  - Source: https://coursedesk.laravel.cloud/courses/aws-certified-solutions-architect-associate/lessons/how-to-read-an-saa-c03-question  Quote: "\"Near real time\" often permits Kinesis Data Firehose with its buffering delay."
+  - Kind: template
+  - Level: core
+  - Also: T16
+  - Bias: course site.
+- c:N4. Read the last sentence of the scenario first: the qualifier almost always lives there, turning a wall of text into a search for one thing.
+  - Source: https://coursedesk.laravel.cloud/courses/aws-certified-solutions-architect-associate/lessons/how-to-read-an-saa-c03-question  Quote: "Read the last sentence of the scenario first."
+  - Kind: technique
+  - Level: foundation
+  - Bias: course site.
+- c:N5. Eliminate rather than select: when two options look equally right they usually differ by one word, and that word is what is tested. Classic pairs: security group vs network ACL, Multi-AZ vs read replica, gateway endpoint vs interface endpoint, NAT gateway vs internet gateway. Learn the distinction, not just the definitions.
+  - Source: https://coursedesk.laravel.cloud/courses/aws-certified-solutions-architect-associate/lessons/how-to-read-an-saa-c03-question  Quote: "learn the distinction, not just the definitions"
+  - Kind: technique
+  - Level: core
+  - Also: T13
+  - Bias: course site.
+- c:N6. Story: a developer at 8th Light used a company L&D budget (100+ hours and $1,500 a year, their claim) to do the AWS Solutions Architect cert. He paid about 290 GBP for a video course with labs (about 45 hours of content), plus 10 GBP of extra practice questions, and took about four months "in dribs and drabs."
+  - Source: https://8thlight.com/insights/making-most-aws-kubernetes-certifications  Quote: "From start to finish, I took about four months to complete the certification"
+  - Kind: story
+  - Level: foundation
+  - Bias: written by a consultancy employee; mentions acloudguru and Whizlabs as products used, not a paid promo.
+- c:N7. Exam cost is $150, with a discount if you have passed an AWS exam before (their claim). AWS certs must be renewed every three years (their claim).
+  - Source: https://8thlight.com/insights/making-most-aws-kubernetes-certifications  Quote: "you have to get recertified every three years (for AWS)"
+  - Kind: number
+  - Level: foundation
+  - Bias: none
+- c:N8. Online proctored exam rules are strict: photos of your space, a webcam room sweep, no leaving the desk even for the toilet, no talking, one monitor only, locked down browser, phone out of reach, stable internet. Test center slots can be scarce, which is why he chose online.
+  - Source: https://8thlight.com/insights/making-most-aws-kubernetes-certifications  Quote: "You're not allowed to leave your desk, even to go to the toilet."
+  - Kind: rule of thumb
+  - Level: foundation
+  - Bias: none
+- c:N9. Do the labs: hands-on work cements the video theory, and some exam questions were not covered in the videos he watched, so read around the subject. Courses alone do not make you an expert: "use it or lose it."
+  - Source: https://8thlight.com/insights/making-most-aws-kubernetes-certifications  Quote: "Some of the exam questions were not in the videos that I watched."
+  - Kind: mistake
+  - Level: foundation
+  - Bias: none
+- c:N10. Downsides named: AWS changes the curriculum fast (it changed within months of his pass), the material is large and can be dry, and study time displaced personal projects.
+  - Source: https://8thlight.com/insights/making-most-aws-kubernetes-certifications  Quote: "AWS has changed the curriculum and there is new stuff in the exam"
+  - Kind: mistake
+  - Level: foundation
+  - Bias: none
+
+## T02 Global infrastructure: Regions, AZs, edge locations; choosing a Region
+- c:N11. Pick one primary Region even if you run multi-Region, because some resources are not geographically distributed and need a default home. Common criteria: closest to most end users, or closest to where the business operates if the business consumes most services.
+  - Source: https://cloudposse.com/blog/devops/cloud/how-to-pick-your-primary-aws-region  Quote: "one region should typically be selected as the primary region"
+  - Kind: rule of thumb
+  - Level: foundation
+  - Bias: Cloud Posse is a DevOps consultancy; page ends with a newsletter and "Talk with Erik" pitch.
+- c:N12. Avoid us-east-1 as your default: it is the most heavily used Region and has historically had the most service interruptions; Cloud Posse advises us-east-2 instead, with minimal latency between the two (their claim).
+  - Source: https://cloudposse.com/blog/devops/cloud/how-to-pick-your-primary-aws-region  Quote: "we advise using us-east-2 over us-east-1"
+  - Kind: rule of thumb
+  - Level: core
+  - Also: T16
+  - Bias: consultancy opinion.
+- c:N13. Regions differ: not all have the same number of AZs (many offer only 2, while 3 is recommended for Kubernetes to avoid split brain), not all offer every service or instance type, newest Regions often lack newer services, and prices differ.
+  - Source: https://cloudposse.com/blog/devops/cloud/how-to-pick-your-primary-aws-region  Quote: "Not all regions offer the full suite of AWS services"
+  - Kind: rule of thumb
+  - Level: core
+  - Also: T18
+  - Bias: consultancy.
+- c:N14. Moving Regions later is expensive: data transfer is not cheap and petabyte-scale S3 buckets are costly to migrate, so choose carefully up front. Local Zones (e.g. us-west-2-lax-1a) run a subset of services close to a city.
+  - Source: https://cloudposse.com/blog/devops/cloud/how-to-pick-your-primary-aws-region  Quote: "migrating to a new region could be cost-prohibitive"
+  - Kind: mistake
+  - Level: core
+  - Also: T17
+  - Bias: consultancy.
+- c:N15. Test: check inter-Region latency on cloudping.co/grid before choosing.
+  - Source: https://cloudposse.com/blog/devops/cloud/how-to-pick-your-primary-aws-region  Quote: "See cloudping.co/grid for more information."
+  - Kind: test
+  - Level: foundation
+  - Bias: none
+
+## T03 IAM: users, groups, roles, policies, least privilege, MFA, root
+- c:N16. Shared Responsibility Model in one line: AWS handles security OF the cloud (data centers, hardware, network, virtualization layer); you handle security IN the cloud (data, identities, apps, configuration).
+  - Source: https://builder.aws.com/content/3L0TDjBSq7BYCw9eRO0NlSZpRaQ/aws-shared-responsibility-model-explained-for-beginners  Quote: "AWS secures the cloud infrastructure, while customers secure what they put in the cloud"
+  - Kind: definition
+  - Level: foundation
+  - Also: T14
+  - Bias: community post on an AWS site; author's opinion.
+- c:N17. The split shifts by service: on EC2 you patch the guest OS and apps; on S3 you own access config and data protection; on RDS AWS takes much of the admin and maintenance, but you still own data access and DB permissions. More managed means less to manage, never zero.
+  - Source: https://builder.aws.com/content/3L0TDjBSq7BYCw9eRO0NlSZpRaQ/aws-shared-responsibility-model-explained-for-beginners  Quote: "they do not eliminate the customer's security responsibilities"
+  - Kind: rule of thumb
+  - Level: foundation
+  - Also: T04
+  - Bias: none
+- c:N18. Common mistake: making a private S3 bucket public by accident is your problem, not AWS's. AWS will not correct a customer misconfiguration.
+  - Source: https://builder.aws.com/content/3L0TDjBSq7BYCw9eRO0NlSZpRaQ/aws-shared-responsibility-model-explained-for-beginners  Quote: "AWS does not automatically take responsibility for correcting that customer configuration"
+  - Kind: mistake
+  - Level: foundation
+  - Also: T09
+  - Bias: none
+- c:N19. Beginner security checklist: MFA for privileged access, least privilege, no credentials in source code, review S3 bucket access, keep your OS and apps patched, monitor activity, know each service's responsibility split.
+  - Source: https://builder.aws.com/content/3L0TDjBSq7BYCw9eRO0NlSZpRaQ/aws-shared-responsibility-model-explained-for-beginners  Quote: "Avoid storing credentials directly in source code."
+  - Kind: template
+  - Level: foundation
+  - Bias: none
+- c:N20. Worked example: a student document-sharing app on S3 plus EC2. AWS does physical security, hardware, EC2 virtualization. You do IAM roles, S3 object access, EC2 OS updates, app credentials, monitoring and backups.
+  - Source: https://builder.aws.com/content/3L0TDjBSq7BYCw9eRO0NlSZpRaQ/aws-shared-responsibility-model-explained-for-beginners  Quote: "a poorly configured application can still expose sensitive information"
+  - Kind: story
+  - Level: foundation
+  - Bias: none
+
+## T05 Block and file storage: EBS, instance store, EFS, snapshots
+- c:N21. EBS is block storage (boot volumes, databases, enterprise apps), priced per GB provisioned per month plus IOPS. EFS is serverless elastic file storage over NFS (content management, web serving, home directories, ML, containers), priced per GB stored with no provisioning.
+  - Source: https://aws.amazon.com/compare/ebs-and-efs/  Quote: "Pay per GB stored; no provisioning required"
+  - Kind: definition
+  - Level: foundation
+  - Bias: AWS's own product page.
+- c:N22. Exam trigger: when multiple EC2 instances or containers need concurrent read/write to the same file system, the answer is EFS. It grows and shrinks automatically and is Multi-AZ.
+  - Source: https://aws.amazon.com/compare/ebs-and-efs/  Quote: "EFS is the answer when multiple EC2 instances or containers need concurrent read/write access"
+  - Kind: rule of thumb
+  - Level: core
+  - Bias: AWS product page (quote from a re:Post contributor).
+- c:N23. Choose gp3 for most general workloads: 3,000 IOPS baseline at lower cost than gp2. For databases needing consistent sub-millisecond latency, io2 Block Express gives up to 256,000 IOPS and 99.999% durability (their claim).
+  - Source: https://aws.amazon.com/compare/ebs-and-efs/  Quote: "Choose gp3 for most general workloads since you get 3,000 IOPS baseline"
+  - Kind: number
+  - Level: core
+  - Also: T17
+  - Bias: AWS product page.
+- c:N24. EBS key features: SSD and HDD types, snapshots, encryption, Multi-Attach, Elastic Volumes. EFS key features: elastic scaling, Multi-AZ, lifecycle management, throughput modes.
+  - Source: https://aws.amazon.com/compare/ebs-and-efs/  Quote: "SSD & HDD types"
+  - Kind: definition
+  - Level: core
+  - Bias: AWS product page.
+
+## T07 Relational databases and caching
+- c:N25. Quick database pickers from AWS's compare hub: RDS for transactional (OLTP), Redshift for analytics over billions of rows; Aurora is a cloud-native relational engine for higher performance and availability vs RDS's familiar engines; ElastiCache is a cache in front of another database, while MemoryDB is a primary database with Multi-AZ durability.
+  - Source: https://aws.amazon.com/compare/ebs-and-efs/  Quote: "ElastiCache is designed as a caching layer in front of another database"
+  - Kind: rule of thumb
+  - Level: core
+  - Also: T12
+  - Bias: AWS product page.
+- c:N26. DynamoDB vs RDS: DynamoDB is serverless NoSQL for well-defined access patterns needing consistent single-digit millisecond performance; RDS is for apps needing SQL, joins, and transactional integrity.
+  - Source: https://aws.amazon.com/compare/cloudfront-and-global-accelerator/  Quote: "DynamoDB is a serverless NoSQL database for applications with well-defined access patterns"
+  - Kind: rule of thumb
+  - Level: core
+  - Also: T12
+  - Bias: AWS product page.
+
+## T09 Amazon S3
+- c:N27. Worked lifecycle example: 40 TB of logs, heavy use for 30 days, occasional for 60 more, then kept 7 years and almost never read with up to 12 hours retrieval OK. Answer: S3 Standard, then Standard-IA, then Glacier Deep Archive, via an S3 Lifecycle configuration.
+  - Source: https://coursedesk.laravel.cloud/courses/aws-certified-solutions-architect-associate/lessons/how-to-read-an-saa-c03-question  Quote: "The 12-hour tolerance is the giveaway"
+  - Kind: story
+  - Level: core
+  - Also: T01
+  - Bias: course site.
+- c:N28. One phrase flips the answer: change "up to 12 hours" to "within 5 minutes" and Deep Archive is wrong; Glacier Flexible Retrieval or Glacier Instant Retrieval becomes the answer. Also: 30-day minimum before transitioning to Standard-IA.
+  - Source: https://coursedesk.laravel.cloud/courses/aws-certified-solutions-architect-associate/lessons/how-to-read-an-saa-c03-question  Quote: "That is the exam in miniature."
+  - Kind: rule of thumb
+  - Level: core
+  - Also: T01
+  - Bias: course site.
+
+## T10 Edge delivery: CloudFront, Global Accelerator
+- c:N29. CloudFront is a CDN that caches content at edge locations (400+, their claim): website and API acceleration, video streaming, software distribution. Global Accelerator gives static anycast IPs and routes TCP/UDP over the AWS backbone with instant failover: global apps, gaming, IoT, voice/video.
+  - Source: https://aws.amazon.com/compare/cloudfront-and-global-accelerator/  Quote: "Unlike CloudFront (which caches content), Global Accelerator accelerates non-cacheable traffic"
+  - Kind: definition
+  - Level: core
+  - Bias: AWS product page.
+- c:N30. Exam trigger: cacheable HTTP content means CloudFront; non-HTTP (TCP/UDP), gaming, VoIP, or needing fixed static IPs and fast regional failover means Global Accelerator.
+  - Source: https://aws.amazon.com/compare/cloudfront-and-global-accelerator/  Quote: "routes TCP/UDP traffic over the AWS backbone rather than the public internet"
+  - Kind: rule of thumb
+  - Level: core
+  - Also: T16
+  - Bias: AWS product page.
+- c:N31. CloudFront still helps dynamic content, because the AWS backbone between edge and origin beats the public internet. Origin Shield collapses cache-fill requests from many edges into one.
+  - Source: https://aws.amazon.com/compare/cloudfront-and-global-accelerator/  Quote: "Pair it with Origin Shield to collapse cache-fill requests"
+  - Kind: technique
+  - Level: advanced
+  - Bias: AWS product page.
+- c:N32. Pricing differs: CloudFront is pay per data transfer out plus requests and has a free tier; Global Accelerator is a fixed hourly rate plus a data transfer premium and has no free tier.
+  - Source: https://aws.amazon.com/compare/cloudfront-and-global-accelerator/  Quote: "Fixed hourly rate + data transfer premium"
+  - Kind: number
+  - Level: core
+  - Also: T17
+  - Bias: AWS product page.
+
+## T15 Monitoring and auditing: CloudWatch, CloudTrail, Config
+- c:N33. Three-way split: CloudTrail answers "who made an API call to modify this resource?"; Config answers "what did my resource look like?" at any point in time; CloudWatch is metrics, logs, events, alarms and automated actions.
+  - Source: https://cloud.in28minutes.com/aws-certification-aws-cloudtrail-vs-config-vs-cloudwatch  Quote: "Who made an API call to modify this resource?"
+  - Kind: rule of thumb
+  - Level: foundation
+  - Bias: in28minutes sells AWS certification courses.
+- c:N34. CloudTrail records who, what action, what parameters and what result. Use cases: compliance and locating a missing resource. Logs go to S3 by default (optionally CloudWatch Logs), are encrypted with S3 SSE, and support log file integrity validation to prove a log was not altered.
+  - Source: https://cloud.in28minutes.com/aws-certification-aws-cloudtrail-vs-config-vs-cloudwatch  Quote: "You can prove that a log file has not been altered"
+  - Kind: definition
+  - Level: core
+  - Also: T14
+  - Bias: course vendor.
+- c:N35. CloudTrail comes as a multi-Region trail (one trail for all Regions) or single-Region trail; the destination S3 bucket can be in any Region.
+  - Source: https://cloud.in28minutes.com/aws-certification-aws-cloudtrail-vs-config-vs-cloudwatch  Quote: "One trail of all AWS regions"
+  - Kind: definition
+  - Level: core
+  - Bias: course vendor.
+- c:N36. AWS Config keeps a resource inventory and change history (even for deleted resources), and Config Rules continuously evaluate compliance, e.g. restricted-ssh, encrypted-volumes, ec2-instance-no-public-ip. Rules can auto-remediate (example: stop EC2 instances missing a tag) and can be custom Lambda functions. Group rules into Conformance Packs across accounts.
+  - Source: https://cloud.in28minutes.com/aws-certification-aws-cloudtrail-vs-config-vs-cloudwatch  Quote: "Stop EC2 instances without a specific tag!"
+  - Kind: technique
+  - Level: core
+  - Also: T14
+  - Bias: course vendor.
+- c:N37. Config has no free tier, and more rules cost more; it delivers history files to S3 every 6 hours (their claim). It ships 80+ predefined rules (their claim).
+  - Source: https://cloud.in28minutes.com/aws-certification-aws-cloudtrail-vs-config-vs-cloudwatch  Quote: "No Free Tier"
+  - Kind: number
+  - Level: core
+  - Also: T17
+  - Bias: course vendor.
+
+## T17 Well-Architected Framework and cost optimization
+- c:N38. Six pillars: Operational Excellence (run, monitor, improve; automate changes), Security (data confidentiality and integrity, permissions, detection), Reliability (recover quickly from failure), Performance Efficiency (right resource types and sizes), Cost Optimization (avoid unnecessary costs, right type and quantity), Sustainability (minimize environmental impact, maximize utilization).
+  - Source: https://aws.amazon.com/architecture/well-architected  Quote: "The cost optimization pillar focuses on avoiding unnecessary costs."
+  - Kind: definition
+  - Level: foundation
+  - Also: T16
+  - Bias: AWS marketing page.
+- c:N39. The Sustainability pillar has its own shared responsibility model, and its main lever is maximizing utilization so fewer resources are needed. This links the newest pillar to the familiar security idea of "AWS does its part, you do yours."
+  - Source: https://aws.amazon.com/architecture/well-architected  Quote: "a shared responsibility model for sustainability"
+  - Kind: definition
+  - Level: core
+  - Also: T03
+  - Bias: AWS marketing page.
+- c:N40. The Well-Architected Tool is free in the console for regularly reviewing workloads and finding high-risk issues. Lenses add domain guidance (serverless, ML, games, financial services and more) on top of the six pillars.
+  - Source: https://aws.amazon.com/architecture/well-architected  Quote: "available at no cost in the AWS Management Console"
+  - Kind: definition
+  - Level: core
+  - Bias: AWS marketing page.
+- c:N41. Story: NEC ran a Well-Architected review early in designing a water meter cloud service for the Sakai City waterworks, caught design issues early, and delivered faster.
+  - Source: https://aws.amazon.com/architecture/well-architected  Quote: "we conducted a review at an early stage of the design process"
+  - Kind: story
+  - Level: foundation
+  - Bias: AWS customer testimonial.
+- c:N42. Cell-based architecture applies the same fault isolation AWS uses in AZs and Regions to your own app to shrink blast radius.
+  - Source: https://aws.amazon.com/architecture/well-architected  Quote: "applying the same fault isolation concepts that AWS applies in its Availability Zones and Regions"
+  - Kind: technique
+  - Level: advanced
+  - Also: T16
+  - Bias: AWS marketing page.
+
+## Disagreements seen
+- Where APIs go: the AWS compare page lists "API acceleration" under CloudFront, while its own Global Accelerator expert quote says GA is for "non-cacheable traffic like APIs" (https://aws.amazon.com/compare/cloudfront-and-global-accelerator/). Resolve by cacheability and protocol (HTTP vs TCP/UDP).
+- What makes you pass: coursedesk says most failers already "know the services" and lack the reading skill (https://coursedesk.laravel.cloud/courses/aws-certified-solutions-architect-associate/lessons/how-to-read-an-saa-c03-question); 8th Light stresses hands-on labs and reading beyond the videos (https://8thlight.com/insights/making-most-aws-kubernetes-certifications).
+- us-east-1: Cloud Posse advises avoiding it for stability (https://cloudposse.com/blog/devops/cloud/how-to-pick-your-primary-aws-region), while its own criteria (closest to users, cost, service availability) can point straight back to it for US East customers.
+
+## Best stories
+- The "12 hours" flip: 40 TB of logs, and changing "up to 12 hours" to "within 5 minutes" changes the whole answer (https://coursedesk.laravel.cloud/courses/aws-certified-solutions-architect-associate/lessons/how-to-read-an-saa-c03-question)
+- The proctored exam where you cannot leave your desk even for the toilet, after a webcam sweep of your room (https://8thlight.com/insights/making-most-aws-kubernetes-certifications)
+- The accidentally public S3 bucket: AWS secured the data center, but your one checkbox exposed the files (https://builder.aws.com/content/3L0TDjBSq7BYCw9eRO0NlSZpRaQ/aws-shared-responsibility-model-explained-for-beginners)
+- Why not us-east-1: the busiest Region has historically had the most outages (https://cloudposse.com/blog/devops/cloud/how-to-pick-your-primary-aws-region)
+- NEC catching design issues early with a Well-Architected review for a city waterworks service (https://aws.amazon.com/architecture/well-architected)

@@ -1,0 +1,21 @@
+A: Lesson eleven. Money. Here's a puzzle from one exam prep site. A research firm runs a simulation every night. About three hours. And they just signed a three year contract with their client.
+B: Three years? Easy. Three year Reserved Instances. Biggest discount.
+A: [laughs] That's the bait. A Reserved Instance bills every hour of its term. They use three hours out of twenty four.
+B: Oh no. So I'm paying for twenty one hours of nothing.
+A: By that site's math, even the top discount, seventy two percent, costs more than just staying On-Demand.
+B: Okay, so what wins?
+A: Spot. The job saves a checkpoint every ten minutes and has an eight hour window. If AWS takes an instance back, you lose ten minutes, not the night. And the same site says Spot runs up to ninety percent below On-Demand.
+B: So the contract length was pure noise.
+A: Total noise. Here's the map. Steady, all day, every day? A Savings Plan or Reserved Instances, a one or three year commitment. Work that can be interrupted? Spot. Short or unpredictable? On-Demand, paid by the second.
+B: And the sources agree?
+A: Two of the four pages on EC2 buying options lay it out this way, and none disagree. One of them is AWS's own docs.
+B: What about the bill creeping up somewhere else?
+A: That's the bigger crowd. Eight of seventeen pages warn about quiet charges. A NAT gateway bills by the hour and per gigabyte. An Elastic IP sitting unused still costs you.
+B: Sneaky.
+A: Okay, the thing to try. Ten minutes in the AWS Pricing Calculator. It's free, and it launches nothing.
+B: What do I price?
+A: One small instance. First On-Demand for a full month. Then the same instance on a one year Savings Plan. Write both numbers down.
+B: Then?
+A: Then ask yourself, if this only ran three hours a day, which one would you pick? Your answer is the whole lesson.
+B: Nice.
+A: From now on, you commit only to what runs all day, and interruptible work goes to Spot.

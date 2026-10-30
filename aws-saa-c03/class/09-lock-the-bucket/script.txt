@@ -1,0 +1,21 @@
+A: Lesson nine. Remember the public bucket from lesson two? AWS's data center was fine. One setting exposed the files.
+B: The customer's side of the deal.
+A: Right. So today, how to keep a bucket locked. Here's the catch. When a bucket leaks, it's usually one setting someone flipped, not AWS.
+B: How?
+A: Three moves. One, decide who gets in with a bucket policy, written on the bucket itself. Two, if people need the files, say images on a website, don't open the bucket. Serve them through CloudFront and keep the bucket private.
+B: So the public talks to CloudFront, never to the bucket.
+A: Exactly. Three, encryption. When the company has to control its own keys, use a customer managed key in KMS.
+B: Why not just the default encryption?
+A: Here's a great exam story. A company keeps financial reports in S3. New audit rule. The company controls the keys, can disable a key immediately if it's compromised, and logs every use. Oh, and the security team is two people who don't want to write encryption code.
+B: [laughs] Relatable.
+A: S3 managed keys are out. You can't disable them. The AWS managed key for S3 is the near miss. Its use is logged, but you can't disable it or edit its policy. A hardware security module works, but that's a cluster to run and code to write.
+B: So the winner?
+A: SSE KMS with a customer managed key. You own the policy, you can switch it off, and CloudTrail logs every request.
+B: Do the sources agree?
+A: Five of the ten S3 pages we read teach locking the bucket down, and none disagree. On customer managed keys, two of six pages, also no pushback.
+B: What's the try?
+A: Ten minutes. Open S3 in the console and find the Block Public Access settings for your account. Check that it's on. Just looking. Nothing to create, nothing to pay.
+B: And with no account yet?
+A: Write the three moves on the first page of your security notes. Policy, CloudFront, key.
+B: Easy.
+A: And from now on, when an answer offers to make a bucket public, you'll reach for CloudFront instead.

@@ -1,0 +1,224 @@
+# Notes: batch e
+Pages read: 5. With notes: 5. Skipped: 0 (all five pages had teachable material on the topic).
+
+## T01 Exam format and how people study for it
+- e:N1. SAA-C03 has 65 questions in 130 minutes, of two types: multiple choice (one right answer) and multiple response (two or more right answers). Some questions are unscored pretest items you cannot tell apart, so treat every one seriously.
+  - Source: https://notes.kodekloud.com/docs/AWS-Solutions-Architect-Associate-Certification/Introduction/Solutions-Architecture-Exam-guide-What-to-focus-on/page  Quote: "some may be unscored pretest items, treat all questions seriously"
+  - Kind: number
+  - Level: foundation
+  - Bias: KodeKloud page that introduces its own paid course.
+- e:N2. Scoring is a scaled score from 100 to 1000 and the pass mark is 720. The page glosses 720 as "about 72%" and advises aiming for 80 to 90% on practice tests to leave room for exam stress and unfamiliar wording (their claim; a scaled score is not a raw percentage).
+  - Source: https://notes.kodekloud.com/docs/AWS-Solutions-Architect-Associate-Certification/Introduction/Solutions-Architecture-Exam-guide-What-to-focus-on/page  Quote: "Aim for 80–90% in practice to allow for exam stress and unfamiliar phrasing."
+  - Kind: rule of thumb
+  - Level: foundation
+  - Bias: KodeKloud course page.
+- e:N3. Four domains with weights: Design Secure Architectures 30%, Design Resilient Architectures 26%, Design High-Performing Architectures 24%, Design Cost-Optimized Architectures 20%. Security is the biggest slice, so IAM, encryption (KMS, ACM, TLS) and VPC security deserve the most study time.
+  - Source: https://notes.kodekloud.com/docs/AWS-Solutions-Architect-Associate-Certification/Introduction/Solutions-Architecture-Exam-guide-What-to-focus-on/page  Quote: "Because Domain 1 (security) is the largest slice"
+  - Kind: number
+  - Level: foundation
+  - Also: T17
+  - Bias: KodeKloud course page.
+- e:N4. Use the official exam guide's task statements as a study checklist. They describe things you should be able to do (design a least-privilege IAM model, pick encryption options, lay out a VPC), not trivia to memorize.
+  - Source: https://notes.kodekloud.com/docs/AWS-Solutions-Architect-Associate-Certification/Introduction/Solutions-Architecture-Exam-guide-What-to-focus-on/page  Quote: "These are not trivia items"
+  - Kind: technique
+  - Level: foundation
+  - Bias: KodeKloud course page.
+- e:N5. A notable SAA-C03 addition is data ingestion and transformation (Domain 3, Task Statement 5). Expect scenario questions that ask you to pick an ingestion or transformation service, not deep data science. Suggested practice: prototype a small pipeline with Kinesis/Firehose, S3, Lambda and Glue.
+  - Source: https://notes.kodekloud.com/docs/AWS-Solutions-Architect-Associate-Certification/Introduction/Solutions-Architecture-Exam-guide-What-to-focus-on/page  Quote: "explicit coverage of data ingestion and transformation"
+  - Kind: technique
+  - Level: core
+  - Also: T11
+  - Bias: KodeKloud course page.
+- e:N6. AWS recommends at least one year of hands-on experience before taking the exam. The page says scoped practice projects can stand in for it, and a portfolio of those projects also helps in interviews.
+  - Source: https://notes.kodekloud.com/docs/AWS-Solutions-Architect-Associate-Certification/Introduction/Solutions-Architecture-Exam-guide-What-to-focus-on/page  Quote: "a portfolio of real projects helps in interviews"
+  - Kind: rule of thumb
+  - Level: foundation
+  - Bias: KodeKloud course page; points to its own Slack community.
+
+## T02 Global infrastructure
+- e:N7. Traffic between AWS endpoints stays on the AWS private global backbone even when it uses public IP addresses, for example two EC2 instances in different VPCs or Regions talking over public IPs. The exceptions are the China Regions and the European Sovereign Cloud Region.
+  - Source: https://docs.aws.eu/vpc/latest/userguide/VPC_Subnets.html  Quote: "if EC2 instances in two VPCs communicate using public IP addresses, the traffic stays in the private global network"
+  - Kind: definition
+  - Level: core
+  - Also: T13
+  - Bias: none (AWS documentation).
+- e:N8. AWS targets a p99 hourly packet loss rate below 0.0001% on its global backbone between Regions (their claim).
+  - Source: https://docs.aws.eu/vpc/latest/userguide/VPC_Subnets.html  Quote: "target a p99 of the hourly PLR of less than 0.0001%"
+  - Kind: number
+  - Level: advanced
+  - Bias: none (AWS documentation).
+
+## T06 Elastic Load Balancing and Auto Scaling
+- e:N9. An Auto Scaling Group needs a launch configuration or a launch template. Use launch templates because they support versions, so you can change the AMI or instance type later without rebuilding.
+  - Source: https://notes.kodekloud.com/docs/AWS-For-Beginners-with-Hands-On-Labs/AWS-Essentials-Part-2/AWS-AutoscalingELB/page  Quote: "launch templates are recommended because they support versions"
+  - Kind: rule of thumb
+  - Level: foundation
+  - Bias: KodeKloud lab tutorial tied to a paid course.
+- e:N10. Leave the subnet blank in the launch template so the same template works across different ASGs. The ASG chooses the subnets and can override template values such as instance type.
+  - Source: https://notes.kodekloud.com/docs/AWS-For-Beginners-with-Hands-On-Labs/AWS-Essentials-Part-2/AWS-AutoscalingELB/page  Quote: "leave subnet blank (so template can be reused across ASGs)"
+  - Kind: technique
+  - Level: core
+  - Bias: KodeKloud lab tutorial.
+- e:N11. Standard web tier layout: an internet-facing ALB in public subnets and the EC2 instances in private subnets. Only the ALB is exposed, and it forwards traffic to the private instances.
+  - Source: https://notes.kodekloud.com/docs/AWS-For-Beginners-with-Hands-On-Labs/AWS-Essentials-Part-2/AWS-AutoscalingELB/page  Quote: "keeping instances private while exposing only the ALB"
+  - Kind: template
+  - Level: foundation
+  - Also: T13
+  - Bias: KodeKloud lab tutorial.
+- e:N12. The three ASG capacity numbers: desired (what the ASG keeps running), minimum (the floor) and maximum (the ceiling). The demo used 1/1/3. Even if CPU stays pegged, the ASG never goes above max.
+  - Source: https://notes.kodekloud.com/docs/AWS-For-Beginners-with-Hands-On-Labs/AWS-Essentials-Part-2/AWS-AutoscalingELB/page  Quote: "The ASG will never exceed the configured maximum capacity"
+  - Kind: definition
+  - Level: foundation
+  - Bias: KodeKloud lab tutorial.
+- e:N13. A target tracking policy holds an average metric across the group at a target value, such as 40% average CPU in the demo (70% suggested as a production alternative). A lower target makes the group scale out sooner, and costs more.
+  - Source: https://notes.kodekloud.com/docs/AWS-For-Beginners-with-Hands-On-Labs/AWS-Essentials-Part-2/AWS-AutoscalingELB/page  Quote: "Setting a lower target causes scale-out sooner"
+  - Kind: rule of thumb
+  - Level: core
+  - Bias: KodeKloud lab tutorial.
+- e:N14. Turn on ELB health checks and set a health check grace period (300 seconds by default in the demo). New instances can take that whole period before the group marks them healthy.
+  - Source: https://notes.kodekloud.com/docs/AWS-For-Beginners-with-Hands-On-Labs/AWS-Essentials-Part-2/AWS-AutoscalingELB/page  Quote: "may require the full health-check grace period before being marked healthy"
+  - Kind: number
+  - Level: core
+  - Bias: KodeKloud lab tutorial.
+- e:N15. Self-healing test: terminate one of the ASG's instances by hand. The ASG notices, logs "Instance terminated" and then "Launching a new instance" in its Activity tab, and returns to desired capacity.
+  - Source: https://notes.kodekloud.com/docs/AWS-For-Beginners-with-Hands-On-Labs/AWS-Essentials-Part-2/AWS-AutoscalingELB/page  Quote: "it launches a replacement to return to the desired capacity"
+  - Kind: test
+  - Level: foundation
+  - Also: T16
+  - Bias: KodeKloud lab tutorial.
+- e:N16. Scale-out test: SSH into an instance and run `stress -c 1` to push one core to 100% CPU. The group average passes the 40% target, the alarm fires, and desired capacity rises from 1 to 3 but stops at the maximum.
+  - Source: https://notes.kodekloud.com/docs/AWS-For-Beginners-with-Hands-On-Labs/AWS-Essentials-Part-2/AWS-AutoscalingELB/page  Quote: "Desired capacity increases from 1 to 3"
+  - Kind: story
+  - Level: core
+  - Bias: KodeKloud lab tutorial.
+- e:N17. When you finish a lab, delete the ASG, the ALB and the target group. An ALB left running keeps billing. Beginners often forget the cleanup step.
+  - Source: https://notes.kodekloud.com/docs/AWS-For-Beginners-with-Hands-On-Labs/AWS-Essentials-Part-2/AWS-AutoscalingELB/page  Quote: "clean up ALBs, target groups, EC2 instances, and ASGs after testing to avoid unexpected costs"
+  - Kind: mistake
+  - Level: foundation
+  - Also: T17
+  - Bias: KodeKloud lab tutorial.
+
+## T07 Relational databases and caching
+- e:N18. Multi-AZ creates a synchronous standby in another AZ for automatic failover, and you cannot read from that standby. It is there for availability, not for performance.
+  - Source: https://notes.kodekloud.com/docs/AWS-Certified-DevOps-Engineer-Professional/Domain-3-Resilient-Cloud-Solutions/Demo-RDS-Multi-AZ-Read-Replicas/page  Quote: "Multi‑AZ creates a synchronous standby that is not readable"
+  - Kind: definition
+  - Level: foundation
+  - Also: T16
+  - Bias: KodeKloud course demo (DevOps Professional course).
+- e:N19. Read replicas are separate instances you can read from. They copy data asynchronously, so they can lag behind the primary. Use them to offload reports, analytics and other read-heavy traffic.
+  - Source: https://notes.kodekloud.com/docs/AWS-Certified-DevOps-Engineer-Professional/Domain-3-Resilient-Cloud-Solutions/Demo-RDS-Multi-AZ-Read-Replicas/page  Quote: "Asynchronous (replica lag possible)"
+  - Kind: definition
+  - Level: foundation
+  - Bias: KodeKloud course demo.
+- e:N20. Four-row comparison worth memorizing. Purpose: failover vs read scaling. Readable: no vs yes. Replication: synchronous vs asynchronous. Typical use: production HA for writes vs reporting and read-heavy apps.
+  - Source: https://notes.kodekloud.com/docs/AWS-Certified-DevOps-Engineer-Professional/Domain-3-Resilient-Cloud-Solutions/Demo-RDS-Multi-AZ-Read-Replicas/page  Quote: "Offload read traffic / scale reads"
+  - Kind: template
+  - Level: foundation
+  - Bias: KodeKloud course demo.
+- e:N21. A read replica can itself be deployed Single-AZ (cheaper) or Multi-AZ (so the replica stays available too). The primary must be in the Available state before you create a replica.
+  - Source: https://notes.kodekloud.com/docs/AWS-Certified-DevOps-Engineer-Professional/Domain-3-Resilient-Cloud-Solutions/Demo-RDS-Multi-AZ-Read-Replicas/page  Quote: "Single‑AZ for lower cost, Multi‑AZ for replica availability if needed"
+  - Kind: technique
+  - Level: core
+  - Bias: KodeKloud course demo.
+- e:N22. The Free Tier template does not offer Multi-AZ. Pick Dev/Test or Production if you need it. When cleaning up, delete the read replica first and the primary after it, and decide whether to keep a final snapshot.
+  - Source: https://notes.kodekloud.com/docs/AWS-Certified-DevOps-Engineer-Professional/Domain-3-Resilient-Cloud-Solutions/Demo-RDS-Multi-AZ-Read-Replicas/page  Quote: "delete the read replica first, then delete the primary"
+  - Kind: mistake
+  - Level: foundation
+  - Bias: KodeKloud course demo.
+- e:N23. Aurora handles replication and HA at the storage layer and adds cluster and reader endpoints, so its design patterns are different from classic RDS Multi-AZ. For production, prefer private VPC access over a public endpoint.
+  - Source: https://notes.kodekloud.com/docs/AWS-Certified-DevOps-Engineer-Professional/Domain-3-Resilient-Cloud-Solutions/Demo-RDS-Multi-AZ-Read-Replicas/page  Quote: "Aurora handles replication and high availability at the storage layer"
+  - Kind: definition
+  - Level: core
+  - Bias: KodeKloud course demo.
+
+## T13 VPC networking
+- e:N24. A VPC is a logically isolated virtual network belonging to your account. A subnet is a range of IP addresses inside it, and you launch resources such as EC2 into subnets. Route tables decide where each subnet's traffic goes.
+  - Source: https://docs.aws.eu/vpc/latest/userguide/VPC_Subnets.html  Quote: "A subnet is a range of IP addresses in your VPC."
+  - Kind: definition
+  - Level: foundation
+  - Bias: none (AWS documentation).
+- e:N25. Accounts created after December 4, 2013 come with a default VPC in every Region. It has a default subnet in each AZ, an internet gateway already attached, and a main route table route sending all traffic to that gateway. Instances launched there get a public IP and internet access automatically.
+  - Source: https://docs.aws.eu/vpc/latest/userguide/VPC_Subnets.html  Quote: "an EC2 instance that is launched in a default subnet automatically has access to the internet"
+  - Kind: definition
+  - Level: foundation
+  - Bias: none (AWS documentation).
+- e:N26. In a nondefault subnet, instances get only a private IPv4 address by default. They can reach each other but not the internet. To give one internet access, attach an internet gateway and give it a public or Elastic IP.
+  - Source: https://docs.aws.eu/vpc/latest/userguide/VPC_Subnets.html  Quote: "These instances can communicate with each other, but can't access the internet."
+  - Kind: mistake
+  - Level: foundation
+  - Bias: none (AWS documentation).
+- e:N27. Each route has a destination (an IP range) and a target (a gateway, network interface or connection). A subnet you don't explicitly associate with a route table falls back to the main route table.
+  - Source: https://docs.aws.eu/vpc/latest/userguide/VPC_Subnets.html  Quote: "Otherwise, the subnet is implicitly associated with the main route table."
+  - Kind: definition
+  - Level: foundation
+  - Bias: none (AWS documentation).
+- e:N28. A NAT device lets instances in a private subnet start outbound internet connections while blocking unsolicited inbound ones. The NAT has an Elastic IP and sits behind the internet gateway, mapping many private IPs to one public IP. For IPv6, the outbound-only equivalent is an egress-only internet gateway.
+  - Source: https://docs.aws.eu/vpc/latest/userguide/VPC_Subnets.html  Quote: "prevent unsolicited inbound connections from the internet"
+  - Kind: definition
+  - Level: core
+  - Bias: none (AWS documentation).
+- e:N29. Site-to-Site VPN connects your data center to a VPC over IPsec. Each connection is two tunnels between a virtual private gateway or transit gateway on the AWS side and a customer gateway device on your side.
+  - Source: https://docs.aws.eu/vpc/latest/userguide/VPC_Subnets.html  Quote: "two VPN tunnels between a virtual private gateway or transit gateway"
+  - Kind: definition
+  - Level: core
+  - Bias: none (AWS documentation).
+- e:N30. VPC peering links two VPCs privately so they behave like one network. A transit gateway is a Regional virtual router that connects many VPCs, VPNs and Direct Connect gateways through one hub.
+  - Source: https://docs.aws.eu/vpc/latest/userguide/VPC_Subnets.html  Quote: "The transit gateway acts as a Regional virtual router"
+  - Kind: definition
+  - Level: core
+  - Bias: none (AWS documentation).
+
+## T14 Security services and encryption
+- e:N31. Envelope encryption uses two layers of keys. A fresh Data Encryption Key (DEK) encrypts each object. A long-lived Key Encryption Key (KEK) kept in an HSM only encrypts (wraps) DEKs and never leaves the HSM. This is how AWS KMS works under the hood.
+  - Source: https://workos.com/blog/envelope-encryption-explained  Quote: "It is how AWS KMS, Google Cloud KMS, Azure Key Vault, and WorkOS Vault all work under the hood."
+  - Kind: definition
+  - Level: core
+  - Bias: WorkOS blog that promotes its own Vault product.
+- e:N32. Steps: generate a DEK, encrypt the data with AES-256-GCM, have the HSM wrap the DEK with the KEK, store the ciphertext next to the wrapped DEK, then drop the plaintext DEK from memory. Decryption runs the same steps in reverse.
+  - Source: https://workos.com/blog/envelope-encryption-explained  Quote: "Store two things together: the encrypted data and the wrapped (encrypted) DEK."
+  - Kind: technique
+  - Level: core
+  - Bias: WorkOS blog, sells Vault.
+- e:N33. Why rotation is cheap: rotating the KEK only means re-wrapping the small DEKs, so the data itself doesn't move. The page says a rotation that took hours drops to seconds (their claim).
+  - Source: https://workos.com/blog/envelope-encryption-explained  Quote: "A rotation that would have taken hours now takes seconds."
+  - Kind: rule of thumb
+  - Level: core
+  - Bias: WorkOS blog, sells Vault.
+- e:N34. Story: a SaaS team keeps one AES-256 key in an environment variable. Rotating it would mean re-encrypting millions of rows, so they never rotate, and the key sits there for years until an audit finds it in an old log file.
+  - Source: https://workos.com/blog/envelope-encryption-explained  Quote: "So most teams skip it. The key sits there for years, accumulating risk."
+  - Kind: story
+  - Level: foundation
+  - Bias: WorkOS blog, sells Vault.
+- e:N35. A leaked DEK exposes only the one object it encrypted. An attacker who copies the whole database gets only ciphertext and wrapped DEKs, which are useless without HSM access to unwrap them.
+  - Source: https://workos.com/blog/envelope-encryption-explained  Quote: "An attacker who exfiltrates your entire database has a pile of ciphertext they cannot use."
+  - Kind: rule of thumb
+  - Level: core
+  - Bias: WorkOS blog, sells Vault.
+- e:N36. Common mistakes: storing or logging the plaintext DEK, reusing one DEK across many objects, keeping the KEK in an environment variable or config file instead of an HSM or KMS, and using one KEK for every tenant, which gives no cryptographic isolation between them.
+  - Source: https://workos.com/blog/envelope-encryption-explained  Quote: "Storing the KEK in an environment variable or a config file defeats the purpose."
+  - Kind: mistake
+  - Level: core
+  - Bias: WorkOS blog, sells Vault.
+- e:N37. Every decryption goes through the HSM or KMS, so every use of a key can be logged: what was decrypted, by whom and when. Auditors ask about exactly this for HIPAA, PCI DSS and SOC 2.
+  - Source: https://workos.com/blog/envelope-encryption-explained  Quote: "every operation is auditable"
+  - Kind: rule of thumb
+  - Level: core
+  - Also: T15
+  - Bias: WorkOS blog, sells Vault.
+- e:N38. Bring your own key (BYOK) means the customer supplies the KEK. No data is re-encrypted and application code doesn't change. Only the wrap and unwrap step uses their key, and if they revoke it, all their data becomes unreadable immediately.
+  - Source: https://workos.com/blog/envelope-encryption-explained  Quote: "this is a supported swap at the KEK layer"
+  - Kind: definition
+  - Level: advanced
+  - Bias: WorkOS blog, sells Vault.
+
+## Disagreements seen
+- No direct contradictions among these five pages; they cover mostly separate topics.
+- On exam scoring, https://notes.kodekloud.com/docs/AWS-Solutions-Architect-Associate-Certification/Introduction/Solutions-Architecture-Exam-guide-What-to-focus-on/page equates the scaled 720 with "about 72%". Scaled scores do not map linearly to raw percentage, so check this against the official AWS exam guide.
+- On reaching the internet, https://docs.aws.eu/vpc/latest/userguide/VPC_Subnets.html makes default-VPC instances public by default, while https://notes.kodekloud.com/docs/AWS-For-Beginners-with-Hands-On-Labs/AWS-Essentials-Part-2/AWS-AutoscalingELB/page recommends private subnets behind an ALB. These do not truly conflict: the default is convenient, and the private-subnet layout is the secure pattern.
+
+## Best stories
+- A key that never gets rotated: one AES key sits in an environment variable for years because re-encrypting millions of rows is too painful, until an audit finds it in an old log. https://workos.com/blog/envelope-encryption-explained
+- Kill an instance on purpose and watch the Auto Scaling Group replace it ("Instance terminated", then "Launching a new instance"). https://notes.kodekloud.com/docs/AWS-For-Beginners-with-Hands-On-Labs/AWS-Essentials-Part-2/AWS-AutoscalingELB/page
+- `stress -c 1` pushes CPU past the 40% target, desired capacity climbs from 1 to 3 and stops at the maximum. https://notes.kodekloud.com/docs/AWS-For-Beginners-with-Hands-On-Labs/AWS-Essentials-Part-2/AWS-AutoscalingELB/page
+- An attacker steals the whole database and gets "a pile of ciphertext they cannot use" because the KEK never leaves the HSM. https://workos.com/blog/envelope-encryption-explained
+- Two EC2 instances in different Regions talk over public IPs, yet the packets never touch the public internet because they stay on the AWS backbone. https://docs.aws.eu/vpc/latest/userguide/VPC_Subnets.html

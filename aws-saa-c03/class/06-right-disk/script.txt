@@ -1,0 +1,25 @@
+A: Lesson six. Your app needs somewhere to keep files. Which disk do you grab?
+B: [laughs] Uh, the one with the most space?
+A: That's the trap. AWS gives you four very different places, and the exam loves to swap them.
+B: Okay, walk me through.
+A: EBS first. Elastic Block Store. Think of it as the hard drive plugged into one server. Boot disks, databases. It lives in one zone and belongs to one instance.
+B: And if lots of servers need the same files?
+A: EFS. Elastic File System. A shared network drive for Linux machines, spread across zones. Ten web servers, one folder of uploads, all seeing the same thing.
+B: Then S3.
+A: Object storage. You don't mount it, you put and get files over an API. Backups, logs, videos.
+B: And the fourth?
+A: Instance store. Really fast disk sitting on the host itself. But if the instance goes away, so does the data. Scratch space only.
+B: Do the sources agree on this split?
+A: All three of the storage pages we read teach it, and none disagree. For EBS, the default is gp3, the general purpose SSD. Step up to io2 only when you need a guaranteed floor of speed.
+B: Got a number?
+A: CloudZero has a nice one. By their prices, gp3 runs about eight cents per gigabyte a month, and EFS Standard about thirty.
+B: So EBS always wins?
+A: For one server, sure. But picture ten servers all needing the same data. Ten EBS volumes, ten bills. With EFS, you pay once for the file system, however many servers connect.
+B: So the cheap disk gets pricey the more copies you make.
+A: Exactly. Count the servers before you count the cents.
+B: What's the thing to try?
+A: Five minutes, on paper. Five workloads. A boot disk, shared web uploads, a video archive, a temp cache, a database volume. Sort each one into EBS, EFS, S3 or instance store.
+B: And the answers?
+A: On the card. One instance, EBS. Many instances, EFS. Anything over HTTP, S3.
+B: Nice.
+A: And next time a question says shared, or archive, or scratch, you'll hear the right disk first.

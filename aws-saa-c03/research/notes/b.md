@@ -1,0 +1,306 @@
+# Notes: batch b
+Pages read: 8. With notes: 8. Skipped: 0 (every page had teachable SAA-C03 content; two career pages are thin but carry concrete study advice).
+
+## T01 Exam format and how people study for it
+- b:N1. The exam is 65 questions in 130 minutes (about 2 minutes each); 50 are scored and 15 are unscored and unmarked, so treat every question as counting. Scaled score 100 to 1,000, pass at 720, compensatory (overall score, not per domain). Fee 150 USD.
+  - Source: https://www.examcert.app/blog/aws-saa-c03-scenario-questions/  Quote: "65 (50 scored, 15 unscored and unmarked)"
+  - Kind: number
+  - Level: foundation
+  - Bias: page sells a 3,100+ question practice app.
+- b:N2. No penalty for guessing and unanswered questions are scored wrong: answer everything on the first pass, flag doubtful ones, and reserve 15 to 20 minutes for a review pass. Change an answer only if you can name the constraint you missed.
+  - Source: https://www.examcert.app/blog/aws-saa-c03-scenario-questions/  Quote: "Change an answer only if you can name the constraint you missed."
+  - Kind: rule of thumb
+  - Level: foundation
+  - Bias: sells a practice app.
+- b:N3. Most items are short architecture briefs where two answers would work in real life; read the stem as a filter. Constraints remove options, the qualifier (LEAST operational overhead, MOST cost-effective) ranks the survivors, everything else is scenery.
+  - Source: https://www.examcert.app/blog/aws-saa-c03-scenario-questions/  Quote: "constraints remove options, the qualifier ranks what is left, and everything else is scenery"
+  - Kind: technique
+  - Level: core
+  - Bias: sells a practice app.
+- b:N4. A 5-step decode routine: read the ask line first (qualifier, Choose two?), pull out hard constraints (must, required, cannot), translate keywords to services, eliminate option by option naming the broken constraint, then rank survivors on the qualifier.
+  - Source: https://www.examcert.app/blog/aws-saa-c03-scenario-questions/  Quote: "Read the final question line first"
+  - Kind: template
+  - Level: core
+  - Bias: sells a practice app.
+- b:N5. Distractors follow patterns: right service but wrong variant (AWS managed key instead of customer managed), the self-managed twin (Kafka on EC2, cron on an instance), fixes the wrong tier, commitment pricing for a part-time workload, and the cheapest option that quietly breaks one buried constraint.
+  - Source: https://www.examcert.app/blog/aws-saa-c03-scenario-questions/  Quote: "Right service, wrong variant"
+  - Kind: mistake
+  - Level: core
+  - Bias: sells a practice app.
+- b:N6. Practice drills for reading: cover the options and predict the answer first; delete stem sentences one at a time to find noise; write a one-line "kill line" for every distractor. If you cannot, you got it right by recognition, not reading.
+  - Source: https://www.examcert.app/blog/aws-saa-c03-scenario-questions/  Quote: "you got the question right by recognition, not by reading"
+  - Kind: technique
+  - Level: core
+  - Bias: sells a practice app.
+- b:N7. In a Choose-two item each correct pick usually covers a different requirement; if your pair leaves one requirement uncovered, it is the wrong pair. With no ranking word, exactly one option meets every constraint; if two still look right, reread the stem.
+  - Source: https://www.examcert.app/blog/aws-saa-c03-scenario-questions/  Quote: "If two options still look right, you have missed a constraint."
+  - Kind: rule of thumb
+  - Level: core
+  - Bias: sells a practice app.
+- b:N8. Weight study time by domain: Design Secure Architectures (30%) and Design Resilient Architectures (26%) are more than half the exam. The poster's scores were flat while studying all four domains equally.
+  - Source: https://forum.freecodecamp.org/t/how-i-structured-a-6-week-study-plan-for-aws-saa-c03-what-actually-moved-the-needle/799377  Quote: "I had been spending equal time on all four, which is why my scores were flat."
+  - Kind: number
+  - Level: foundation
+  - Bias: poster account "andy_certprep" links a third-party practice test site; possibly promotional.
+- b:N9. Wrong-answer log: put every miss in a spreadsheet with a column for why (didn't know the service, misread the constraint, fell for a plausible option). About 40% of misses were misread constraints like "most cost-effective" vs "least operational overhead" (their claim).
+  - Source: https://forum.freecodecamp.org/t/how-i-structured-a-6-week-study-plan-for-aws-saa-c03-what-actually-moved-the-needle/799377  Quote: "I stopped studying by topic and started studying by wrong answer."
+  - Kind: technique
+  - Level: foundation
+  - Bias: possibly promotional (links practice test site).
+- b:N10. Build three small projects instead of watching video: static site on S3 plus CloudFront with OAC, a VPC with public/private subnets and a NAT gateway, and an Auto Scaling group behind an ALB with a health check you deliberately break.
+  - Source: https://forum.freecodecamp.org/t/how-i-structured-a-6-week-study-plan-for-aws-saa-c03-what-actually-moved-the-needle/799377  Quote: "Three small projects taught me more than 20 hours of video"
+  - Kind: technique
+  - Level: foundation
+  - Also: T13
+  - Bias: possibly promotional.
+- b:N11. What to skip and what not to: skip memorizing instance type names and writing IAM policy JSON from scratch (you only need to read policies); skip any course over 15 hours. Underrated: storage class differences cold, and reading every option because two are usually correct and one is cheaper or lower effort.
+  - Source: https://forum.freecodecamp.org/t/how-i-structured-a-6-week-study-plan-for-aws-saa-c03-what-actually-moved-the-needle/799377  Quote: "You need to read policies, not write them from scratch."
+  - Kind: rule of thumb
+  - Level: foundation
+  - Also: T09
+  - Bias: possibly promotional.
+- b:N12. The exam is entirely multiple choice with no hands-on labs; you need concepts and service selection, not console steps.
+  - Source: https://www.sailor.sh/blog/aws-vpc-concepts-for-saa-c03  Quote: "entirely multiple-choice and does not include hands-on labs"
+  - Kind: definition
+  - Level: foundation
+  - Bias: sells mock exams.
+- b:N13. A certification gets you the interview, not the job: interviewers ask how you would design, secure, cost-reduce and troubleshoot a system. One or two well-chosen certs open doors; after that, build portfolio projects (IaC, real deployments).
+  - Source: https://digitalcloud.training/the-truth-about-aws-certifications-after-25-years-in-tech/  Quote: "Certifications help you get the interview. They do not get you the job offer."
+  - Kind: rule of thumb
+  - Level: foundation
+  - Bias: sells Cloud Mastery Bootcamp.
+- b:N14. The "certification trap": mid-career people keep stacking Associate, Professional, Specialty badges because it feels productive, while avoiding messy open-ended projects. "Certifications are controlled environments. Real engineering is not."
+  - Source: https://digitalcloud.training/the-truth-about-aws-certifications-after-25-years-in-tech/  Quote: "Certifications are controlled environments. Real engineering is not."
+  - Kind: mistake
+  - Level: foundation
+  - Bias: sells Cloud Mastery Bootcamp.
+- b:N15. SAA is now a prerequisite rather than a differentiator ("everyone seems to have" it). Pair it with hands-on projects: deploy a web app on EC2, S3 and RDS; a serverless app on Lambda and API Gateway; a CI/CD pipeline; IAM roles and policies.
+  - Source: https://digitalcloud.training/why-an-aws-certification-will-not-get-you-an-aws-job/  Quote: "prerequisites, rather than differentiators"
+  - Kind: rule of thumb
+  - Level: foundation
+  - Bias: sells training courses, Challenge Labs and a bootcamp.
+
+## T03 IAM
+- b:N16. IAM answers four questions: who can access, which resources, what actions, under which conditions. A policy names Effect, Action, Resource and optional Conditions; e.g. Allow s3:GetObject on arn:aws:s3:::example-bucket/*.
+  - Source: https://builder.aws.com/content/3Kclu4dDUaoAETVUirp8jgTvSjB/a-practical-guide-to-secure-access-management  Quote: "Under which conditions access is allowed"
+  - Kind: definition
+  - Level: foundation
+  - Bias: none (community post on AWS site).
+- b:N17. Least privilege in one example: a developer who only reads files gets s3:GetObject, not s3:*. It limits the damage of leaked credentials or accidental changes.
+  - Source: https://builder.aws.com/content/3Kclu4dDUaoAETVUirp8jgTvSjB/a-practical-guide-to-secure-access-management  Quote: "Give an identity only the permissions it actually needs."
+  - Kind: rule of thumb
+  - Level: foundation
+  - Bias: none
+- b:N18. Users vs groups vs roles: users hold long-term credentials; groups (Developers, Read-Only) let you attach a policy once; roles give temporary credentials to services and apps. Prefer roles over access keys wherever possible.
+  - Source: https://builder.aws.com/content/3Kclu4dDUaoAETVUirp8jgTvSjB/a-practical-guide-to-secure-access-management  Quote: "temporary credentials and IAM roles are preferred over long-term access keys"
+  - Kind: definition
+  - Level: foundation
+  - Bias: none
+- b:N19. Story: an app on EC2 needs files from S3. Weak design: an access key in the app config. Better: attach an IAM role to the instance granting read but not delete. On the exam, "MOST secure" picks the role over stored keys.
+  - Source: https://builder.aws.com/content/3Kclu4dDUaoAETVUirp8jgTvSjB/a-practical-guide-to-secure-access-management  Quote: "A weak approach would be to place an AWS access key directly inside the application configuration."
+  - Kind: story
+  - Level: foundation
+  - Also: T01 (examcert lists the same as the MOST secure example)
+  - Bias: none
+- b:N20. Identity-based policies attach to users, groups, roles; resource-based policies attach to the resource itself, such as an S3 bucket policy naming who may access the bucket.
+  - Source: https://builder.aws.com/content/3Kclu4dDUaoAETVUirp8jgTvSjB/a-practical-guide-to-secure-access-management  Quote: "an Amazon S3 bucket policy can define which identities are allowed to access the bucket"
+  - Kind: definition
+  - Level: core
+  - Also: T09
+  - Bias: none
+- b:N21. Hygiene checklist: MFA on privileged accounts, never use root for daily tasks, never hard-code or commit access keys, review permissions as people change roles, and watch CloudTrail for new access keys and policy changes.
+  - Source: https://builder.aws.com/content/3Kclu4dDUaoAETVUirp8jgTvSjB/a-practical-guide-to-secure-access-management  Quote: "should never be hard-coded into application source code or committed to public repositories"
+  - Kind: template
+  - Level: foundation
+  - Also: T15
+  - Bias: none
+- b:N22. "Prevent every account in the organization from..." points to a service control policy (SCP) in AWS Organizations; per-account IAM policies are wrong because local admins can change them.
+  - Source: https://www.examcert.app/blog/aws-saa-c03-scenario-questions/  Quote: "IAM policies in each account, which local administrators can change"
+  - Kind: rule of thumb
+  - Level: core
+  - Bias: sells a practice app.
+
+## T04 EC2
+- b:N23. Story: a nightly 3-hour batch job with S3 checkpoints every 10 minutes and an 8-hour window. A new three-year contract baits you into 3-year Reserved Instances, but RIs bill every hour; at 3 of 24 hours even a 72% discount costs more than On-Demand. Spot (up to 90% off) with diversified instance types wins.
+  - Source: https://www.examcert.app/blog/aws-saa-c03-scenario-questions/  Quote: "A long contract is not steady usage"
+  - Kind: story
+  - Level: core
+  - Also: T17
+  - Bias: sells a practice app.
+- b:N24. Keyword map for purchasing: steady around-the-clock use for years means Savings Plans or RIs; "can tolerate interruption / resume from checkpoint" means Spot. An On-Demand Capacity Reservation guarantees capacity but bills at On-Demand rate whether used or not, so it never cuts cost.
+  - Source: https://www.examcert.app/blog/aws-saa-c03-scenario-questions/  Quote: "Solves availability, not cost."
+  - Kind: rule of thumb
+  - Level: core
+  - Bias: sells a practice app.
+
+## T06 Elastic Load Balancing and Auto Scaling
+- b:N25. Queue workers should scale on backlog per instance (messages waiting divided by fleet size) with target tracking, the metric AWS documents for scaling SQS consumers.
+  - Source: https://www.examcert.app/blog/aws-saa-c03-scenario-questions/  Quote: "Backlog per instance measures waiting work against fleet size"
+  - Kind: technique
+  - Level: core
+  - Also: T11
+  - Bias: sells a practice app.
+
+## T09 Amazon S3
+- b:N26. Storage class keywords: unknown or changing access patterns means S3 Intelligent-Tiering; rarely read but needed in milliseconds means Glacier Instant Retrieval, not Flexible Retrieval or Deep Archive (minutes to hours). "MOST cost-effective" never licenses breaking a retrieval-time requirement.
+  - Source: https://www.examcert.app/blog/aws-saa-c03-scenario-questions/  Quote: "It never licenses dropping a requirement to save money."
+  - Kind: rule of thumb
+  - Level: core
+  - Also: T17
+  - Bias: sells a practice app.
+- b:N27. S3 Cross-Region Replication does not replicate delete markers by default, protecting the DR copy from accidental or malicious deletes. S3 Replication Time Control is designed to replicate 99.9% of objects within 15 minutes, giving a measurable RPO.
+  - Source: https://hidekazu-konishi.com/entry/aws_disaster_recovery_strategies_guide.html  Quote: "designed to replicate 99.9% of objects within 15 minutes"
+  - Kind: number
+  - Level: advanced
+  - Also: T16
+  - Bias: none
+
+## T11 Decoupling
+- b:N28. Story: a retailer loses orders during sales because the web tier calls EC2 workers directly. Answer: SQS standard queue (message stays until a consumer deletes it, reappears if a worker dies) plus Auto Scaling on backlog. SNS push is wrong because it is not a buffer; bigger instances and an Aurora migration fix nothing (DB at 20% CPU is noise).
+  - Source: https://www.examcert.app/blog/aws-saa-c03-scenario-questions/  Quote: "SNS pushes and retries for a limited time; it is not a buffer"
+  - Kind: story
+  - Level: core
+  - Also: T06
+  - Bias: sells a practice app.
+- b:N29. Pick the queue type from the stem: idempotent processing means standard queue's at-least-once delivery is fine; "exactly once, in order" means SQS FIFO; "each event to several independent consumers" means SNS fanning out to one SQS queue per consumer; "real-time stream, several consumers, replay" means Kinesis Data Streams.
+  - Source: https://www.examcert.app/blog/aws-saa-c03-scenario-questions/  Quote: "One shared SQS queue, where each message reaches only one consumer"
+  - Kind: rule of thumb
+  - Level: core
+  - Bias: sells a practice app.
+
+## T12 Serverless
+- b:N30. The classic serverless REST API: client calls API Gateway (the "front door"), which routes to a stateless Lambda function, which reads and writes DynamoDB. Create a table with partition key id, use on-demand capacity for unpredictable load, pick an HTTP API, and test with curl for a 201 Created.
+  - Source: https://builder.aws.com/content/3KXRAwuplncnbnTDQfWDtn5P1ML/building-your-first-serverless-rest-api-with-aws-lambda-api-gateway-and-dynamodb  Quote: "API Gateway acts as the \"front door,\""
+  - Kind: template
+  - Level: foundation
+  - Also: T01 (a beginner hands-on project)
+  - Bias: none (student author on AWS community site).
+- b:N31. Common shortcut to notice: the tutorial attaches AmazonDynamoDBFullAccess to the Lambda execution role "or a custom scoped IAM policy". Least privilege says scope it to the one table and the actions used.
+  - Source: https://builder.aws.com/content/3KXRAwuplncnbnTDQfWDtn5P1ML/building-your-first-serverless-rest-api-with-aws-lambda-api-gateway-and-dynamodb  Quote: "AmazonDynamoDBFullAccess or a custom scoped IAM policy"
+  - Kind: mistake
+  - Level: foundation
+  - Also: T03
+  - Bias: none
+- b:N32. "Without managing servers" points to Lambda, Fargate, DynamoDB, Aurora Serverless, S3; Auto Scaling groups still have instances to patch. A nightly short task belongs on EventBridge Scheduler invoking Lambda (under 15 minutes), not an always-on EC2 cron box. Microsecond DynamoDB reads means DAX.
+  - Source: https://www.examcert.app/blog/aws-saa-c03-scenario-questions/  Quote: "An EC2 instance kept running all day just to host cron"
+  - Kind: rule of thumb
+  - Level: core
+  - Bias: sells a practice app.
+
+## T13 VPC networking
+- b:N33. A subnet is public only because its route table has 0.0.0.0/0 to an Internet Gateway; there is no "public" checkbox. Change the route table and the same subnet becomes private. An instance also needs a public IP to reach the internet.
+  - Source: https://www.sailor.sh/blog/aws-vpc-concepts-for-saa-c03  Quote: "subnet \"publicity\" is determined by the route table, not by a subnet setting"
+  - Kind: definition
+  - Level: foundation
+  - Bias: sells mock exams.
+- b:N34. VPC basics: one Region, spans all its AZs; each subnet lives in one AZ; CIDR between /16 (65,536 addresses) and /28 (16); a /24 gives 256 addresses, 251 usable in AWS; every route table has an unremovable local route; longest prefix wins.
+  - Source: https://www.sailor.sh/blog/aws-vpc-concepts-for-saa-c03  Quote: "a /24 provides 256 addresses (251 usable in AWS)"
+  - Kind: number
+  - Level: foundation
+  - Also: T02
+  - Bias: sells mock exams.
+- b:N35. Security groups vs NACLs: SG is stateful, allow-only, at the ENI, all rules evaluated, default deny inbound. NACL is stateless, allow and deny, at the subnet, numbered rules first match wins. Called the most tested VPC topic. To block a specific IP, only a NACL can.
+  - Source: https://www.sailor.sh/blog/aws-vpc-concepts-for-saa-c03  Quote: "Security groups cannot deny traffic explicitly"
+  - Kind: definition
+  - Level: foundation
+  - Bias: sells mock exams.
+- b:N36. Troubleshooting story: a private-subnet app makes outbound API calls but gets no responses. Cause: a stateless NACL allows outbound but not the return traffic on ephemeral ports 1024 to 65535.
+  - Source: https://www.sailor.sh/blog/aws-vpc-concepts-for-saa-c03  Quote: "does not have rules permitting the return traffic on ephemeral ports"
+  - Kind: story
+  - Level: core
+  - Bias: sells mock exams.
+- b:N37. Three-tier chain of trust: ALB in public subnet; app SG allows only the ALB's SG; DB SG allows only the app SG. Security groups can reference other security groups instead of IPs.
+  - Source: https://www.sailor.sh/blog/aws-vpc-concepts-for-saa-c03  Quote: "This creates a chain of trust through security group references."
+  - Kind: template
+  - Level: core
+  - Also: T06
+  - Bias: sells mock exams.
+- b:N38. NAT Gateway vs NAT instance: default to NAT Gateway (managed, up to 100 Gbps, sits in a public subnet with an Elastic IP, one per AZ for HA). Choose a NAT instance only for very low traffic cost or to double as a bastion; it needs source/destination check disabled.
+  - Source: https://www.sailor.sh/blog/aws-vpc-concepts-for-saa-c03  Quote: "choose NAT Gateway unless the scenario specifically mentions cost constraints"
+  - Kind: rule of thumb
+  - Level: core
+  - Bias: sells mock exams.
+- b:N39. Gateway endpoints exist only for S3 and DynamoDB, are free, and are a route table entry; interface endpoints (PrivateLink) cover most other services, create an ENI, cost per hour and per GB. Routing S3 traffic through a gateway endpoint avoids NAT data charges of $0.045 per GB (their claim).
+  - Source: https://www.sailor.sh/blog/aws-vpc-concepts-for-saa-c03  Quote: "Gateway endpoints for S3 and DynamoDB are free."
+  - Kind: number
+  - Level: core
+  - Also: T17
+  - Bias: sells mock exams.
+- b:N40. VPC peering is not transitive and needs non-overlapping CIDRs: three VPCs need three connections (A-B, B-C, A-C). For many VPCs, centralized routing, or shared on-prem links (e.g. 20 VPCs plus Direct Connect), choose Transit Gateway as hub and spoke.
+  - Source: https://www.sailor.sh/blog/aws-vpc-concepts-for-saa-c03  Quote: "VPC A cannot communicate with VPC C through VPC B"
+  - Kind: rule of thumb
+  - Level: core
+  - Bias: sells mock exams.
+- b:N41. Site-to-Site VPN: IPsec over the internet, minutes to hours to set up, two tunnels, about 1.25 Gbps per tunnel. Direct Connect: dedicated link, consistent latency, weeks to months to provision, not encrypted by default. Pattern: VPN now while waiting for Direct Connect, then VPN as backup.
+  - Source: https://www.sailor.sh/blog/aws-vpc-concepts-for-saa-c03  Quote: "Takes weeks to months to provision"
+  - Kind: rule of thumb
+  - Level: advanced
+  - Bias: sells mock exams.
+- b:N42. Internet troubleshooting checklist for a public-subnet instance: public or Elastic IP? 0.0.0.0/0 route to IGW? IGW attached? SG outbound allows? NACL outbound and inbound return traffic allow?
+  - Source: https://www.sailor.sh/blog/aws-vpc-concepts-for-saa-c03  Quote: "Does the route table have a 0.0.0.0/0 route to the IGW?"
+  - Kind: test
+  - Level: foundation
+  - Bias: sells mock exams.
+
+## T14 Security services and encryption
+- b:N43. Story: audit rule says the company controls S3 encryption keys, can disable a key immediately, and logs every use; two-person team wants no encryption code. SSE-S3 and the AWS managed aws/s3 key are out (cannot disable). CloudHSM plus client-side code meets control but loses on overhead. Answer: SSE-KMS with a customer managed key, logged by CloudTrail.
+  - Source: https://www.examcert.app/blog/aws-saa-c03-scenario-questions/  Quote: "An AWS managed key cannot be disabled or have its key policy changed."
+  - Kind: story
+  - Level: core
+  - Also: T09
+  - Bias: sells a practice app.
+- b:N44. "Rotate database credentials automatically" means Secrets Manager (Parameter Store SecureString has no built-in rotation). "Block SQL injection and XSS" means AWS WAF on ALB, CloudFront or API Gateway; SGs and NACLs only filter IP, port, protocol.
+  - Source: https://www.examcert.app/blog/aws-saa-c03-scenario-questions/  Quote: "Parameter Store SecureString (no built-in rotation)"
+  - Kind: rule of thumb
+  - Level: core
+  - Bias: sells a practice app.
+
+## T15 Monitoring and auditing
+- b:N45. VPC Flow Logs at VPC, subnet or ENI level, sent to CloudWatch Logs or S3; they hold metadata (IPs, ports, action), not packet contents, cannot be edited after creation, and skip Amazon DNS, DHCP and metadata service traffic. Filter on REJECT to see who is being denied.
+  - Source: https://www.sailor.sh/blog/aws-vpc-concepts-for-saa-c03  Quote: "capture metadata (source IP, destination IP, ports, protocol, action) but not packet contents"
+  - Kind: definition
+  - Level: core
+  - Also: T13
+  - Bias: sells mock exams.
+
+## T16 High availability and disaster recovery
+- b:N46. HA vs DR: high availability survives a component or AZ failure within a Region (Multi-AZ, Auto Scaling, load balancers). DR recovers from Region loss or data corruption, usually in another Region, against explicit RTO and RPO. None of the four DR strategies are needed for a single-AZ failure.
+  - Source: https://hidekazu-konishi.com/entry/aws_disaster_recovery_strategies_guide.html  Quote: "HA is about not going down in the first place"
+  - Kind: definition
+  - Level: foundation
+  - Bias: none
+- b:N47. RTO is how long you can be down (time after the disaster); RPO is how much data, measured in time, you can lose (time before the disaster). They are independent: a system of record may tolerate hours of RTO but only seconds of RPO.
+  - Source: https://hidekazu-konishi.com/entry/aws_disaster_recovery_strategies_guide.html  Quote: "how much data, measured in time, can we afford to lose?"
+  - Kind: definition
+  - Level: foundation
+  - Bias: none
+- b:N48. The four strategies on one spectrum: Backup and Restore (RTO hours, lowest cost), Pilot Light (tens of minutes; data replicated, core on, app tier off), Warm Standby (minutes; scaled-down but fully working copy always on), Multi-Site Active-Active (near zero, highest cost). Pick the simplest that meets the objectives.
+  - Source: https://hidekazu-konishi.com/entry/aws_disaster_recovery_strategies_guide.html  Quote: "simplest, cheapest strategy that still meets the objectives"
+  - Kind: definition
+  - Level: core
+  - Bias: none
+- b:N49. The sharp line between Pilot Light and Warm Standby: Pilot Light cannot process requests without first turning on servers; Warm Standby can take traffic immediately at reduced capacity and only needs to scale up.
+  - Source: https://hidekazu-konishi.com/entry/aws_disaster_recovery_strategies_guide.html  Quote: "Pilot Light cannot process requests without additional action first"
+  - Kind: test
+  - Level: core
+  - Bias: none
+- b:N50. Your RPO can never beat your data-protection cadence: hourly backups mean an RPO floor of one hour; and replication copies corruption and deletes instantly, so even active-active needs point-in-time backups. Exam keyword: "another Region with RPO of seconds" means Aurora Global Database or DynamoDB global tables, not scheduled snapshot copies (RPO of hours).
+  - Source: https://hidekazu-konishi.com/entry/aws_disaster_recovery_strategies_guide.html  Quote: "your achievable RPO can never be better than the cadence of your data-protection mechanism"
+  - Source: https://www.examcert.app/blog/aws-saa-c03-scenario-questions/  Quote: "Snapshots copied to another Region on a schedule: RPO of hours"
+  - Kind: rule of thumb
+  - Level: core
+  - Also: T07
+  - Bias: none
+
+## Disagreements seen
+- How many certs: the 2025 Digital Cloud page says do all the associate certs plus a professional or specialty (https://digitalcloud.training/why-an-aws-certification-will-not-get-you-an-aws-job/); the same company's 2026 page says one or two relevant certs are enough and stacking more is a trap (https://digitalcloud.training/the-truth-about-aws-certifications-after-25-years-in-tech/).
+- Course length: the freeCodeCamp poster says skip any course over 15 hours and read the exam guide instead (https://forum.freecodecamp.org/t/how-i-structured-a-6-week-study-plan-for-aws-saa-c03-what-actually-moved-the-needle/799377); Digital Cloud recommends a training course with lots of practice activities and sells long bootcamps (https://digitalcloud.training/why-an-aws-certification-will-not-get-you-an-aws-job/).
+- Hands-on for the exam: sailor.sh stresses the exam has no labs and console steps are not needed (https://www.sailor.sh/blog/aws-vpc-concepts-for-saa-c03); the freeCodeCamp poster says building three projects is what made "which service" questions obvious (https://forum.freecodecamp.org/t/how-i-structured-a-6-week-study-plan-for-aws-saa-c03-what-actually-moved-the-needle/799377). Different claims (format vs learning method), but they pull study time in opposite directions.
+- Least privilege vs tutorial shortcut: the IAM guide insists on scoped actions like s3:GetObject (https://builder.aws.com/content/3Kclu4dDUaoAETVUirp8jgTvSjB/a-practical-guide-to-secure-access-management); the serverless tutorial offers AmazonDynamoDBFullAccess (https://builder.aws.com/content/3KXRAwuplncnbnTDQfWDtn5P1ML/building-your-first-serverless-rest-api-with-aws-lambda-api-gateway-and-dynamodb).
+
+## Best stories
+- The nightly 3-hour batch job and the three-year contract that baits you into Reserved Instances; Spot wins because RIs bill all 24 hours (https://www.examcert.app/blog/aws-saa-c03-scenario-questions/).
+- The retailer losing orders in a sale; an SQS queue plus Auto Scaling on backlog fixes it, and the database at 20% CPU is a red herring (https://www.examcert.app/blog/aws-saa-c03-scenario-questions/).
+- The two-person security team that must be able to kill an encryption key instantly; customer managed KMS key beats both SSE-S3 and CloudHSM (https://www.examcert.app/blog/aws-saa-c03-scenario-questions/).
+- The candidate whose wrong-answer spreadsheet showed about 40% of misses were misread constraints, not missing knowledge (https://forum.freecodecamp.org/t/how-i-structured-a-6-week-study-plan-for-aws-saa-c03-what-actually-moved-the-needle/799377).
+- The app that can call out but never hears back: a stateless NACL missing the ephemeral port return rule (https://www.sailor.sh/blog/aws-vpc-concepts-for-saa-c03).
