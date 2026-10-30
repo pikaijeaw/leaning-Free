@@ -1,0 +1,25 @@
+A: Lesson six. Today we build the folder every team ends up asking for.
+B: A shared folder? Sounds easy.
+A: Sounds easy. Picture two people, James and Oliver, both in sales, both members of a group called marketing.
+B: Okay.
+A: You make a folder called sales, give it to marketing, permissions seven seven zero. James saves a file. Which group owns it?
+B: Marketing?
+A: Nope. His own private group, James. Oliver's file gets Oliver's group. So neither one can edit the other's work.
+B: Oh, so the shared folder isn't shared at all.
+A: [laughs] Not yet. A new file takes your primary group, not your extra one. The fix is one special bit on the folder, SGID. Set it, and every new file inside takes the folder's group.
+B: So everything lands in marketing.
+A: Exactly. That example comes from a tutorial on computernetworkingnotes, and three of the five pages we read on special permissions teach this. None disagree.
+B: What's the second half?
+A: The sticky bit. With group write on the folder, anyone in the group can delete anyone's file. Sticky stops that. You only delete your own.
+B: Like the tmp folder.
+A: Same idea. So the numbers. A two in front means SGID, two seven seven zero. Add sticky and it's three seven seven zero.
+B: And how do I check?
+A: List the folder long. An s in the group slot, and sticky shows as a t at the very end.
+B: What's the try?
+A: Ten minutes on a practice machine. Make a group called team and two users, add each to the group, one command per user. Make a folder, give it to team, set two seven seven zero. As one user, create a file and look at its group.
+B: And then sticky?
+A: Switch to three seven seven zero, and have the other user try to delete that file. Refused.
+B: [chuckles] Satisfying.
+A: No machine? On paper, write which group each new file gets, before and after the bit.
+B: Nice.
+A: Every shared folder from now on: group owner, two seven seven zero, and a thought about sticky.

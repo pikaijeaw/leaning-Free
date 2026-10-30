@@ -1,0 +1,23 @@
+A: Lesson ten. The firewall, and the one word that decides whether your rule exists tomorrow.
+B: Let me guess. Permanent?
+A: Permanent. On RHEL the firewall is firewalld, and you talk to it with firewall-cmd.
+B: Okay. So I add a rule and it works. Done?
+A: Here's the catch. A plain rule changes the running firewall only. It works right now. Reboot, and it's gone.
+B: Oof. And the grader reboots.
+A: Every time. One prep guide says runtime-only changes may look correct for five minutes and fail after restart.
+B: So I just add the permanent flag and walk away?
+A: That's the second trap! The permanent flag writes the rule to the saved config, but it doesn't touch the running firewall. So your test fails right now.
+B: [laughs] Wait, so one way breaks later and the other breaks now?
+A: Exactly. The fix is two steps. Add the rule with the permanent flag, then reload. Reload copies the saved config into the running one.
+B: Permanent, then reload. Got it.
+A: Five of the seven pages we read on firewalls teach this, and none disagree. One study plan says use it in practice until doing it any other way feels wrong.
+B: So what does a typical exam task look like?
+A: Something like, allow web traffic. If it's a known service, you add the service by name, like http. If it's an odd port, you add the port with its number and slash t c p.
+B: And then list it to check?
+A: List the services, yes. And one safety note. Keep the ssh service in the list. On a box you reach over SSH, removing it locks you out.
+B: Noted. So what's the thing to try?
+A: Ten minutes on a practice VM. Add http without the permanent flag, list it, reload, list again. It vanished. Then add it with the permanent flag, list, nothing yet. Reload, list. There it is. Reboot and list once more.
+B: And no VM?
+A: Paper. Write the two steps for opening port eighty eighty, and say what each step changes.
+B: Easy.
+A: From now on, every firewall rule gets the permanent flag, then a reload.

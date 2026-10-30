@@ -1,0 +1,29 @@
+A: Lesson five. Users, groups, and passwords that expire on schedule.
+B: Sounds like admin homework.
+A: It's quick marks, actually. One 2026 study plan calls users and groups exactly that. But there are two traps.
+B: Go on.
+A: Trap one. Adding a user to a group. The command is usermod dash a capital G.
+B: Why the a?
+A: The a means append. Leave it off, and capital G replaces all of the user's extra groups with whatever you list.
+B: Oof. So they quietly lose their other groups.
+A: Exactly. And usermod takes one user at a time. Three users, three commands.
+B: And then it works?
+A: Then comes the classic ticket. I added them, but it still says permission denied.
+B: [laughs] I've filed that ticket.
+A: One study guide lists it right in its troubleshooting section. Permission denied on group files. The cause? Group changes need a new login. The open session still has the old groups.
+B: So log out, log back in, then test.
+A: Right. Trap two is password aging, with chage. The skill is matching task words to flags.
+B: Give me the map.
+A: Capital M is the maximum days between changes. Small m, the minimum. Capital W, warning days. Capital E, the date the whole account expires. And dash d zero forces a new password at next login.
+B: Account expiry and maximum age sound alike.
+A: They're not, and one aging guide warns about exactly that. Read the task words, then check with chage dash l.
+B: How widely do sources agree?
+A: Three of the nine pages on users and groups teach each trap, and none disagree.
+B: What's the thing to try?
+A: Ten minutes on a practice VM. Make a group called team and a user called alice. Add her with dash a capital G, then run id alice.
+B: Then aging?
+A: chage, capital M ninety, capital W seven, on alice. Then chage dash l alice, and read it back.
+B: And on paper?
+A: Write five task sentences, like account expires December thirty first, and the chage flag for each.
+B: Nice.
+A: From now on, dash a capital G, never a bare capital G.

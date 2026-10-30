@@ -1,0 +1,25 @@
+A: Lesson eight. A backup that's set up perfectly, and never runs.
+B: Never? How?
+A: That's today. The RHEL 10 exam lists three ways to schedule jobs: at, cron, and systemd timers. Timers are the new one, so let's crack them.
+B: Okay, what is a timer?
+A: Two small unit files with the same name. Say backup dot service, which says what to run. And backup dot timer, which says when.
+B: Two files for one job?
+A: Two files. The service is the work, the timer is the alarm clock. And here's the trap. Which one do you enable?
+B: The service? It's the thing doing the work.
+A: [laughs] That's the trap, right there. You enable the timer. One tutorial on centron calls enabling the service instead the single most common mistake with timers.
+B: And what happens?
+A: The timer never gets armed. List your timers and it's missing, or the next run says n slash a. The backup just never fires.
+B: Sneaky. No error at all.
+A: None. Three of the seven pages we read on scheduling teach this two-file setup, and none disagree.
+B: Anything else in the timer file?
+A: One line worth knowing. Persistent equals true. If the machine was off at two in the morning, the job runs once at the next boot instead of being skipped. Cron just skips it.
+B: So timers win?
+A: Here's the soft split. Centron frames timers as the cron replacement. Other guides say keep cron for a simple one-line job. The exam wants all three, so practise all three.
+B: Fair. What's the try?
+A: Ten minutes on a practice machine. Write hello dot service that runs echo hello. Write hello dot timer, set to minutely, with Persistent true. Reload systemd, enable the timer, start the timer.
+B: Then check?
+A: List the timers. Your next run should show a real time, not n slash a. Wait a minute or two, then read the journal for hello dot service.
+B: And with no machine?
+A: Write both files on paper, and circle the one you enable.
+B: Nice.
+A: From now on, you enable the timer, never the service.

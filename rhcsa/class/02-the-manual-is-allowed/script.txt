@@ -1,0 +1,24 @@
+A: Lesson two. And this one's good news, honestly.
+B: I'll take it. What is it?
+A: In the RHCSA, there's no internet. No Google, no forums, no notes.
+B: Oof. That doesn't sound like good news.
+A: Here's the good part. Red Hat's own exam page says the documentation that ships with the product is available. So the man pages are right there.
+B: Wait, the manual is allowed?
+A: The manual is allowed. Seven of the sixteen pages we read on exam prep teach this. Two guides get it wrong, one says no documentation, one says limited internet. Red Hat's page settles it.
+B: So the man pages are my internet for three hours.
+A: Exactly. It's even an objective. Locate, read, and use system documentation, including man, info, and files in slash usr slash share slash doc.
+B: Okay, but how do I find a page when I don't know its name?
+A: man dash k. Type man dash k and a word, like fstab, and it lists every page about it.
+B: Nice.
+A: Then section numbers. man five fstab gives you the file format. And most commands answer to the help flag too.
+B: Does this actually save people?
+A: One 2026 study plan says knowing that slash usr slash share slash doc and man dash k exist has saved a lot of candidates who forgot a directive name under pressure.
+B: [chuckles] Forgot a directive name. I would absolutely do that.
+A: Everyone does. Finding things fast is a skill, so practise it before the day.
+A: So, the thing to try. Ten minutes on a practice machine, no browser. Find two things. The order of the six fields in an fstab line. And one example of adding a network connection with nmcli.
+B: Where do I look?
+A: man five fstab for the first. For the second, man dash k nmcli, and look for the page called nmcli dash examples.
+B: And with no machine yet?
+A: Paper. Write the three places you'd look: man, the help flag, and the doc folder. Then guess the fstab fields and check later.
+B: I like that.
+A: From now on, before searching the web, search the man pages.

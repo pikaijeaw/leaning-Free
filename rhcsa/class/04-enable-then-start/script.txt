@@ -1,0 +1,27 @@
+A: Lesson four. Two words that save more points than almost any other habit.
+B: Let me guess. Enable and start?
+A: Enable, then start. Start makes a service run right now. Enable makes it come back after a reboot.
+B: And the exam reboots.
+A: The grading script reboots, yes. So a service that's started but not enabled just, poof.
+B: [sighs] Running, then gone.
+A: One exam guide puts it perfectly. A start without enable may look correct for five minutes and fail after restart.
+B: Five minutes. That's cruel.
+A: Five of the eight pages we read on services teach this, and none disagree. Another study guide says it in capitals. Services must be enabled AND started.
+B: Okay. Is there a shortcut?
+A: There is. systemctl enable with the now flag does both in one go. Or run enable, then start. Same result.
+B: And how do I check?
+A: Two questions for systemctl. is enabled, which should say enabled. And is active, which should say active.
+B: Easy enough.
+A: Here's the sneaky part. It's not just the service named in the task. The tools behind the task count too.
+B: Meaning what?
+A: Say a task asks you to open a firewall port. That rule lives in firewalld, so firewalld itself has to be enabled. Same with autofs. One autofs guide says exam success means the share appears automatically and survives reboot through an enabled autofs.
+B: Huh. I'd never have checked the firewall service itself.
+A: Most people don't, until it bites.
+B: So what's the thing to try?
+A: Five minutes. On your practice VM, list your enabled services. systemctl list unit files, piped into grep enabled.
+B: Then?
+A: Pick one, like chronyd. Disable it. Then enable it, then start it. Ask is enabled and is active. Both should come back yes.
+B: And with no VM?
+A: Paper. Write three services you might touch in the exam, like a web server, firewalld and autofs, and the two commands each one gets.
+B: Got it.
+A: From now on, every service you touch gets enabled, started, and checked.

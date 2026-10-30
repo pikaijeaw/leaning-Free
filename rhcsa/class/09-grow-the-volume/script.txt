@@ -1,0 +1,23 @@
+A: Lesson nine. The disk is full, and the task says grow it.
+B: Classic. Where do we start?
+A: With the stack. LVM has four layers. A physical volume, that's the raw disk. A volume group, a pool made from those disks. A logical volume, a slice cut from the pool. And on top, the file system.
+B: Disk, pool, slice, file system.
+A: Exactly. And here's the story that shows why the top layer matters. A KodeKloud demo grows a logical volume from four hundred megs to eight hundred. Success message, all good.
+B: Great.
+A: Then they check the space with df. Still three hundred thirty six megs.
+B: Wait, what? Where did it go?
+A: [laughs] The volume grew. The file system on it didn't. They run xfs grow fs, and only then does it show seven hundred thirty six.
+B: So two steps.
+A: Or one. Add the little r flag to lvextend, and it resizes the file system in the same command. And one warning. XFS can grow, but it can never shrink.
+B: Good to know. Then what?
+A: Then it has to survive the reboot. Mount it in fstab by UUID, not by device name. Then run mount dash a. If that's silent, your line is good. If it errors, fix it now, because a bad fstab line can stop the machine from booting.
+B: Oof. So mount dash a is the safety check.
+A: Every time. Two of the four LVM pages we read teach the build and grow steps, four of six teach the UUID and mount dash a habit, and none disagree.
+B: What's the try?
+A: Fifteen minutes on a practice machine. Not the system disk. Use a spare virtual disk, or a one gig file turned into a loop device. Build the stack, make it XFS, mount it, and check df.
+B: Then grow it?
+A: lvextend with r, plus three hundred megs. Check df again. It moved.
+B: [chuckles] Unlike the demo.
+A: And no machine? Draw the four layers on paper, and write which command creates each one.
+B: Nice.
+A: From now on, mount dash a before every reboot.

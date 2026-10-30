@@ -1,0 +1,25 @@
+A: Lesson twelve. Breaking into your own machine at boot.
+B: Ooh. Like a heist?
+A: Kind of! Picture the setup from one tutorial. You forgot the root password, and your user isn't in the wheel group. So no sudo either.
+B: Locked out of my own box.
+A: Totally. And on the exam, a task can start exactly like that.
+B: Okay, so how do I get in?
+A: First, try the easy way. If you can get root, or sudo, just run passwd. If not, you interrupt the boot.
+B: Interrupt it how?
+A: At the boot menu, press e, go to the line starting with linux, and add rd dot break at the end. Control x boots it.
+B: And then?
+A: You land in a small emergency shell, before your real system has started. Your disk is mounted under slash sysroot, read only.
+B: Read only. So I can't change anything yet.
+A: Right. Step one, remount sysroot read write. Two, chroot into sysroot. Three, passwd. Four, touch a file called slash dot autorelabel. Then exit, and exit again.
+B: Why the autorelabel?
+A: Changing the password rewrites a file, and its SELinux label goes wrong. Skip that step and the login can fail after the reset.
+B: [sighs] So that's the classic miss.
+A: That and the remount. Three of the seven pages we read on boot recovery teach this route. One also shows a different boot line, init equals slash bin slash bash, which works too. Pick one and drill it.
+B: Does it matter when I do this in the exam?
+A: One older post claims a machine that won't boot for the grader scores zero, so it does the risky boot tasks first. Other guides start with the quick ones. Your call.
+B: Fair. So what's the thing to try?
+A: Your own practice VM only. Take a snapshot, then reset its root password this way. After the relabel reboot, log in as root with the new password.
+B: And with no VM?
+A: Write the steps from memory on paper, in order, then check them against the card.
+B: Nice.
+A: From now on, remount read write and autorelabel, every time.

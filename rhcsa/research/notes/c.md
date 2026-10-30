@@ -1,0 +1,272 @@
+# Notes: batch c
+Pages read: 9. With notes: 9. Skipped: 0 (every page had teachable RHCSA content).
+
+Currency check against the official EX200 objectives (https://au.redhat.com/training/courses/ex200/): systemd timer units, autofs, NFS mounts, port labels, Flatpak and "interrupt the boot process" are all current objectives. Claims that look outdated or wrong are flagged inline with "FLAG".
+
+## T01 Exam format and how people prepare
+- c:N1. Spend the first ten minutes reading every task, checking hostnames and noting which tasks depend on others, then do the easy ones first. The page suggests a rough budget of 9 to 12 minutes per task (their claim).
+  - Source: https://kraker.codeberg.page/rhcsa/rhcsa_synthesis/00_exam_overview/  Quote: "Read all tasks quickly - get overview of what's needed"
+  - Kind: technique
+  - Level: foundation
+  - Bias: free study guide that points to its own Vagrant lab repo; no paid product.
+- c:N2. The task killers it lists: working on the wrong host, starting a service but not enabling it, and making only temporary (non-persistent) changes. Verify each task right away, including that it survives a reboot.
+  - Source: https://kraker.codeberg.page/rhcsa/rhcsa_synthesis/00_exam_overview/  Quote: "Service not enabled: Starting but not enabling services"
+  - Kind: mistake
+  - Level: foundation
+  - Also: T11
+  - Bias: none
+- c:N3. A per-area verification checklist: services with `systemctl status` plus `systemctl is-enabled`; storage with `lsblk`, `mount | grep`, `cat /etc/fstab`; users with `su - user` and `sudo -l -U user`.
+  - Source: https://kraker.codeberg.page/rhcsa/rhcsa_synthesis/00_exam_overview/  Quote: "Verify persistence (reboot if necessary)"
+  - Kind: test
+  - Level: foundation
+  - Bias: none
+- c:N4. Time-wasting traps: perfectionism beyond the requirement, rabbit holes on one task, reading whole man pages, and second-guessing configs that already work. Skip a stuck task and come back.
+  - Source: https://kraker.codeberg.page/rhcsa/rhcsa_synthesis/00_exam_overview/  Quote: "Second-guessing: Changing correct configurations"
+  - Kind: mistake
+  - Level: foundation
+  - Bias: none
+- c:N5. Exam basics as the page states them: hands-on, 3 hours, RHEL 10 VMs, passing score typically 210/300 (their claim). It also gives percentage weights per category (system config 30 to 35%, storage 25 to 30%, and so on) and sample hostnames/IPs. FLAG: the weights, IPs and "limited internet access" are not from Red Hat; the official page says internet access is not provided. Treat the percentages as guesses.
+  - Source: https://kraker.codeberg.page/rhcsa/rhcsa_synthesis/00_exam_overview/  Quote: "Passing Score: Typically 210/300 points (70%)"
+  - Kind: number
+  - Level: foundation
+  - Bias: none
+- c:N6. Practice setup they recommend: two RHEL 10 VMs (4 GB RAM, 20 GB+ disk each) with an extra disk for LVM work, plus daily 30 to 45 minute sessions and at least two full 3-hour mock exams.
+  - Source: https://kraker.codeberg.page/rhcsa/rhcsa_synthesis/00_exam_overview/  Quote: "Mock exams: Full 3-hour timed practice with all task types"
+  - Kind: technique
+  - Level: foundation
+  - Bias: promotes the author's own Vagrant setup (free).
+- c:N7. On the exam, `/etc/auto.misc` (installed with the autofs package) and the EXAMPLES section of `man semanage-fcontext` and `man semanage-port` are ready-made syntax you can copy when memory fails.
+  - Source: https://github.com/1980is/rhcsa-9/blob/main/NFS%20and%20Autofs.md  Quote: "check \"/etc/auto.misc\" for nice syntax examples that can help if you're stuck!"
+  - Kind: technique
+  - Level: core
+  - Also: T14
+  - Bias: none
+
+## T04 Special permissions and ACLs
+- c:N8. The special bits live in the execute slots of `ls -l`: SUID shows as `s` in the owner slot, SGID as `s` in the group slot, sticky as `t` in the others slot. A capital `S` or `T` means the special bit is set but plain execute is not.
+  - Source: https://www.computernetworkingnotes.com/linux-tutorials/suid-sgid-and-sticky-bit-explained.html  Quote: "Standard execute permission is not present, but SUID is applied"
+  - Kind: definition
+  - Level: foundation
+  - Bias: none
+- c:N9. Octal values: SUID 4, SGID 2, sticky 1, written as a leading digit before the normal three (for example `chmod 2770 /sales`). Writing only the special digit (`chmod 4 file`) wipes the normal permissions, so always give all four digits. (The page's "7 (6+4+1)" is a typo for 4+2+1.)
+  - Source: https://www.computernetworkingnotes.com/linux-tutorials/suid-sgid-and-sticky-bit-explained.html  Quote: "You must specify the default file permission with these bits."
+  - Kind: mistake
+  - Level: core
+  - Bias: none
+- c:N10. Why SUID exists: `/usr/bin/passwd` is SUID root, so a normal user running it can write to the root-only `/etc/shadow`. Check it yourself with `ls -l /usr/bin/passwd` and `ls -l /etc/shadow`.
+  - Source: https://www.computernetworkingnotes.com/linux-tutorials/suid-sgid-and-sticky-bit-explained.html  Quote: "The passwd command runs under the root account and lets the user change his password."
+  - Kind: story
+  - Level: foundation
+  - Bias: none
+- c:N11. The shared-folder setup that shows why SGID on a directory matters: create /sales owned by group marketing with 770, users james and oliver make files, and the files get their own primary group. After `chmod g+s /sales`, new files get group marketing.
+  - Source: https://www.computernetworkingnotes.com/linux-tutorials/suid-sgid-and-sticky-bit-explained.html  Quote: "all new files and directories users create inside this directory will get the configured group owner"
+  - Kind: story
+  - Level: core
+  - Also: T05
+  - Bias: none
+- c:N12. Sticky bit (as on /tmp): in a world-writable directory, a user can delete a file only if they own the file or own the directory. Lab: make /tmpdata 777, show user2 can delete user1's file, set `chmod o+t`, show it now fails.
+  - Source: https://www.computernetworkingnotes.com/linux-tutorials/suid-sgid-and-sticky-bit-explained.html  Quote: "The user is the owner of the directory where the file exists."
+  - Kind: test
+  - Level: core
+  - Bias: none
+- c:N13. SUID on a file without owner execute does nothing; the script still won't run until you add x. FLAG: this page and the dev.to page both imply SUID on a shell script makes it run as the owner. Linux ignores SUID on interpreted scripts; it only takes effect on compiled binaries.
+  - Source: https://www.computernetworkingnotes.com/linux-tutorials/suid-sgid-and-sticky-bit-explained.html  Quote: "It verifies that SUID cannot make a file executable."
+  - Kind: mistake
+  - Level: core
+  - Bias: none
+- c:N14. ACL command set: `getfacl` to view; `setfacl -m u:name:rwx` or `g:name:rx` to add; `setfacl -x u:name` to remove one entry; `setfacl -b` to remove all ACLs.
+  - Source: https://dev.to/austinozor/understanding-acl-and-special-permissions-in-linux-3g3h  Quote: "setfacl -b <dir> Remove all ACL permissions"
+  - Kind: template
+  - Level: core
+  - Bias: none (author's RHCSA study blog)
+- c:N15. To clear special bits with numbers you can use `chmod -2000 dir` (SGID) or `chmod -1000 dir` (sticky). Gotcha the page skips: on directories, GNU chmod keeps SGID when you just give `chmod 755`, so use `g-s` or the explicit minus form. FLAG: the page's claim that "any user can run this script with root privileges" after `chmod u+s` on a script is wrong on Linux.
+  - Source: https://dev.to/austinozor/understanding-acl-and-special-permissions-in-linux-3g3h  Quote: "chmod -2000 dir # Removes SGID"
+  - Kind: mistake
+  - Level: advanced
+  - Bias: none
+
+## T05 Users, groups and privileged access
+- c:N16. `usermod -G group user` replaces all of a user's supplementary groups; `usermod -aG group user` appends. Forgetting `-a` silently drops the user out of wheel and everything else.
+  - Source: https://kraker.codeberg.page/rhcsa/rhcsa_synthesis/03_user_group_management/  Quote: "usermod -G replaces all supplementary groups (use -aG to append)"
+  - Kind: mistake
+  - Level: foundation
+  - Bias: none
+- c:N17. Group changes do not apply to a session that is already open. The user must log out and back in, or run `newgrp groupname`. Classic "I added them but it still says permission denied" ticket.
+  - Source: https://kraker.codeberg.page/rhcsa/rhcsa_synthesis/03_user_group_management/  Quote: "The user needs to logout and login again for group membership changes to take effect"
+  - Kind: story
+  - Level: core
+  - Also: T03
+  - Bias: none
+- c:N18. Password aging with `chage`: `-M` max days, `-m` min days, `-W` warning days, `-I` inactive days after expiry, `-E YYYY-MM-DD` account expiry, `-d 0` force a change at next login, `-l` to check. Example: `chage -M 90 -m 7 -W 14 user`.
+  - Source: https://kraker.codeberg.page/rhcsa/rhcsa_synthesis/03_user_group_management/  Quote: "chage -M 90 -m 7 -W 14 username"
+  - Kind: template
+  - Level: core
+  - Bias: none
+- c:N19. The system-wide defaults for new accounts live in `/etc/login.defs` (PASS_MAX_DAYS, PASS_MIN_DAYS, PASS_WARN_AGE, UID_MIN 1000) and `/etc/default/useradd`; new home dirs are copied from `/etc/skel`. Note: login.defs aging values apply to users created after the edit, not existing ones (use chage for those).
+  - Source: https://kraker.codeberg.page/rhcsa/rhcsa_synthesis/03_user_group_management/  Quote: "PASS_MAX_DAYS 90"
+  - Kind: definition
+  - Level: core
+  - Bias: none
+- c:N20. `usermod -L` only puts `!` in front of the hash in /etc/shadow; the user can still get in with an SSH key. To fully block, also set the shell to /sbin/nologin or expire the account.
+  - Source: https://kraker.codeberg.page/rhcsa/rhcsa_synthesis/03_user_group_management/  Quote: "the user might still login using SSH keys"
+  - Kind: mistake
+  - Level: core
+  - Also: T18
+  - Bias: none
+- c:N21. Read the /etc/passwd line field by field: `name:x:UID:GID:comment:home:shell`. The 4th field is the primary group; supplementary groups are listed in /etc/group. Regular users get UID 1000 and up, system accounts below 1000.
+  - Source: https://kraker.codeberg.page/rhcsa/rhcsa_synthesis/03_user_group_management/  Quote: "Format: username:password:UID:GID:comment:home:shell"
+  - Kind: definition
+  - Level: foundation
+  - Bias: none
+- c:N22. Contractor account recipe: `useradd -e $(date -d "+90 days" +%Y-%m-%d) contractor1`, then `chage -d 0` to force a new password at first login, then a short `-M`. Verify with `chage -l contractor1`.
+  - Source: https://kraker.codeberg.page/rhcsa/rhcsa_synthesis/03_user_group_management/  Quote: "Create temporary contractor account (expires in 90 days)"
+  - Kind: template
+  - Level: core
+  - Bias: none
+- c:N23. FLAG, errors on this page: (1) "Don't forget -m" is misleading on RHEL, where CREATE_HOME is on in login.defs so useradd makes the home dir anyway; (2) `usermod -aG developers user1,user2` is invalid, usermod takes one user (use `gpasswd -a` per user); (3) `passwd -e` is listed as a "fix" for an expired password but it expires the password; (4) `finger` is not shipped on RHEL 9/10.
+  - Source: https://kraker.codeberg.page/rhcsa/rhcsa_synthesis/03_user_group_management/  Quote: "usermod -aG developers user1,user2"
+  - Kind: mistake
+  - Level: core
+  - Bias: none
+- c:N24. Non-interactive password set for labs: `echo "password123" | passwd --stdin user` (RHEL-specific passwd option). Handy in exam scripts that must create several users.
+  - Source: https://kraker.codeberg.page/rhcsa/rhcsa_synthesis/03_user_group_management/  Quote: "passwd --stdin"
+  - Kind: technique
+  - Level: core
+  - Also: T07
+  - Bias: none
+
+## T06 Software: dnf, RPM repositories, Flatpak
+- c:N25. A client `.repo` file in `/etc/yum.repos.d/` needs only a section id, `name=`, `baseurl=`, `enabled=1` and a `gpgcheck=` line. Then `dnf clean all` and `dnf repolist` to confirm it shows up.
+  - Source: https://dev.to/shamain_anjum/host-a-local-rpm-package-repository-on-red-hat-linux-21lb  Quote: "Create .repo file in /etc/yum.repos.d/"
+  - Kind: template
+  - Level: foundation
+  - Bias: none (study blog)
+- c:N26. Building your own practice repo: put RPMs in `/var/www/html/rpms`, run `createrepo` to generate metadata, open http in firewalld with `--permanent` then `--reload`, run `restorecon -Rv /var/www/html`, and point clients at it. A good lab because it touches dnf, firewall, SELinux and services at once. Note: on RHEL 9/10 the package is createrepo_c; hosting a repo is not itself an exam objective, only client access is.
+  - Source: https://dev.to/shamain_anjum/host-a-local-rpm-package-repository-on-red-hat-linux-21lb  Quote: "This creates the metadata necessary for clients to use the repo."
+  - Kind: technique
+  - Level: core
+  - Also: T16
+  - Bias: none
+
+## T08 Boot process and targets
+- c:N27. To edit a boot entry: at the GRUB menu press `e`, find the line starting with `linux`, append your parameter, boot with Ctrl+X. The change is one-time only.
+  - Source: https://dev.to/dhavalthakar97/linux-in-action-resetting-the-root-password-on-rhel-10-28j2  Quote: "press e to edit"
+  - Kind: technique
+  - Level: foundation
+  - Also: T09
+  - Bias: none
+
+## T09 Interrupting boot to reset the root password
+- c:N28. rd.break method: append `rd.break`, boot, `mount -o remount,rw /sysroot`, `chroot /sysroot`, `passwd`, `touch /.autorelabel`, then exit twice. Expect a long first boot while SELinux relabels.
+  - Source: https://dev.to/dhavalthakar97/linux-in-action-resetting-the-root-password-on-rhel-10-28j2  Quote: "plan an autorelabel step or the login may fail after reset"
+  - Kind: template
+  - Level: core
+  - Bias: none
+- c:N29. init=/bin/bash method: append `init=/bin/bash`, `mount -o remount,rw /`, `passwd`, `touch /.autorelabel`, then `exec /sbin/init` to continue. FLAG: the page maps rd.break to RHEL 9 and init=/bin/bash to RHEL 10 as "your mapping"; that split is the author's choice, not a Red Hat rule. The page also writes `remount rw` with a space; the standard form is `remount,rw`.
+  - Source: https://dev.to/dhavalthakar97/linux-in-action-resetting-the-root-password-on-rhel-10-28j2  Quote: "This article follows your mapping"
+  - Kind: template
+  - Level: core
+  - Bias: none
+- c:N30. The two classic reasons a reset "doesn't work": you forgot to remount read-write (passwd fails with read-only), or you forgot `/.autorelabel` so SELinux blocks login with the new shadow file.
+  - Source: https://dev.to/dhavalthakar97/linux-in-action-resetting-the-root-password-on-rhel-10-28j2  Quote: "Permission denied / read-only: You likely forgot the remount step."
+  - Kind: mistake
+  - Level: core
+  - Also: T17
+  - Bias: none
+- c:N31. Real-world framing: lost root happens through a sudoers mistake, a rotated vault secret that never propagated, or bad offboarding. LUKS still needs its passphrase and a GRUB password blocks the `e` edit.
+  - Source: https://dev.to/dhavalthakar97/linux-in-action-resetting-the-root-password-on-rhel-10-28j2  Quote: "a rotated vault secret that wasn't propagated"
+  - Kind: story
+  - Level: foundation
+  - Bias: none
+
+## T11 Services and scheduling
+- c:N32. A systemd timer is two files with the same name: `backup.service` (Type=oneshot, ExecStart=) and `backup.timer` ([Timer] OnCalendar=, [Install] WantedBy=timers.target). Then `systemctl daemon-reload` and `systemctl enable --now backup.timer` (enable the timer, not the service).
+  - Source: https://cronuru.com/guides/systemd-timers  Quote: "name the timer and service identically ... so systemd automatically pairs them"
+  - Kind: template
+  - Level: core
+  - Bias: site sells/promotes its own cron parser tool; content is free.
+- c:N33. OnCalendar is not cron syntax: `DayOfWeek Year-Month-Day Hour:Minute:Second`. Cron `0 2 * * *` becomes `*-*-* 02:00:00`; `0 9 * * 1-5` becomes `Mon..Fri 09:00:00`; shortcuts like `daily`, `weekly`, `hourly` exist. Test with `systemd-analyze calendar "Mon..Fri 09:00:00"`, which prints the next run time.
+  - Source: https://cronuru.com/guides/systemd-timers  Quote: "OnCalendar= accepts systemd's calendar specification - not cron syntax."
+  - Kind: technique
+  - Level: core
+  - Bias: same as above
+- c:N34. `Persistent=true` makes a timer run a missed job right after the machine boots back up; cron just skips missed runs. Relative timers exist too: `OnBootSec=10min`, `OnUnitActiveSec=1h`.
+  - Source: https://cronuru.com/guides/systemd-timers  Quote: "Without it, missed runs are silently dropped."
+  - Kind: rule of thumb
+  - Level: core
+  - Bias: same as above
+- c:N35. The AccuracySec trap: a 30-second timer fires only about once a minute, because AccuracySec defaults to 1 minute and systemd batches wakeups. `systemctl list-timers` still looks correct. Fix with `AccuracySec=1s`.
+  - Source: https://cronuru.com/guides/systemd-timers  Quote: "Without that second line the timer fires roughly once a minute, not twice."
+  - Kind: story
+  - Level: advanced
+  - Bias: same as above
+- c:N36. Checking timers: `systemctl list-timers` (`--all` for inactive ones) shows next and last run; `journalctl -u name.service` shows the job's output, no need for `>> log 2>&1` redirection as in cron.
+  - Source: https://cronuru.com/guides/systemd-timers  Quote: "The journal captures both stdout and stderr from the service automatically"
+  - Kind: test
+  - Level: core
+  - Also: T10
+  - Bias: same as above
+- c:N37. When to keep cron: one-line jobs and per-user tasks, where `crontab -e` is less ceremony than two unit files. "If you have three lines, leave it in crontab."
+  - Source: https://cronuru.com/guides/systemd-timers  Quote: "If you have three lines, leave it in crontab."
+  - Kind: rule of thumb
+  - Level: foundation
+  - Bias: same as above
+
+## T14 Network file systems: NFS and autofs
+- c:N38. Indirect autofs map in two files: `/etc/auto.master` gets `/nfsdata /etc/auto.nfsdata`; `/etc/auto.nfsdata` gets `files -rw nfsserver:/nfsdata`. Then `systemctl enable --now autofs`. `ls /nfsdata` looks empty until you `cd /nfsdata/files`, which mounts on demand. Check exports first with `showmount -e server`.
+  - Source: https://github.com/1980is/rhcsa-9/blob/main/NFS%20and%20Autofs.md  Quote: "If you cd /nfsdata, it should be empty."
+  - Kind: template
+  - Level: core
+  - Bias: none (personal study notes)
+- c:N39. Wildcard map for home directories: in the map file, `* -rw server:/home/ldap/&`; the `*` matches any key and `&` substitutes it, so /home/ldap/1, /home/ldap/2 all mount from one line.
+  - Source: https://github.com/1980is/rhcsa-9/blob/main/NFS%20and%20Autofs.md  Quote: "The ampersand at the end replaces whatever comes after /ldap/."
+  - Kind: template
+  - Level: core
+  - Bias: none
+- c:N40. To build a practice NFS server (not itself an exam task): `dnf install nfs-utils`, add a line to `/etc/exports`, `systemctl enable --now nfs-server`, and open the nfs, mountd and rpc-bind firewalld services permanently. The page warns its `no_root_squash` example is insecure. Note: RHEL docs also allow map entries in `/etc/auto.master.d/*.autofs` instead of editing auto.master.
+  - Source: https://github.com/1980is/rhcsa-9/blob/main/NFS%20and%20Autofs.md  Quote: "NFS is not a part of the RHCSA exam."
+  - Kind: technique
+  - Level: core
+  - Also: T16
+  - Bias: none
+
+## T17 SELinux
+- c:N41. State vs mode: enabled or disabled needs a reboot; enforcing vs permissive can flip live with `setenforce`, but that reverts at reboot to `/etc/selinux/config`. Kernel parameters `enforcing=0` or `selinux=0` change it for one boot. (Current for RHEL 9/10, where full disabling is done with selinux=0 rather than the config file.)
+  - Source: https://github.com/1980is/rhcsa-9/blob/main/SELinux.md  Quote: "This is temporary, it will go back to whatever is defined in \"/etc/selinux/config\""
+  - Kind: definition
+  - Level: foundation
+  - Bias: none
+- c:N42. Two-step file context fix: `semanage fcontext -a -t type '/dir(/.*)?'` writes the rule into policy only; `restorecon -Rv /dir` applies it to the disk. Use `-m` if the rule already exists. Don't use `chcon`, because a relabel will undo it.
+  - Source: https://github.com/1980is/rhcsa-9/blob/main/SELinux.md  Quote: "it is not written yet to the filesystem"
+  - Kind: technique
+  - Level: core
+  - Bias: none
+- c:N43. Booleans: `getsebool -a | grep ftp` to find, `setsebool -P name on` to set persistently (without -P it is lost at reboot); `semanage boolean -l -C` lists only the ones you changed. Non-default ports need `semanage port`; see its man page examples. FLAG: the page has typos `semanage boolean -I` and `semanage fcontext -I -C`; the option is lowercase `-l`.
+  - Source: https://github.com/1980is/rhcsa-9/blob/main/SELinux.md  Quote: "To set booleans, use setsebool -P boolean [on|off]"
+  - Kind: template
+  - Level: core
+  - Bias: none
+- c:N44. Debug path: `grep AVC /var/log/audit/audit.log` for denials, then `journalctl | grep sealert` and run the `sealert -l <id>` it suggests, which often prints the exact fix command. Install the `selinux-policy-doc` man pages for service-specific pages (`man -k _selinux`).
+  - Source: https://github.com/1980is/rhcsa-9/blob/main/SELinux.md  Quote: "It's the most important source to debug SELinux problems."
+  - Kind: technique
+  - Level: core
+  - Bias: none
+- c:N45. Copying vs creating: new and copied files take the parent directory's context, but moved files keep their old one. If labels look wrong, `restorecon -Rv` is preferred over `touch /.autorelabel`, which relabels the whole disk at reboot. (Page says copies inherit; the moved-file case is the common trap.)
+  - Source: https://github.com/1980is/rhcsa-9/blob/main/SELinux.md  Quote: "So restorecon is preferred."
+  - Kind: rule of thumb
+  - Level: core
+  - Also: T09
+  - Bias: none
+
+## Disagreements seen
+- Exam internet: kraker says "Limited internet access", the official Red Hat page says "Internet access is not provided during the exam". https://kraker.codeberg.page/rhcsa/rhcsa_synthesis/00_exam_overview/ vs https://au.redhat.com/training/courses/ex200/
+- Root reset method per version: the dev.to article pins rd.break to RHEL 9 and init=/bin/bash to RHEL 10; both methods work on both, and the split is the author's own mapping. https://dev.to/dhavalthakar97/linux-in-action-resetting-the-root-password-on-rhel-10-28j2
+- SUID on scripts: dev.to says a SUID-root script runs with root privileges; computernetworkingnotes uses a script in its SUID exercise. The Linux kernel ignores SUID on interpreted scripts. https://dev.to/austinozor/understanding-acl-and-special-permissions-in-linux-3g3h and https://www.computernetworkingnotes.com/linux-tutorials/suid-sgid-and-sticky-bit-explained.html
+- Scope of NFS: the GitHub notes say "NFS is not a part of the RHCSA exam" (meaning server setup), while the official objectives list mounting NFS and configuring autofs. https://github.com/1980is/rhcsa-9/blob/main/NFS%20and%20Autofs.md vs https://au.redhat.com/training/courses/ex200/
+
+## Best stories
+- The passwd puzzle: a normal user changes their own password even though /etc/shadow is root-only, because /usr/bin/passwd carries SUID root. https://www.computernetworkingnotes.com/linux-tutorials/suid-sgid-and-sticky-bit-explained.html
+- James and Oliver in /sales: their files land in their own private groups until one `chmod g+s` makes everything belong to marketing. https://www.computernetworkingnotes.com/linux-tutorials/suid-sgid-and-sticky-bit-explained.html
+- The 30-second timer that silently runs once a minute because AccuracySec defaults to 1 minute, and list-timers still looks fine. https://cronuru.com/guides/systemd-timers
+- Lost root via a rotated vault secret that never propagated; the fix is a GRUB edit, a remount, passwd, and the /.autorelabel you must not forget. https://dev.to/dhavalthakar97/linux-in-action-resetting-the-root-password-on-rhel-10-28j2
+- The empty /nfsdata: `ls` shows nothing, but `cd /nfsdata/files` and the server's share appears on demand. https://github.com/1980is/rhcsa-9/blob/main/NFS%20and%20Autofs.md

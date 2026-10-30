@@ -1,0 +1,23 @@
+A: Okay, lesson one of the RHCSA. And it's the rule that decides everything else.
+B: Big start. Go.
+A: So this exam has no multiple choice. You get a live Red Hat machine, a list of tasks, and about three hours.
+B: Sounds fun, honestly.
+A: It is! But here's the twist. When you're done, a grading script reboots your machine. Then it checks your work.
+B: Oh no. After the reboot?
+A: After the reboot. One prep guide paints it perfectly. You walk out feeling good. Then the service you started but never enabled fails. The mount that worked but isn't in fstab, gone. The firewall rule you added without the permanent flag, gone.
+B: [sighs] That's brutal. Everything looked fine five minutes earlier.
+A: Exactly. And Red Hat says it in plain words on its own exam page. Configurations must persist after reboot without intervention.
+B: So it's not a tip, it's the rule.
+A: It's the rule. Nine of the fifteen pages we read on the exam format hammer this, and none disagree.
+B: Okay, so how do people actually handle it?
+A: Two habits. One, every change gets its persistent version right away. Enable the service, write the fstab line, add the permanent flag.
+B: And two?
+A: Reboot and check, in practice and in the exam. One candidate wrote that he finished every task in about eighty minutes, then rebooted his machine several times just to prove it all stuck. Perfect score.
+B: [laughs] Rebooting for fun. I love it.
+A: That post is from the older RHEL 7 exam, but the habit hasn't changed at all.
+B: So what's the thing to try?
+A: Ten minutes. On any practice machine running Rocky, Alma or RHEL, enable the chronyd service, then start it. Reboot. Then ask systemctl if it's enabled, and if it's active.
+B: And with no machine yet?
+A: Grab paper. Write three changes, a service, a mount, a firewall rule, and next to each, the version that survives a reboot.
+B: Nice.
+A: From now on, nothing counts until it survives a reboot.

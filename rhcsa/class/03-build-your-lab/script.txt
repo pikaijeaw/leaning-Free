@@ -1,0 +1,25 @@
+A: Lesson three. Today we build the place where you'll actually learn this.
+B: A lab?
+A: A lab. Because you can't read your way through the RHCSA. It's a live machine and a task list.
+B: So the book alone won't cut it.
+A: Not even close. Five of the fifteen pages we read on exam prep say the same thing: study by doing. None argue for reading instead.
+B: What does doing look like?
+A: One 2026 study plan lays it out. Two virtual machines. One you configure, and one that acts as a client, for things like NFS and SSH.
+B: Two VMs. Doesn't that cost money?
+A: Nope. Rocky Linux and AlmaLinux are free, and a free Red Hat developer subscription gives you real RHEL for personal use.
+B: Free is my favorite price.
+A: Then the drills. Start each one from a blank or broken state, and time yourself. Later, full mock exams.
+B: Why broken?
+A: Because that's what the exam throws at you. Here's my favorite line from that plan. Boot recovery tasks take three minutes once you have done them ten times. Most candidates have done them twice.
+B: [laughs] Ouch. That's me.
+A: That's most of us. One more thing. Study RHEL 10 material.
+B: Does the version matter that much?
+A: It does. The current objectives added Flatpak and systemd timers, and the containers section is gone. Some guides still list Podman, but Red Hat's own page doesn't.
+B: So old material can steer me wrong.
+A: Right. Two of the pages teach this, Red Hat's own among them, and the plan has a neat test. If your study material never mentions Flatpak, it predates the current exam.
+B: Good test. So what do I try?
+A: Fifteen minutes. Download a free Rocky, Alma or RHEL image and start the install in any VM software you have.
+B: And if my laptop can't run it today?
+A: Write the plan on paper. Which machine, how much memory and disk, two VMs named server and client, and the first three drills you'll run.
+B: That I can do.
+A: From now on, practice on a live box, from a blank or broken state.

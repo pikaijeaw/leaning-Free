@@ -1,0 +1,23 @@
+A: Lesson seven. The one task that quietly holds up half the exam.
+B: Half? That's a big claim.
+A: Think about it. Install a web server, install autofs, install some tool. Every one of those needs a working software repository.
+B: And the exam machine doesn't come with one?
+A: A classic task is, here's a URL, set up access to it. Get that wrong, and every install after it fails.
+B: Oof. Dominoes.
+A: Dominoes. One older prep guide from the RHEL 7 days calls a broken repository a potential instant fail, because so many tasks lean on it.
+B: So how does it work?
+A: A small text file in the folder slash etc slash yum dot repos dot d, ending in dot repo. Inside, an id in square brackets, a name, a baseurl pointing at the URL they give you, enabled equals one, and a gpgcheck line.
+B: That's it?
+A: That's it. Then the habit. Before you install anything, run dnf repolist. If your new repo shows up in that list, you're good. If it doesn't, fix that first.
+B: Not the install.
+A: Not the install. Three of the four pages we read on software repos teach this exact flow, and none disagree. Red Hat's own objectives say configure access to RPM repositories.
+B: Anything new on the RHEL 10 exam?
+A: Flatpak. Same idea, different tool. Add a remote, search it, install an app, list what's installed. One prep site puts it bluntly. If your study material never mentions Flatpak, it predates the current exam.
+B: [laughs] Harsh, but useful.
+A: So the try. Ten minutes on a practice machine with Rocky, Alma or RHEL. Run dnf repolist. Open one file in the repos folder and read its lines. Then write your own practice dot repo, copying the address line from that file with a new id.
+B: And then?
+A: Run dnf repolist again and look for your id. Then delete your file.
+B: And no machine?
+A: Write the five lines of a repo file on paper, from memory, then check them against a real one later.
+B: Nice.
+A: From now on, dnf repolist comes before dnf install.

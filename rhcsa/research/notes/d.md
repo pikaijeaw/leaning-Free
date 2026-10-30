@@ -1,0 +1,271 @@
+# Notes: batch d
+Pages read: 7. With notes: 7. Skipped: 0 (every page had something teachable; two are old RHEL 7 era and are flagged below).
+
+Currency warnings for this batch (checked against the RHEL 10 era EX200 objectives):
+- lisenet (2016) and pluralsight (written about RHEL 7, objectives "as of June 2018") describe the RHEL 7 exam. EX300 is retired; network teaming (teamd), iSCSI, postfix and make-dummy-cert are not RHCSA topics and teamd is gone in RHEL 9/10. "Red Hat Network" is now "Red Hat Content Delivery Network"; "yum" is now dnf.
+- opensource.com autofs article is written on Debian/Ubuntu (apt-get, nfs-common, service). On RHEL the packages are nfs-utils and autofs via dnf, and the service is managed with systemctl.
+
+## T01 Exam format and how people prepare
+- d:N1. One candidate scored 300/300 on RHCSA, finished all tasks in about 80 minutes, then spent the remaining time checking everything and rebooting the VM several times before leaving.
+  - Source: https://www.lisenet.com/?p=5574  Quote: "finish all tasks in around 80 minutes, checked that everything was working, rebooted a VM several times"
+  - Kind: story
+  - Level: foundation
+  - Bias: none (personal blog; RHEL 7 era, 2016)
+- d:N2. Once networking is up, open several SSH sessions into the exam VM instead of working only in the console; an exam instructor suggested it and it makes tracking down problems easier.
+  - Source: https://www.lisenet.com/?p=5574  Quote: "use multiple SSH windows"
+  - Kind: technique
+  - Level: core
+  - Also: T02
+  - Bias: none
+- d:N3. Read every task before starting. Tasks can be related, and doing them strictly in order can make them conflict (for example, one storage task can use up space a later one needs).
+  - Source: https://www.pluralsight.com/resources/blog/cloud/red-hat-exams-a-few-tips  Quote: "Ensure you read all of the tasks before you begin!"
+  - Kind: rule of thumb
+  - Level: foundation
+  - Also: T12
+  - Bias: sells Linux Academy / ACG courses and labs
+- d:N4. If the VM does not boot for the grader, the whole exam scores zero, regardless of what else was done. Reboot and test after any GRUB, target, kernel or fstab change (their claim; consistent with the official "must persist after reboot" rule).
+  - Source: https://www.pluralsight.com/resources/blog/cloud/red-hat-exams-a-few-tips  Quote: "if your system does not boot correctly for the exam grader, you will receive a score of 0/300"
+  - Kind: number
+  - Level: foundation
+  - Also: T08, T13
+  - Bias: sells courses
+- d:N5. Do the risky tasks (storage, fstab, bootloader) first. If the VM breaks, the proctor can reset it to its initial state, but that wipes all completed work, so you lose less if the breakage happens early.
+  - Source: https://www.pluralsight.com/resources/blog/cloud/red-hat-exams-a-few-tips  Quote: "perform any actions that could potentially fail after reboot first"
+  - Kind: technique
+  - Level: core
+  - Also: T12
+  - Bias: sells courses
+- d:N6. The grading is unforgiving: intention does not count. A mistyped permission or an extra character in a grep pattern loses the whole task, and with few tasks one miss hurts a lot.
+  - Source: https://www.pluralsight.com/resources/blog/cloud/red-hat-exams-a-few-tips  Quote: "If you do something incorrectly, your intention is not taken into consideration."
+  - Kind: rule of thumb
+  - Level: foundation
+  - Also: T03
+  - Bias: sells courses
+- d:N7. The exam VM may start with problems you must fix before you can continue (for example a broken boot or forgotten root password), so expect surprises at the start.
+  - Source: https://www.pluralsight.com/resources/blog/cloud/red-hat-exams-a-few-tips  Quote: "there may be issues that have to be resolved before you can even continue"
+  - Kind: mistake
+  - Level: core
+  - Also: T09
+  - Bias: sells courses
+- d:N8. The repository task can sink many others: if you cannot reach the given repo, every task that needs a package fails with it. Practice adding repos until it is automatic.
+  - Source: https://www.pluralsight.com/resources/blog/cloud/red-hat-exams-a-few-tips  Quote: "not being able to access a remote repository can lead to a potential instant fail"
+  - Kind: rule of thumb
+  - Level: core
+  - Also: T06
+  - Bias: sells courses. Outdated wording: says "yum" and "Red Hat Network"; today it is dnf and Red Hat CDN.
+- d:N9. Tip to install the "Server with GUI" group at the start of the exam so you can double check work in graphical tools while reading tasks. OUTDATED/RISKY for RHEL 9/10: it assumes repo access and a long install, and depends on the exam setup; treat as one person's RHEL 7 habit, not advice.
+  - Source: https://www.pluralsight.com/resources/blog/cloud/red-hat-exams-a-few-tips  Quote: "install the 'Server with GUI' group install when you start your exam"
+  - Kind: technique
+  - Level: advanced
+  - Bias: sells courses
+- d:N10. Man pages and shipped docs are allowed and meant to be used; know where they are. Useful ones still valid for RHCSA: `man -k _selinux`, `man httpd_selinux`, `man semanage-fcontext`, `man semanage-port`, `man nmcli-examples`, `man bash`.
+  - Source: https://www.lisenet.com/?p=5574  Quote: "Man pages and docs are there to be used!"
+  - Kind: technique
+  - Level: foundation
+  - Also: T02, T17
+  - Bias: none. Outdated parts of the same list (teamd, iscsiadm, postfix, make-dummy-cert, mysql) are RHEL 7 RHCE material.
+- d:N11. If a task is unclear, ask the proctor to clarify; the author lost time over-reading tasks because he was "over-prepared".
+  - Source: https://www.lisenet.com/?p=5574  Quote: "don't be afraid to ask the instructor to clarify them"
+  - Kind: technique
+  - Level: foundation
+  - Bias: none
+- d:N12. Prepared using only one book plus "loads of RHEL virtual machines", no Red Hat courses. Practice is the key.
+  - Source: https://www.lisenet.com/?p=5574  Quote: "practice is the key, the more you do, the better the chances"
+  - Kind: story
+  - Level: foundation
+  - Bias: none (credits Sander van Vugt's book, says he is not advocating it)
+
+## T05 Users, groups and privileged access
+- d:N13. Password hashes live in /etc/shadow, readable only by root; /etc/passwd holds username, UID, GID, home and shell but no hash.
+  - Source: https://notes.kodekloud.com/docs/Prep-Course-Red-Hat-Certified-System-Administrator-RHCSA/User-Management/Password-Management/page  Quote: "Password hashes are stored in /etc/shadow"
+  - Kind: definition
+  - Level: foundation
+  - Bias: sells KodeKloud course and labs
+- d:N14. Defaults for new users come from /etc/login.defs (PASS_MAX_DAYS 99999, PASS_MIN_DAYS 0, PASS_WARN_AGE 7). Changing them only affects users created afterwards; existing users need chage. Demo: set PASS_MAX_DAYS 30, then a new user3 gets a 30 day max.
+  - Source: https://notes.kodekloud.com/docs/Prep-Course-Red-Hat-Certified-System-Administrator-RHCSA/User-Management/Password-Management/page  Quote: "affects users created after the change"
+  - Kind: mistake
+  - Level: core
+  - Bias: sells course. Note: PASS_MIN_LEN in login.defs is not enforced on modern RHEL (pam_pwquality minlen governs length); flag if retold.
+- d:N15. chage cheat sheet: `-d 0` forces a password change at next login, `-M` max days, `-m` min days, `-W` warning days, `-E YYYY-MM-DD` account expiry, `-l` lists the settings; plain `chage user` prompts interactively.
+  - Source: https://notes.kodekloud.com/docs/Prep-Course-Red-Hat-Certified-System-Administrator-RHCSA/User-Management/Password-Management/page  Quote: "chage -d 0 user1"
+  - Kind: template
+  - Level: core
+  - Bias: sells course
+- d:N16. Check your work with `chage -l user`: after `-d 0` it shows "password must be changed" for last change and expiry, a quick way to verify the task before moving on.
+  - Source: https://notes.kodekloud.com/docs/Prep-Course-Red-Hat-Certified-System-Administrator-RHCSA/User-Management/Password-Management/page  Quote: "Last password change : password must be changed"
+  - Kind: test
+  - Level: core
+  - Bias: sells course
+- d:N17. Regular users can change only their own password with passwd; only root can change other users' passwords or aging.
+  - Source: https://notes.kodekloud.com/docs/Prep-Course-Red-Hat-Certified-System-Administrator-RHCSA/User-Management/Password-Management/page  Quote: "Only root can change other users' passwords"
+  - Kind: definition
+  - Level: foundation
+  - Bias: sells course
+- d:N18. Know primary vs supplementary groups and read task wording carefully; user tasks look easy and are lost on details.
+  - Source: https://www.pluralsight.com/resources/blog/cloud/red-hat-exams-a-few-tips  Quote: "primary groups vs. supplemental groups"
+  - Kind: rule of thumb
+  - Level: foundation
+  - Also: T04
+  - Bias: sells courses
+
+## T12 Local storage
+- d:N19. The LVM chain in three commands: `pvcreate /dev/sdb1`, `vgcreate vg1 /dev/sdb1`, `lvcreate -n lv1 -L 400M vg1`. Check each layer with pvs/vgs/lvs (or pvdisplay, vgdisplay, lvdisplay).
+  - Source: https://notes.kodekloud.com/docs/Prep-Course-Red-Hat-Certified-System-Administrator-RHCSA/Storage-Management/Demo-Working-With-Logical-Volumes/page  Quote: "lvcreate -n lv1 -L 400M vg1"
+  - Kind: template
+  - Level: core
+  - Bias: sells course
+- d:N20. Grow a VG with `vgextend vg1 /dev/sdb2`; take a disk out with `vgreduce`. Before removing a disk that holds data, move its extents off with `pvmove /dev/sdb1`.
+  - Source: https://notes.kodekloud.com/docs/Prep-Course-Red-Hat-Certified-System-Administrator-RHCSA/Storage-Management/Demo-Working-With-Logical-Volumes/page  Quote: "relocate its data with pvmove"
+  - Kind: technique
+  - Level: core
+  - Bias: sells course
+- d:N21. Classic mistake: `lvextend -L 800M` grows the block device, but `df -h` still shows the old size (336M) until you grow the filesystem. Demo: after xfs_growfs it jumps to 736M.
+  - Source: https://notes.kodekloud.com/docs/Prep-Course-Red-Hat-Certified-System-Administrator-RHCSA/Storage-Management/Demo-Working-With-Logical-Volumes/page  Quote: "the filesystem on top of that LV must also be grown"
+  - Kind: mistake
+  - Level: core
+  - Also: T13
+  - Bias: sells course. Gap: page omits `lvextend -r`, which resizes LV and filesystem in one step.
+- d:N22. Filesystem grow tools differ: XFS uses `xfs_growfs <mountpoint>` (online, can grow but never shrink); ext4 uses `resize2fs` (can grow and sometimes shrink).
+  - Source: https://notes.kodekloud.com/docs/Prep-Course-Red-Hat-Certified-System-Administrator-RHCSA/Storage-Management/Demo-Working-With-Logical-Volumes/page  Quote: "XFS filesystems can be grown but not shrunk"
+  - Kind: rule of thumb
+  - Level: core
+  - Also: T13
+  - Bias: sells course
+- d:N23. "Device busy" errors from LVM commands usually mean the device is mounted or in use; unmount first. Tear down in reverse: umount, lvremove, vgremove, pvremove.
+  - Source: https://notes.kodekloud.com/docs/Prep-Course-Red-Hat-Certified-System-Administrator-RHCSA/Storage-Management/Demo-Working-With-Logical-Volumes/page  Quote: "ensure the device is not mounted or in use"
+  - Kind: mistake
+  - Level: core
+  - Bias: sells course
+
+## T13 File systems and mounting
+- d:N24. Persist an LV mount by UUID: `blkid /dev/vg1/lv1` gives the UUID, then add `UUID=... /mountlv xfs defaults 0 0` to /etc/fstab.
+  - Source: https://notes.kodekloud.com/docs/Prep-Course-Red-Hat-Certified-System-Administrator-RHCSA/Storage-Management/Demo-Working-With-Logical-Volumes/page  Quote: "add an /etc/fstab entry to ensure the mount survives reboots"
+  - Kind: template
+  - Level: core
+  - Also: T12
+  - Bias: sells course
+- d:N25. Test fstab before rebooting: `umount /mountlv`, `systemctl daemon-reload`, `mount -a`, then confirm with lsblk or df. A typo caught here is a boot failure avoided.
+  - Source: https://notes.kodekloud.com/docs/Prep-Course-Red-Hat-Certified-System-Administrator-RHCSA/Storage-Management/Demo-Working-With-Logical-Volumes/page  Quote: "Run mount -a to mount all filesystems from fstab"
+  - Kind: test
+  - Level: core
+  - Also: T01
+  - Bias: sells course
+
+## T14 Network file systems
+- d:N26. autofs mounts a remote share only when someone enters the directory, unlike fstab which mounts at boot; reasons include saving bandwidth and hiding directories.
+  - Source: https://opensource.com/article/18/6/using-autofs-mount-nfs-shares  Quote: "have a remote file system mount only on demand"
+  - Kind: definition
+  - Level: foundation
+  - Bias: none. Outdated for RHEL: uses apt-get install nfs-common autofs; on RHEL use `dnf install nfs-utils autofs` and `systemctl enable --now autofs`.
+- d:N27. Two-file pattern: a line in /etc/auto.master names the parent directory and a map file (`/mnt/tree /etc/auto.misc`); the map file names the key, options and share (`ourfiles -fstype=nfs tree:/share/ourfiles`). Result: /mnt/tree/ourfiles.
+  - Source: https://opensource.com/article/18/6/using-autofs-mount-nfs-shares  Quote: "ourfiles -fstype=nfs tree:/share/ourfiles"
+  - Kind: template
+  - Level: core
+  - Bias: none. On RHEL 9/10 a drop in file under /etc/auto.master.d/*.autofs is the common way, not editing auto.master directly.
+- d:N28. Wildcard map for home directories: `* -fstype=nfs tree:/home/&` in auto.home. The asterisk matches whatever name is requested and the ampersand substitutes that same name on the server side, so /home/tree/carl mounts tree:/home/carl.
+  - Source: https://opensource.com/article/18/6/using-autofs-mount-nfs-shares  Quote: "The ampersand also works as a wildcard"
+  - Kind: template
+  - Level: core
+  - Bias: none
+- d:N29. Do not panic when `ls` in the autofs parent directory shows nothing: shares appear only after you cd into them by name. Confirm with `mount` (shows type nfs4).
+  - Source: https://opensource.com/article/18/6/using-autofs-mount-nfs-shares  Quote: "At first, the output of ls won't show anything"
+  - Kind: test
+  - Level: core
+  - Bias: none
+- d:N30. Keep user IDs the same on NFS server and clients (carl is UID 1020 on both); mismatched UIDs give wrong ownership on the share.
+  - Source: https://opensource.com/article/18/6/using-autofs-mount-nfs-shares  Quote: "use the same user ID for your users on the server and any client"
+  - Kind: rule of thumb
+  - Level: core
+  - Also: T05
+  - Bias: none
+
+## T16 Firewall
+- d:N31. The runtime vs permanent trap: `firewall-cmd --add-service=http --permanent` writes config but does not change the running firewall. Either run it twice (with and without --permanent) or follow with `firewall-cmd --reload`.
+  - Source: https://notes.kodekloud.com/docs/Prep-Course-Red-Hat-Certified-System-Administrator-RHCSA/Managing-Network-Configuration-and-Security/Demo-Configuring-Firewalld/page  Quote: "does not change the current runtime rules"
+  - Kind: mistake
+  - Level: core
+  - Also: T01
+  - Bias: sells KodeKloud course and labs
+- d:N32. Inspection commands: `firewall-cmd --state` (running?), `--get-active-zones` (which interface is in which zone), `--list-all` (default zone), `--list-all-zones` (everything).
+  - Source: https://notes.kodekloud.com/docs/Prep-Course-Red-Hat-Certified-System-Administrator-RHCSA/Managing-Network-Configuration-and-Security/Demo-Configuring-Firewalld/page  Quote: "firewall-cmd --get-active-zones"
+  - Kind: template
+  - Level: foundation
+  - Bias: sells course
+- d:N33. Ports are written as port/protocol: `firewall-cmd --add-port=9294/tcp --permanent`. To undo anything, swap `--add-` for `--remove-`.
+  - Source: https://notes.kodekloud.com/docs/Prep-Course-Red-Hat-Certified-System-Administrator-RHCSA/Managing-Network-Configuration-and-Security/Demo-Configuring-Firewalld/page  Quote: "replace --add-* with --remove-*"
+  - Kind: rule of thumb
+  - Level: foundation
+  - Bias: sells course
+- d:N34. Block one IP by putting it in the block zone: `firewall-cmd --zone=block --add-source=10.2.3.4`; the zone's target (%%REJECT%%) decides what happens. Double check the IP or you lock out real clients.
+  - Source: https://notes.kodekloud.com/docs/Prep-Course-Red-Hat-Certified-System-Administrator-RHCSA/Managing-Network-Configuration-and-Security/Demo-Configuring-Firewalld/page  Quote: "Mistakenly blocking legitimate clients can cause loss of access"
+  - Kind: technique
+  - Level: core
+  - Bias: sells course
+- d:N35. Rich rules are not required for RHCSA (useful in production); do not spend study time on them for this exam (their claim).
+  - Source: https://notes.kodekloud.com/docs/Prep-Course-Red-Hat-Certified-System-Administrator-RHCSA/Managing-Network-Configuration-and-Security/Demo-Configuring-Firewalld/page  Quote: "They are not required for the RHCSA exam"
+  - Kind: rule of thumb
+  - Level: foundation
+  - Bias: sells course
+
+## T17 SELinux
+- d:N36. Copy context rules with an equivalence: `semanage fcontext -a -e /var/www /var/web` makes /var/web label like /var/www, then `restorecon -Rv /var/web` applies it. Saves looking up the right type.
+  - Source: https://www.pluralsight.com/resources/blog/cloud/red-hat-exams-a-few-tips  Quote: "semanage fcontext -a -e /var/www/ /var/web"
+  - Kind: technique
+  - Level: advanced
+  - Bias: sells courses
+- d:N37. The standard custom path recipe: `semanage fcontext -a -t sshd_key_t '/etc/ssh/keys(/.*)?'` then `restorecon -r /etc/ssh/keys`. The `(/.*)?` regex covers the directory and everything under it. semanage only writes the rule; restorecon applies it.
+  - Source: https://www.redhat.com/en/blog/semanage-keep-selinux-enforcing  Quote: "the regular expression will match the directory /etc/ssh/keys as well as any subdirectories"
+  - Kind: template
+  - Level: core
+  - Bias: Red Hat's own blog (vendor), technically neutral
+- d:N38. Custom port for a service needs two changes: the service config and an SELinux port label, e.g. `semanage port -a -t http_port_t -p tcp 8010` (example uses http_cache_port_t). Without it the service fails with "cannot bind to port". Find types with `semanage port -l | grep http`.
+  - Source: https://www.redhat.com/en/blog/semanage-keep-selinux-enforcing  Quote: "the service will fail to start and log an error similar to 'cannot bind to port'"
+  - Kind: mistake
+  - Level: core
+  - Also: T16
+  - Bias: vendor blog
+- d:N39. Booleans: `semanage boolean -l | grep httpd` shows name, current and persistent state, and a description. Change persistently with `setsebool -P` or `semanage boolean -m --on|--off`. `-l -C` lists only your local changes.
+  - Source: https://www.redhat.com/en/blog/semanage-keep-selinux-enforcing  Quote: "the current and persistent state of the boolean"
+  - Kind: template
+  - Level: core
+  - Bias: vendor blog
+- d:N40. `semanage fcontext -l -C` (and the same -C on boolean) lists only local customizations, a fast way to check what you changed during the exam.
+  - Source: https://www.redhat.com/en/blog/semanage-keep-selinux-enforcing  Quote: "view any locally-customized file contexts by adding the -C option"
+  - Kind: test
+  - Level: core
+  - Bias: vendor blog
+- d:N41. Instead of setting the whole system permissive, put one domain in permissive mode: `semanage permissive -a squid_t`; `-d` removes it. Others stay enforcing.
+  - Source: https://www.redhat.com/en/blog/semanage-keep-selinux-enforcing  Quote: "place a single domain into permissive mode"
+  - Kind: technique
+  - Level: advanced
+  - Bias: vendor blog
+- d:N42. Domain man pages (httpd_selinux, sshd_selinux) list the booleans, file types and port types with sample commands; on an offline exam this is your reference. `man -k _selinux` lists them.
+  - Source: https://www.redhat.com/en/blog/semanage-keep-selinux-enforcing  Quote: "The man pages for each SELinux domain have descriptions of all provided booleans"
+  - Kind: technique
+  - Level: core
+  - Also: T02
+  - Bias: vendor blog. Note: on RHEL 9/10 these man pages may need the selinux-policy-doc package; verify before promising them.
+- d:N43. Exam shortcut: to test whether SELinux or the firewall is the cause, briefly switch it off (setenforce 0), check if the problem goes away, turn it back on, then fix properly. Never leave it off; final state must be enforcing.
+  - Source: https://www.pluralsight.com/resources/blog/cloud/red-hat-exams-a-few-tips  Quote: "Disable SELinux/Firewall, Check to see if the problem is resolved, Re-enable, Fix"
+  - Kind: technique
+  - Level: core
+  - Also: T16
+  - Bias: sells courses. Author says this is not for production.
+- d:N44. semanage customizations are stored in *local files under /etc/selinux/targeted and survive policy package updates; do not edit them by hand.
+  - Source: https://www.redhat.com/en/blog/semanage-keep-selinux-enforcing  Quote: "these local customization files are left in place"
+  - Kind: definition
+  - Level: advanced
+  - Bias: vendor blog. Its note on rhel-system-roles in the RHEL 7.4 "Extras" repo is outdated.
+
+## Disagreements seen
+- Difficulty: lisenet calls RHCSA "like a colouring book" for experienced admins (https://www.lisenet.com/?p=5574); pluralsight says it "is certainly not easy" and can "break the spirits" of veterans (https://www.pluralsight.com/resources/blog/cloud/red-hat-exams-a-few-tips).
+- SELinux troubleshooting: pluralsight suggests disabling SELinux to test then re-enabling (https://www.pluralsight.com/resources/blog/cloud/red-hat-exams-a-few-tips); Red Hat's blog argues to keep enforcing and use per-domain permissive instead (https://www.redhat.com/en/blog/semanage-keep-selinux-enforcing).
+- Rich rules: kodekloud says not needed for RHCSA (https://notes.kodekloud.com/docs/Prep-Course-Red-Hat-Certified-System-Administrator-RHCSA/Managing-Network-Configuration-and-Security/Demo-Configuring-Firewalld/page); lisenet lists `man firewalld.richlanguage`, but in an RHCE context (https://www.lisenet.com/?p=5574). Not a real conflict once exams are separated.
+- Boolean tools: Red Hat blog calls `semanage boolean` the "alternate (and newer) way" while most prep material teaches `setsebool -P`; both are valid (https://www.redhat.com/en/blog/semanage-keep-selinux-enforcing).
+
+## Best stories
+- The 80 minute perfect score: finished every task, then spent the spare time rebooting the VM again and again to prove it all stuck (https://www.lisenet.com/?p=5574).
+- The zero score: one unbootable VM wipes out a perfect set of tasks, so do the risky storage and GRUB work first while you still have little to lose (https://www.pluralsight.com/resources/blog/cloud/red-hat-exams-a-few-tips).
+- The empty directory that is not empty: ls in /mnt/tree shows nothing, yet cd ourfiles drops you straight into a freshly mounted NFS share (https://opensource.com/article/18/6/using-autofs-mount-nfs-shares).
+- The LV that grew but the disk did not: lvextend to 800M, df still says 336M, until xfs_growfs makes it 736M (https://notes.kodekloud.com/docs/Prep-Course-Red-Hat-Certified-System-Administrator-RHCSA/Storage-Management/Demo-Working-With-Logical-Volumes/page).
+- The "cannot bind to port" mystery: a web server on a new port that refuses to start until SELinux is told about the port (https://www.redhat.com/en/blog/semanage-keep-selinux-enforcing).

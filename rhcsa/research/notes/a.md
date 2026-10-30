@@ -1,0 +1,263 @@
+# Notes: batch a
+Pages read: 9. With notes: 8. Skipped: 1 (kodekloud community thread "Is RHCSA certification worth it": four short forum opinions plus a prep-material plug, nothing concrete to teach).
+
+Currency check: claims were compared against the official EX200 objectives (RHEL 10 page). Pages flagged OUTDATED or WRONG below are noted inline. Command flags are kept in backticks exactly as typed.
+
+## T01 Exam format and how people prepare
+- a:N1. EX200 is fully performance based: you get live VMs and a task list, no multiple choice. Pass mark is 210 of 300 points (70%), roughly 3 hours, roughly 10 to 20 multi-step tasks (their claim on duration and task count).
+  - Source: https://open-exam-prep.com/study-guides/rhcsa/introduction/exam-facts  Quote: "There is no 'pick A/B/C/D' safety net."
+  - Kind: number
+  - Level: foundation
+  - Bias: free study-guide site with AI helper widgets; no product sold on this page.
+- a:N2. Persistence is a hard rule: anything that vanishes on reboot does not score. Typical traps are a temporary `ip` address change, a manual mount with no fstab line, and `systemctl start` without `enable`. Matches the official page: "configurations must persist after reboot without intervention."
+  - Source: https://open-exam-prep.com/study-guides/rhcsa/introduction/exam-facts  Quote: "may look correct for five minutes and fail after restart."
+  - Kind: mistake
+  - Level: foundation
+  - Also: T11
+  - Bias: none
+- a:N3. Practice habit: finish a cluster of tasks, reboot, re-verify, and budget time for that check on exam day.
+  - Source: https://open-exam-prep.com/study-guides/rhcsa/introduction/exam-facts  Quote: "reboot and re-verify before moving on"
+  - Kind: technique
+  - Level: foundation
+  - Bias: none
+- a:N4. No internet in the exam, but shipped product documentation is available, so `man`, `info`, `--help` and /usr/share/doc are a skill to drill under time pressure.
+  - Source: https://open-exam-prep.com/study-guides/rhcsa/introduction/exam-facts  Quote: "efficient use of man, info, --help, and the included docs is a skill"
+  - Kind: rule of thumb
+  - Level: foundation
+  - Also: T02
+  - Bias: none
+- a:N5. Tasks carry different weights; a missed storage or SELinux task can cost more than a small user-property mistake, and Red Hat publishes no per-category breakdown, so treat every study point as scored.
+  - Source: https://open-exam-prep.com/study-guides/rhcsa/introduction/exam-facts  Quote: "treat every published study point as potentially scored"
+  - Kind: rule of thumb
+  - Level: foundation
+  - Bias: none
+- a:N6. Logistics (their claims; confirm on Red Hat's catalog): fee about $400 to $500 USD by region, one free retake on individual exam purchases, credential current for 3 years, renewed by retaking EX200 or earning a higher cert such as RHCE.
+  - Source: https://open-exam-prep.com/study-guides/rhcsa/introduction/exam-facts  Quote: "Treat attempt one as if it is your only shot."
+  - Kind: number
+  - Level: foundation
+  - Bias: none
+- a:N7. Study time estimate of 80 to 120 hours of hands-on practice (their claim). Readiness test: can you complete objective drills from a blank or broken state, reboot, and still pass, under time pressure? Official paths: RH124 + RH134, or RH199 Rapid Track; training is optional.
+  - Source: https://open-exam-prep.com/study-guides/rhcsa/introduction/exam-facts  Quote: "Hours of video watching without lab time do not transfer well"
+  - Kind: test
+  - Level: foundation
+  - Bias: names Red Hat paid courses but says they are not mandatory.
+
+## T08 Boot process and targets
+- a:N8. Check the default boot target with `systemctl get-default`; change it persistently with `systemctl set-default multi-user.target` (text mode with networking and all daemons, no GUI).
+  - Source: https://kodekloud.com/blog/linux-boot-or-change-system-into-different-operating-modes/  Quote: "the graphical interface will be skipped. Everything will be text-based."
+  - Kind: technique
+  - Level: foundation
+  - Bias: KodeKloud blog, ends with a plug for its paid Linux course.
+- a:N9. `systemctl isolate graphical.target` switches the running system now but does not change the default; on reboot you land back in the saved default. Good contrast: isolate is "right now", set-default is "every boot".
+  - Source: https://kodekloud.com/blog/linux-boot-or-change-system-into-different-operating-modes/  Quote: "This does not change our default boot target."
+  - Kind: rule of thumb
+  - Level: foundation
+  - Bias: KodeKloud course plug.
+- a:N10. emergency.target loads as little as possible and mounts root read-only; rescue.target loads a few more essential services and gives a root shell. Both need a root password set to log in.
+  - Source: https://kodekloud.com/blog/linux-boot-or-change-system-into-different-operating-modes/  Quote: "you must have a password set for the root user to use these targets"
+  - Kind: definition
+  - Level: core
+  - Also: T09
+  - Bias: KodeKloud course plug.
+- a:N11. WRONG FOR RHEL: the page says to change the default target by editing `GRUB_DEFAULT` in /etc/default/grub and running `update-grub`. `update-grub` is a Debian/Ubuntu helper, and `GRUB_DEFAULT` picks a menu entry (kernel), not a systemd target. On RHEL 9/10 use `systemctl set-default`; for bootloader changes use `grubby` or `grub2-mkconfig`. Good "spot the mistake" moment for a lesson.
+  - Source: https://kodekloud.com/blog/linux-boot-or-change-system-into-different-operating-modes/  Quote: "update the grub configuration by running the command sudo update-grub"
+  - Kind: mistake
+  - Level: core
+  - Also: T01
+  - Bias: KodeKloud course plug.
+- a:N12. Runlevels 0 to 6 are the legacy SysVinit model; systemd targets are the modern equivalent and what RHEL uses. Rescue target use cases: fixing a broken /etc/fstab, repairing filesystems with most services stopped.
+  - Source: https://kodekloud.com/blog/linux-boot-or-change-system-into-different-operating-modes/  Quote: "Linux runlevels (0-6) are the legacy way"
+  - Kind: definition
+  - Level: foundation
+  - Also: T13
+  - Bias: KodeKloud course plug.
+- a:N13. A bad /etc/fstab entry can stop a boot; from a rescue/rd.break shell you can comment the line out in /etc/fstab and reboot.
+  - Source: https://linuxtechi.com/boot-rhel-9-into-rescue-mode  Quote: "we can comment that file system in the /etc/fstab file"
+  - Kind: technique
+  - Level: core
+  - Also: T13
+  - Bias: none
+- a:N14. CAUTION ON TERMS: this page calls the rd.break shell "rescue mode" and says rescue mode is also called single user or emergency mode. On RHEL these are distinct: rescue.target, emergency.target, and the initramfs rd.break shell. Its sample prompt `sh-4.4#` is RHEL 8 era (RHEL 9 shows sh-5.1).
+  - Source: https://linuxtechi.com/boot-rhel-9-into-rescue-mode  Quote: "Rescue mode also refer as Single user mode or emergency mode."
+  - Kind: mistake
+  - Level: core
+  - Also: T09
+  - Bias: none
+
+## T09 Interrupting boot to reset the root password
+- a:N15. Full rd.break recipe for RHEL 9: reboot, press `e` at the GRUB menu, go to the line starting `linux`, press Ctrl+e to jump to its end, append `rd.break`, boot with Ctrl+x. Then `mount -o remount,rw /sysroot`, `chroot /sysroot`, `passwd`, `touch /.autorelabel`, `exit`, `exit`.
+  - Source: https://tecmint.com/reset-forgotten-root-password-rhel-9  Quote: "add rd.break and press CTRL + x"
+  - Kind: template
+  - Level: core
+  - Also: T08
+  - Bias: TecMint page ends with a $99 Pro membership upsell.
+- a:N16. Why the remount: at the rd.break prompt the real root is mounted read-only under /sysroot, so passwd would fail until you remount it read-write.
+  - Source: https://tecmint.com/reset-forgotten-root-password-rhel-9  Quote: "the file system is mounted as read-only under /sysroot directory"
+  - Kind: definition
+  - Level: core
+  - Bias: TecMint upsell.
+- a:N17. The `/.autorelabel` file must sit at the root of the real filesystem (inside the chroot), otherwise SELinux will not relabel the changed /etc/shadow and logins can fail after reboot. Classic forgotten step.
+  - Source: https://tecmint.com/reset-forgotten-root-password-rhel-9  Quote: "make sure you use /.autorelabel correctly"
+  - Kind: mistake
+  - Level: core
+  - Also: T17
+  - Bias: TecMint upsell.
+- a:N18. Easy cases first: as root just run `passwd`; as a wheel/sudo user run `sudo passwd root`, which does not need the old root password. Only use the GRUB route when neither works.
+  - Source: https://tecmint.com/reset-forgotten-root-password-rhel-9  Quote: "you can change your root password even if you don't know the current one"
+  - Kind: technique
+  - Level: foundation
+  - Also: T05
+  - Bias: TecMint upsell.
+- a:N19. Second method on the same page: replace `ro` with `rw init=/sysroot/bin/sh` on the linux line, then `chroot /sysroot`. Ends with `reboot -f`. Unusual variant; the common alternative taught elsewhere is `init=/bin/bash`. Check against current Red Hat docs before teaching.
+  - Source: https://linuxtechi.com/boot-rhel-9-into-rescue-mode  Quote: "replace 'ro' with 'rw init=/sysroot/bin/sh'"
+  - Kind: technique
+  - Level: advanced
+  - Bias: none
+- a:N20. GRUB menu access on this page: press Esc during boot to reach the boot loader screen; pick the kernel you normally boot if several are listed; Ctrl+x or F10 boots the edited entry.
+  - Source: https://linuxtechi.com/boot-rhel-9-into-rescue-mode  Quote: "press Ctrl-x or F10 to boot"
+  - Kind: technique
+  - Level: foundation
+  - Also: T08
+  - Bias: none
+
+## T15 Networking
+- a:N21. Find names first: `nmcli device` shows interfaces, `nmcli connection show` shows connection profiles. The connection name and device name can differ; edit the connection.
+  - Source: https://linuxtechi.com/set-static-ip-address-on-rhel-9  Quote: "In our case, interface and connection name is 'enp0s3'"
+  - Kind: technique
+  - Level: foundation
+  - Bias: none
+- a:N22. Static IPv4 recipe: `nmcli con modify enp0s3 ipv4.method manual ipv4.addresses 192.168.1.181/24 gw4 192.168.1.1`, then `nmcli con modify enp0s3 ipv4.dns 4.2.2.2`, then `nmcli con down` and `con up` to apply. Verify with `ip addr show` and `ip route show`. Because it lives in the connection profile it survives reboot.
+  - Source: https://linuxtechi.com/set-static-ip-address-on-rhel-9  Quote: "it will be persistent across the reboots"
+  - Kind: template
+  - Level: core
+  - Also: T01
+  - Bias: none
+- a:N23. Common mistake to teach: setting `ipv4.addresses` without `ipv4.method manual` (or forgetting to bounce the connection) leaves DHCP in charge. The page always pairs the method change with the address and then cycles down/up.
+  - Source: https://linuxtechi.com/set-static-ip-address-on-rhel-9  Quote: "ipv4.method manual ipv4.addresses 192.168.1.181/24"
+  - Kind: mistake
+  - Level: core
+  - Bias: none
+- a:N24. `nmtui` is a menu alternative: Edit a connection, switch IPv4 from Automatic to Manual, fill in address, gateway, DNS, then deactivate and reactivate. Handy fallback if nmcli syntax slips your mind in the exam.
+  - Source: https://linuxtechi.com/set-static-ip-address-on-rhel-9  Quote: "change IPv4 Configuration from Automatic to Manual"
+  - Kind: technique
+  - Level: foundation
+  - Bias: none
+- a:N25. GAP: the page covers IPv4 only. The RHEL 10 objectives say "Configure IPv4 and IPv6 addresses", so the lesson must add the ipv6.method/ipv6.addresses equivalents from another source. Also note the page's `nmstatectl eddit` is a typo for `edit`, and nmstate is not installed by default.
+  - Source: https://linuxtechi.com/set-static-ip-address-on-rhel-9  Quote: "It is not installed as a part of default installation."
+  - Kind: mistake
+  - Level: core
+  - Bias: none
+
+## T16 Firewall
+- a:N26. Two configurations: runtime (in memory, gone at reboot or `--reload`) and permanent (files under /etc/firewalld/). Add with `--permanent`, then `firewall-cmd --reload` to make runtime match disk.
+  - Source: https://www.golinuxcloud.com/firewalld-cheat-sheet/  Quote: "Runtime rules apply immediately but disappear on reboot."
+  - Kind: definition
+  - Level: foundation
+  - Also: T01
+  - Bias: GoLinuxCloud page with ads and an AI summary widget; part of a free RHCSA course.
+- a:N27. Test then save pattern: add a rule without `--permanent`, check it works, then `firewall-cmd --runtime-to-permanent` to store everything that is live.
+  - Source: https://www.golinuxcloud.com/firewalld-cheat-sheet/  Quote: "When the test works, promote them to permanent config."
+  - Kind: technique
+  - Level: core
+  - Bias: ads.
+- a:N28. Core exam commands: `--add-service=http --permanent` for known services, `--add-port=8080/tcp --permanent` for non-standard ports (a predefined service will not cover them), match /tcp vs /udp, check with `--list-services`, `--list-ports`, `--list-all`.
+  - Source: https://www.golinuxcloud.com/firewalld-cheat-sheet/  Quote: "predefined services will not cover it"
+  - Kind: template
+  - Level: foundation
+  - Bias: ads.
+- a:N29. Zones are trust profiles (public, internal, trusted, drop). Each interface belongs to one zone. `--get-active-zones` and `--get-zone-of-interface=eth0` show bindings; `--list-all` shows only the default zone unless you add `--zone=NAME`.
+  - Source: https://www.golinuxcloud.com/firewalld-cheat-sheet/  Quote: "Each interface maps to one zone"
+  - Kind: definition
+  - Level: core
+  - Bias: ads.
+- a:N30. Troubleshooting table: rule missing after reboot means it was runtime only; permanent rule not active means you forgot `--reload`; service still blocked means wrong zone for the interface; SSH lost means you removed ssh or set default zone to drop, and only console access saves you.
+  - Source: https://www.golinuxcloud.com/firewalld-cheat-sheet/  Quote: "Always keep SSH open before tightening the default zone"
+  - Kind: mistake
+  - Level: core
+  - Bias: ads.
+- a:N31. firewalld must itself be running and enabled (`systemctl enable firewalld`) for rules to apply at boot; on RHEL 8 and later its backend is nftables, not iptables.
+  - Source: https://www.golinuxcloud.com/firewalld-cheat-sheet/  Quote: "firewalld on RHEL 8+ uses nftables as the backend"
+  - Kind: definition
+  - Level: foundation
+  - Also: T11
+  - Bias: ads.
+- a:N32. Rich rules are for conditions a plain service cannot express, such as allowing SSH from one IP only: `--add-rich-rule='rule family="ipv4" source address="192.168.1.100" service name="ssh" accept'`. `drop` discards silently, `reject` answers. Beyond core RHCSA but useful context.
+  - Source: https://www.golinuxcloud.com/firewalld-cheat-sheet/  Quote: "Use reject instead of drop when you want the sender to receive an ICMP unreachable"
+  - Kind: technique
+  - Level: advanced
+  - Bias: ads.
+
+## T04 Special permissions and ACLs
+- a:N33. SUID shows as `s` in the owner execute slot and a leading 4 in octal (0755 becomes 4755); the program runs with the file owner's rights. Set with `chmod u+s`, remove with `chmod u-s`, check with `stat`.
+  - Source: https://adamtheautomator.com/special-permissions-in-linux/  Quote: "0755 changed to 4755, where the number 4 represents the SUID bit."
+  - Kind: definition
+  - Level: core
+  - Bias: none. Demo uses Ubuntu 22.04, not RHEL; concepts are identical.
+- a:N34. Memorable (and dangerous) demo: put SUID on /usr/bin/cat and an ordinary user can suddenly read /etc/shadow. Shows why SUID is powerful and why you never leave it on a general tool; the author reverts it right away.
+  - Source: https://adamtheautomator.com/special-permissions-in-linux/  Quote: "Ensure you only apply SUID to trusted commands and files."
+  - Kind: story
+  - Level: core
+  - Bias: none
+- a:N35. SGID on a directory makes new files inherit the directory's group, the standard setup for a shared team folder: `chown userA:demo /demo-dir`, `chmod g+s` (shows `s` in group execute slot, leading 2 in octal). Exam phrasing often reads "files created in X should be owned by group Y".
+  - Source: https://adamtheautomator.com/special-permissions-in-linux/  Quote: "newly created files inherit the group ownership of the parent directory"
+  - Kind: technique
+  - Level: core
+  - Bias: none. Note the page's own step 10 wrongly calls demo userA's primary group and once calls the 2 bit "SUID"; teach from the concept, not the wording.
+- a:N36. Sticky bit (`chmod 1777`, shows `t` at the end) lets only a file's owner, the directory owner, or root delete or rename files, even if others can write to the directory. /tmp is the real-world example. Demo: userA cannot delete userB's file in /shared-dir.
+  - Source: https://adamtheautomator.com/special-permissions-in-linux/  Quote: "Other users, even if they have write permissions to the directory, cannot delete or rename files"
+  - Kind: definition
+  - Level: core
+  - Bias: none
+- a:N37. Distro difference: the page has to `mkdir /home/userA` by hand because Ubuntu's useradd does not create homes by default. On RHEL, useradd creates the home directory automatically, so skip that step.
+  - Source: https://adamtheautomator.com/special-permissions-in-linux/  Quote: "run each command below to create a /home directory for userA"
+  - Kind: mistake
+  - Level: foundation
+  - Also: T05
+  - Bias: none
+
+## T14 Network file systems
+- a:N38. autofs mounts on first access and can unmount after idle; fstab NFS stays mounted from boot. Read the task verb: "autofs", "automount" or "when accessed" means autofs; "mount at boot permanently" means fstab.
+  - Source: https://open-exam-prep.com/study-guides/rhcsa/filesystems-network/autofs  Quote: "Read the verb carefully."
+  - Kind: rule of thumb
+  - Level: core
+  - Also: T13
+  - Bias: free study-guide site.
+- a:N39. Recipe: `dnf install -y autofs`; master entry `/homes /etc/auto.homes` in /etc/auto.master or a drop-in /etc/auto.master.d/NAME.autofs; map file line `alice -fstype=nfs,rw server1.example.com:/exports/homes/alice`; `systemctl enable --now autofs`; then `ls /homes/alice` and `findmnt /homes/alice`.
+  - Source: https://open-exam-prep.com/study-guides/rhcsa/filesystems-network/autofs  Quote: "Access /base/key to trigger the mount; confirm with findmnt."
+  - Kind: template
+  - Level: core
+  - Bias: none
+- a:N40. Wildcard for home directories: `* -fstype=nfs,rw server:/exports/homes/&`. `*` matches any key, `&` pastes that key into the server path, so /homes/carol mounts .../homes/carol.
+  - Source: https://open-exam-prep.com/study-guides/rhcsa/filesystems-network/autofs  Quote: "& Substitute the key name into the location"
+  - Kind: template
+  - Level: core
+  - Bias: none
+- a:N41. Traps list: keys in an indirect map are relative (alice, not /homes/alice); case matters; editing maps without `systemctl reload autofs`; service started but not enabled (dies at reboot); using fstab and autofs on the same path; master pointing at the wrong map file.
+  - Source: https://open-exam-prep.com/study-guides/rhcsa/filesystems-network/autofs  Quote: "Service not enabled, works until reboot, then automount dies."
+  - Kind: mistake
+  - Level: core
+  - Also: T01
+  - Bias: none
+- a:N42. Debug order: if a manual `mount -t nfs server:/export /mnt/test` fails, autofs will fail too. Fix the NFS path first (`showmount -e server` to list exports), then put the working location into the map. Empty `findmnt` later can just be idle unmount; access the path again.
+  - Source: https://open-exam-prep.com/study-guides/rhcsa/filesystems-network/autofs  Quote: "If manual mount -t nfs ... fails, autofs will also fail"
+  - Kind: test
+  - Level: core
+  - Bias: none
+- a:N43. Do not pre-create key subdirectories under the autofs base; automount creates them on access, and local files already in the base can hide keys. Master map options (`--timeout=60`) differ from map line options (`-fstype=nfs`).
+  - Source: https://open-exam-prep.com/study-guides/rhcsa/filesystems-network/autofs  Quote: "You generally do not pre-create every key subdirectory"
+  - Kind: rule of thumb
+  - Level: advanced
+  - Bias: none
+
+## Disagreements seen
+- Default target: KodeKloud says change it via GRUB_DEFAULT plus update-grub, then also via `systemctl set-default`; the first is Debian-style and wrong for RHEL targets. (https://kodekloud.com/blog/linux-boot-or-change-system-into-different-operating-modes/)
+- Naming: linuxtechi calls the rd.break shell "rescue mode" and equates it with single user and emergency mode; KodeKloud describes rescue.target and emergency.target as separate states with different service sets. (https://linuxtechi.com/boot-rhel-9-into-rescue-mode vs https://kodekloud.com/blog/linux-boot-or-change-system-into-different-operating-modes/)
+- Ending the password reset: TecMint exits the chroot and the shell with `exit` twice and lets boot continue; linuxtechi uses `reboot -f` from inside the chroot. Both rely on /.autorelabel. (https://tecmint.com/reset-forgotten-root-password-rhel-9 vs https://linuxtechi.com/boot-rhel-9-into-rescue-mode)
+- Alternate break-in: linuxtechi uses `rw init=/sysroot/bin/sh`, while the topic list expects `init=/bin/bash` as the common alternate; worth checking against Red Hat docs. (https://linuxtechi.com/boot-rhel-9-into-rescue-mode)
+
+## Best stories
+- SUID on `cat` lets a plain user read /etc/shadow, then the author hurries to undo it. https://adamtheautomator.com/special-permissions-in-linux/
+- Two users in a sticky-bit folder: userA tries to delete userB's file and is refused, file "safe and sound". https://adamtheautomator.com/special-permissions-in-linux/
+- Need a 3D app for one hour on a text-only server: `systemctl isolate graphical.target`, and on reboot you are back in text mode. https://kodekloud.com/blog/linux-boot-or-change-system-into-different-operating-modes/
+- Locked out with no wheel access: interrupt GRUB, rd.break, chroot, passwd, and the easy-to-forget /.autorelabel. https://tecmint.com/reset-forgotten-root-password-rhel-9
+- The "five minutes later" trap: a firewall rule or IP that looks right until the grader reboots. https://open-exam-prep.com/study-guides/rhcsa/introduction/exam-facts

@@ -1,0 +1,25 @@
+A: Lesson eleven. SELinux. The part of the exam where people lose points through panic.
+B: Panic? Over a security setting?
+A: Picture it. Your web server won't serve a page. You flip SELinux to permissive, and boom, it works.
+B: Sounds like a win.
+A: It feels like one. But one study plan calls this the single most damaging move in the exam. The grading script checks the mode. So every task that needs SELinux enforcing now fails too.
+B: [sighs] One quick fix, and you've sunk the rest.
+A: Right. So the idea is, keep it enforcing, and fix the label instead.
+B: What's a label, in plain words?
+A: Every file carries a type, like a name tag. The web server only reads files tagged as web content. A new folder gets a generic tag. Denied.
+B: Ah. So you retag the folder.
+A: In two steps. First, semanage fcontext writes the rule, this path gets this type. Then restorecon applies the rule to the files.
+B: Nice. Do all the sources agree?
+A: Four of the eight pages on SELinux teach these two steps, and none disagree. Keeping it enforcing is a bit more split. One older post, from pluralsight, says switch SELinux off for a moment to see if it's the cause, then switch it back on and fix it.
+B: And the others?
+A: That study plan says never leave enforcing. And Red Hat's own blog offers a middle path. Put just one service domain in permissive, while everything else stays enforcing.
+B: Any other classic trap?
+A: Ports. The Red Hat blog describes a service on a custom port that won't start, with an error like "cannot bind to port". One semanage port command, and it starts.
+B: So, labels for files, labels for ports.
+A: Exactly. Want the thing to try?
+B: Go.
+A: On a practice VM, make a folder called web, look at its tag, add the fcontext rule, run restorecon, and look again. The tag changed, and SELinux still says enforcing.
+B: And on paper?
+A: Write the two commands from memory, with the folder pattern.
+B: Deal.
+A: From now on, you fix the label, not the mode.
